@@ -1,0 +1,41 @@
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+
+.card {
+  display: flex;
+  max-width: 700px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card-image img {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-content h2 {
+  margin-top: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.card-content p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #555;
+}
