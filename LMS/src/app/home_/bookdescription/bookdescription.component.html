@@ -1,1 +1,15 @@
-<p>bookdescription works!</p>
+<div class="card-container">
+  <div class="card">
+    <div class="card-image">
+      <img [src]="imageSrc" alt="{{ book.bookName }}" />
+    </div>
+    <div class="card-content">
+      <h2>{{ book.bookName }}</h2>
+      <p><strong>Author:</strong> {{ book.authorName }}</p>
+      <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+      <p><strong>Genre:</strong> {{ book.genre }}</p>
+      <p><strong>Available Quantity:</strong> {{ book.quantity }}</p>
+    </div>
+  </div>
+</div>
+
