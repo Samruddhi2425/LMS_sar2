@@ -4,7 +4,7 @@
     <h1>fghjk</h1>
             <div class="col-md-3" *ngFor="let book of books">
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw0fHxIZWFkcGhvbmVzfGVufDB8MHx8fDE3Mjk1MDkzMjV8MA&ixlib=rb-4.0.3&q=80&w=1080" class="card-img-top" alt="Product Image">
+                    <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top" alt="Book Image">
                     <div class="card-body">
                         <h5 class="card-title">{{book.bookName}}</h5>
                         <p class="card-text">by {{book.authorName}}</p>

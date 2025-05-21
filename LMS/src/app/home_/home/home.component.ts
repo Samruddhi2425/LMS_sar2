@@ -4,14 +4,15 @@ import { GetbooksService } from '../../service/getbooks.service';
 import { BookdescriptionComponent } from '../bookdescription/bookdescription.component';
 import { RouterModule } from '@angular/router';
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent,HttpClientModule,CommonModule],
+  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule],
 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
