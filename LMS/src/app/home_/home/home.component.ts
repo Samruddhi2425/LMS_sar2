@@ -1,16 +1,17 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { GetbooksService } from '../../service/getbooks.service';
 import { BookdescriptionComponent } from '../bookdescription/bookdescription.component';
 import { RouterModule } from '@angular/router';
 // import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent,HttpClientModule,NgModule],
+  imports: [NavbarComponent,HttpClientModule,CommonModule],
 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
