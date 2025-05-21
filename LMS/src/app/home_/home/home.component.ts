@@ -3,7 +3,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { GetbooksService } from '../../service/getbooks.service';
 import { BookdescriptionComponent } from '../bookdescription/bookdescription.component';
 import { RouterModule } from '@angular/router';
-// import { CommonModule } from '@angular/common';
+
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
