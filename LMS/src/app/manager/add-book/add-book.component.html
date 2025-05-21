@@ -1,0 +1,10 @@
+
+<form (submit)="uploadBook()">
+  <input type="text" [(ngModel)]="book.bookName" name="bookName" placeholder="BookName" required>
+  <input type="text" [(ngModel)]="book.authorName" name="authorName" placeholder="Author" required>
+  <input type="text" [(ngModel)]="book.isbn" name="isbn" placeholder="Isbn" required>
+  <input type="text" [(ngModel)]="book.genre" name="genre" placeholder="Genre" required>
+  <input type="text" [(ngModel)]="book.quantity" name="quantity" placeholder="Quantity" required>
+  <input type="file" (change)="onFileChange($event)" required>
+  <button type="submit">Upload</button>
+</form>

@@ -13,4 +13,10 @@ export class GetbooksService {
   getBooks(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  private uploadUrl="https://localhost:7252/api/Books/AddBook";
+  uploadBook(bookData:any):Observable<any[]>{
+    return this.http.post<any[]>(this.uploadUrl, bookData);
+  }
+  
 }

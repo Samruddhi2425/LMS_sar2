@@ -7,12 +7,13 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AddBookComponent } from '../../manager/add-book/add-book.component';
 
 
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule],
+  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule,AddBookComponent],
 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

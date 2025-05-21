@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home_/home/home.component';
 import { BookdescriptionComponent } from './home_/bookdescription/bookdescription.component';
+import { AddBookComponent } from './manager/add-book/add-book.component';
 
 export const routes: Routes = [
     {path:"",component:HomeComponent},
     {path:"home",component:HomeComponent},
-    {path:"book",component:BookdescriptionComponent}
+    {path:"book",component:BookdescriptionComponent},
+    {path:"addbook",component:AddBookComponent}
 
 ];
