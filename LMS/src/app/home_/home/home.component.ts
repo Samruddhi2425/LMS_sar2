@@ -1,4 +1,4 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 import { GetbooksService } from '../../service/getbooks.service';
@@ -11,32 +11,41 @@ import { FormsModule } from '@angular/forms';
 import { AddBookComponent } from '../../manager/add-book/add-book.component';
 import { GenreComponent } from '../../genre/genre.component';
 
-
+declare var bootstrap: any; // Required for Bootstrap JS methods
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule],
-
-
+  standalone: true,
+  imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  providers:[GetbooksService]
+  providers: [GetbooksService]
 })
-export class HomeComponent implements OnInit{
-books: any[]=[];
-constructor(private getBookService: GetbooksService){}
+export class HomeComponent implements OnInit, AfterViewInit {
+  books: any[] = [];
 
-ngOnInit(): void {
-  this.getBookService.getBooks().subscribe(
-    (data) => {
-      this.books = data;
-      console.log(data);
-    },
-    (error) => {
-      console.error('Error fetching books:',error);
+  constructor(private getBookService: GetbooksService) {}
+
+  ngOnInit(): void {
+    this.getBookService.getBooks().subscribe(
+      (data) => {
+        this.books = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+  }
+
+  ngAfterViewInit(): void {
+    const carouselElement = document.getElementById('bookCarousel');
+
+    if (carouselElement) {
+      const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement, {
+        interval: 4000,
+        ride: 'carousel'
+      });
     }
-  );
-}
-
-
+  }
 }
