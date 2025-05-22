@@ -13,22 +13,25 @@ import { UserComponent } from '../../userProfile/user.component';
 import { CartComponent } from '../cart/cart.component';
 import { DashboardComponent } from '../../manager/dashboard/dashboard.component';
 import { LoginComponent } from '../../login/login.component';
+import { CardService } from '../../card.service';
 
 declare var bootstrap: any; // Required for Bootstrap JS methods
 
 @Component({
   selector: 'app-home',
+  standalone:true,
   imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule,UserComponent,CartComponent,DashboardComponent,LoginComponent],
 
 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  providers: [GetbooksService]
+  providers: [GetbooksService,CardService]
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   books: any[] = [];
 
-  constructor(private getBookService: GetbooksService) {}
+  constructor(private getBookService: GetbooksService,private cardService:CardService) {}
+
 
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
@@ -51,5 +54,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
         ride: 'carousel'
       });
     }
+  }
+
+  addToCart(item: any) {
+    this.cardService.addToCart(item);
+  }
+
+  goToCart() {
+    // Use routing to go to cart component
   }
 }
