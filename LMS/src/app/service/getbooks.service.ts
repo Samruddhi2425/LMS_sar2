@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -18,5 +18,5 @@ export class GetbooksService {
   uploadBook(bookData:any):Observable<any[]>{
     return this.http.post<any[]>(this.uploadUrl, bookData);
   }
-  
+
 }
