@@ -1,2 +1,35 @@
 <app-navbar></app-navbar>
-<button class="btn btn-success" routerLink="/cart">cart</button>
+
+<div class="container-fluid">
+<div class="row mt-4">
+    <h1>fghjk</h1>
+            <div class="col-md-3" *ngFor="let book of books">
+                <div class="card">
+                    <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{book.bookName}}</h5>
+                        <p class="card-text">by {{book.authorName}}</p>
+                        <p class="card-text">{{book.genre}}</p>
+                        <p class="card-text">ISBN - {{book.isbn}}</p>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="h5 mb-0">Quantity - {{book.quantity}}</span>
+                            <!-- <div class="rating">
+                                ★★★★☆ <small class="text-muted">(4.2)</small>
+                            </div> -->
+                         </div> 
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#productModal" routerLink="/book">Quick View</button>
+                            <button class="btn btn-outline-secondary" type="button" id="addToCartBtn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+
+            
+        </div>
+</div>
+
+<button routerLink="/addbook" class="btn btn-success">add books</button>
+<!-- <app-cart></app-cart> -->
+>>>>>>> 88cfad03fe5d38a3751ccf27dffaa92447d6d2e4
