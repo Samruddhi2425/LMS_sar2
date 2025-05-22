@@ -9,14 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AddBookComponent } from '../../manager/add-book/add-book.component';
-import { CartComponent } from '../../cart/cart.component';
 import { GenreComponent } from '../../genre/genre.component';
 
 
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule,GenreComponent],
+  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule],
 
 
   templateUrl: './home.component.html',

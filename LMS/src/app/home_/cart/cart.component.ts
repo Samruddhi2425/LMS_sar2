@@ -23,15 +23,15 @@ export class CartComponent {
   //   }
   // }
 
-  selectedItems: any[] = [];
+//   selectedItems: any[] = [];
 
-onItemSelectionChange(item: any) {
-  if (item.selected) {
-    this.selectedItems.push(item);
-  } else {
-    this.selectedItems = this.selectedItems.filter(i => i !== item);
-  }
-}
+// onItemSelectionChange(item: any) {
+//   if (item.selected) {
+//     this.selectedItems.push(item);
+//   } else {
+//     this.selectedItems = this.selectedItems.filter(i => i !== item);
+//   }
+// }
 
 }
 
