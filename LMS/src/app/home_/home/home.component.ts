@@ -11,12 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { AddBookComponent } from '../../manager/add-book/add-book.component';
 import { UserComponent } from '../../userProfile/user.component';
 import { CartComponent } from '../cart/cart.component';
+import { DashboardComponent } from '../../manager/dashboard/dashboard.component';
+import { LoginComponent } from '../../login/login.component';
 
 declare var bootstrap: any; // Required for Bootstrap JS methods
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule,UserComponent,CartComponent],
+  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule,UserComponent,CartComponent,DashboardComponent,LoginComponent],
 
 
   templateUrl: './home.component.html',
