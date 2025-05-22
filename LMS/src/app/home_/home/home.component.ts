@@ -1,5 +1,6 @@
 import { Component,  OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
+
 import { GetbooksService } from '../../service/getbooks.service';
 import { BookdescriptionComponent } from '../bookdescription/bookdescription.component';
 import { RouterModule } from '@angular/router';
@@ -15,6 +16,7 @@ import { CartComponent } from '../../cart/cart.component';
 @Component({
   selector: 'app-home',
   imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule],
+
 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
