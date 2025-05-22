@@ -8,14 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-@Input() cartItems: book[] = [];
-  book: any[] = [];
 
-  
-  ngOnInit(): void{
-    this
-  }
-  
 
 }
 
