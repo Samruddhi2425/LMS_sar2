@@ -1,0 +1,47 @@
+<!-- <p>register works!</p> -->
+<!-- Registration page -->
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <form>
+                    <fieldset class="border p-3 rounded">
+                        <legend class="float-none w-auto px-2">Registration</legend>
+                        
+                        <!-- Name Field -->
+                        <div class="mb-3">
+                            <label for="fname" class="form-label">First Name</label>
+                            <input type="fname" class="form-control" id="fname" aria-describedby="fnameHelp" >
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="lname" class="form-label">Last Name</label>
+                            <input type="lname" class="form-control" id="lname" aria-describedby="lnameHelp" >
+                        </div>
+                        
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" >
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="mobile" class="form-label">Mobile</label>
+                            <input type="mobile" class="form-control" id="Mobile" aria-describedby="Mobile" >
+                        </div>
+
+                        <!-- Login Button -->
+                        <button class="btn btn-primary w-100 my-2">Registration</button>
+                        <button class="btn btn-primary w-100" routerLink="/login">Login</button>
+                        
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
