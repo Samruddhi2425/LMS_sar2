@@ -14,7 +14,7 @@ import { CartComponent } from '../../cart/cart.component';
 
 @Component({
   selector: 'app-home',
-  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule,AddBookComponent,CartComponent],
+  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule],
 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

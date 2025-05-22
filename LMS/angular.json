@@ -26,6 +26,10 @@
                 "input": "public"
               }
             ],
+            "assets": [
+  "src/assets"
+]
+,
             "styles": [
               "src/styles.css"
             ],

@@ -6,7 +6,7 @@ import { AddBookComponent } from './manager/add-book/add-book.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,HomeComponent,AddBookComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
