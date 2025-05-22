@@ -4,6 +4,8 @@ import { GenreComponent } from './genre/genre.component';
 import { CartComponent } from './home_/cart/cart.component';
 import { DashboardComponent } from './manager/dashboard/dashboard.component';
 import { UserComponent } from './userProfile/user.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 export const routes: Routes = [
     {path:"",component:HomeComponent},
@@ -11,6 +13,8 @@ export const routes: Routes = [
     {path:"genre", component:GenreComponent},
     {path:"cart", component:CartComponent},
     {path:"managerdashboard",component:DashboardComponent},
-    {path:"user",component:UserComponent}
+    {path:"user",component:UserComponent},
+    {path:"login",component:LoginComponent},
+    {path:"signup",component:RegisterComponent}
 
 ];
