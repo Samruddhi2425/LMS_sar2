@@ -1,32 +1,128 @@
 <app-navbar></app-navbar>
+
 <div class="container-fluid">
-<div class="row mt-4">
-    <h1>fghjk</h1>
-            <div class="col-md-3" *ngFor="let book of books">
-                <div class="card">
-                    <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top" alt="Book Image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{book.bookName}}</h5>
-                        <p class="card-text">by {{book.authorName}}</p>
-                        <p class="card-text">{{book.genre}}</p>
-                        <p class="card-text">ISBN - {{book.isbn}}</p>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="h5 mb-0">Quantity - {{book.quantity}}</span>
-                            <!-- <div class="rating">
+    <div class="row">
+        <!-- welcome -->
+        <div class="welcome-section">
+            <div class="welcome-content">
+                <h1>Welcome to Our Digital Library</h1>
+                <p class="lead">Discover, Learn, and Explore Our Vast Collection of Resources</p>
+                <div class="welcome-features">
+                    <div class="feature">
+                        <i class="fas fa-book-open"></i>
+                        <p>Access thousands of books, journals, and multimedia</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-search"></i>
+                        <p>Powerful search tools to find exactly what you need</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-clock"></i>
+                        <p>24/7 online access to digital resources</p>
+                    </div>
+                </div>
+                <div class="welcome-actions">
+                    <a href="/catalog" class="btn btn-primary">Browse Catalog</a>
+                    <a href="/login" class="btn btn-secondary">Member Login</a>
+                </div>
+            </div>
+            <div class="welcome-image">
+                <img src="assets/herolibrary.jpg" alt="Modern library interior with books and reading spaces" style="object-fit:cover;">
+            </div>
+        </div>
+
+        <!-- card section -->
+        <div class="col-md-3" *ngFor="let book of books">
+            <div class="card">
+                <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top" alt="Book Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.bookName}}</h5>
+                    <p class="card-text">by {{book.authorName}}</p>
+                    <p class="card-text">{{book.genre}}</p>
+                    <p class="card-text">ISBN - {{book.isbn}}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="h5 mb-0">Quantity - {{book.quantity}}</span>
+                        <!-- <div class="rating">
                                 ★★★★☆ <small class="text-muted">(4.2)</small>
                             </div> -->
-                         </div> 
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#productModal" routerLink="/book">Quick View</button>
-                            <button class="btn btn-outline-secondary" type="button" id="addToCartBtn">Add to Cart</button>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                            data-bs-target="#productModal" routerLink="/book">Quick View</button>
+                        <button class="btn btn-outline-secondary" type="button" id="addToCartBtn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--  -->
+
+        <button routerLink="/addbook" class="btn btn-success">add books</button>
+        <!-- <app-cart></app-cart> -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+        <!-- footer section -->
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 footer-section">
+                        <div class="footer-logo">NetraLibrary</div>
+                        <p class="footer-about">We are dedicated to providing the best service to our customers. Our
+                            mission
+                            is to create innovative solutions that make a difference in people's lives.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-section">
+                        <h5>Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="#">Products</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-section">
+                        <h5>Support</h5>
+                        <ul class="footer-links">
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                            <li><a href="#">Contact Support</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 footer-section">
+                        <h5>Newsletter</h5>
+                        <p class="footer-about">Subscribe to our newsletter for updates, news, and exclusive offers.</p>
+                        <div class="footer-newsletter">
+                            <input type="email" placeholder="Enter your email">
+                            <button class="newsletter-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div> 
 
-
-            
-        </div>
+                <div class="footer-bottom">
+                    <ul class="footer-bottom-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                    <p>© 2024 CompanyName. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
 </div>
 
 <button routerLink="/addbook" class="btn btn-success">add books</button>
