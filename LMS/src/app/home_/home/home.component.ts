@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AddBookComponent } from '../../manager/add-book/add-book.component';
-import { CartComponent } from '../../cart/cart.component';
 
 declare var bootstrap: any; // Required for Bootstrap JS methods
 
