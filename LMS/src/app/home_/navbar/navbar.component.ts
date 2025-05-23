@@ -9,7 +9,5 @@ import { CardService } from '../../card.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
- getCartItems() {
-    // Use routing to go to cart component
-  }
+
 }
