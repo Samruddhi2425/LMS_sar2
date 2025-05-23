@@ -18,16 +18,14 @@ export const routes: Routes = [
     {path:"book",component:BookdescriptionComponent},
     {path:"admin", component:AdminComponent,
         children:[
-            {path:"userProfile",component:UserComponent},
+            
             {path:"",component:AdminDashboardComponent}
         ]
     },
     {path:"manager",component:ManagerComponent,
-        children:[
-
-        ]
+        children:[]
     },
     {path:"register", component:RegisterComponent},
-    {path:"login", component:LoginComponent}
-
+    {path:"login", component:LoginComponent},
+    {path:"userProfile",component:UserComponent},
 ];
