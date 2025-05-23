@@ -9,5 +9,9 @@ import { CardService } from '../../card.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+cartItems: any[] = [];
 
+  getCartItems() {
+    return this.cartItems;
+  }
 }
