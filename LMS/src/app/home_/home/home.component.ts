@@ -16,21 +16,33 @@ import { LoginComponent } from '../../login/login.component';
 import { CardService } from '../../card.service';
 
 declare var bootstrap: any; // Required for Bootstrap JS methods
+interface BookItem {
+  authorName: string;
+  base64Image: string;
+  bookId: string;
+  bookName: string;
+  genre: string;
+  isbn: string;
+  quantity: string;
+};
+
 
 @Component({
   selector: 'app-home',
-  standalone:true,
-  imports: [NavbarComponent,HttpClientModule,CommonModule,FormsModule,RouterModule,UserComponent,CartComponent,DashboardComponent,LoginComponent],
+  standalone: true,
+  imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule, UserComponent, CartComponent, DashboardComponent, LoginComponent],
 
 
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  providers: [GetbooksService,CardService]
+  providers: [GetbooksService, CardService]
 })
+
+
 export class HomeComponent implements OnInit, AfterViewInit {
   books: any[] = [];
 
-  constructor(private getBookService: GetbooksService,private cardService:CardService) {}
+  constructor(private getBookService: GetbooksService, private cardService: CardService) { }
 
 
   ngOnInit(): void {
@@ -43,6 +55,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching books:', error);
       }
     );
+    let bookItemsString = localStorage.getItem('bookitem');
+    const bookItems: BookItem[] = bookItemsString ? JSON.parse(bookItemsString) : [];
+    //const a = localStorage.setItem('bookitem', JSON.stringify(bookItemsString));
+
+    
+    console.log(bookItems);
   }
 
   ngAfterViewInit(): void {
@@ -55,6 +73,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+
+  //  home to add to cart binding
+
+
+
+
+  // Retrieve and parse the data
+
+
+
+
 
   addToCart(item: any) {
     this.cardService.addToCart(item);

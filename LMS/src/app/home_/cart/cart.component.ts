@@ -17,6 +17,10 @@ export class CartComponent implements OnInit{
 
   ngOnInit() {
     this.cartItems = this.cartService.getCartItems();
+   // 1. Get the item from localStorage (returns string | null)
+const storedData = localStorage.getItem('bookitem');
+
+   
   }
 
 }
