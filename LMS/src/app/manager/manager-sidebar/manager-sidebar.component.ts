@@ -4,7 +4,7 @@ import { DashboardComponent } from "../dashboard/dashboard.component";
 
 @Component({
   selector: 'app-manager-sidebar',
-  imports: [RouterOutlet, DashboardComponent],
+  imports: [RouterOutlet,],
   templateUrl: './manager-sidebar.component.html',
   styleUrl: './manager-sidebar.component.css'
 })
