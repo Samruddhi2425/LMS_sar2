@@ -7,14 +7,16 @@ import { concatWith } from 'rxjs';
 export class CardService {
   private cartItems: any[] = [];
 
-  addToCart(item: any) {
+  addToCart(item: BookItem) {
    // console.log(item);
    
      if(this.cartItems.length == 0)
       {
        this.cartItems.push(item);
        console.log('empty');
-       localStorage.setItem('bookitem',JSON.stringify(item));
+       const bookData = JSON.stringify(this.cartItems);
+       localStorage.setItem('bookitem',bookData);
+
      }else{
    console.log(item.bookId);
    const data =  this.cartItems.find(itm=>itm.bookId === item.bookId);
@@ -22,8 +24,10 @@ export class CardService {
       this.cartItems.push(item);
       console.log('pushed');
       console.log(item);
-      console.log(this.cartItems.length)
-       localStorage.setItem('bookitem',JSON.stringify(item));
+      console.log(this.cartItems.length);
+
+      const bookD = JSON.stringify(this.cartItems);
+       localStorage.setItem('bookitem',bookD);
      }
    
      }
@@ -48,3 +52,14 @@ export class CardService {
     this.cartItems = [];
   }
 }
+
+export interface BookItem {
+  authorName: string;
+  base64Image: string;
+  bookId: string;
+  bookName: string;
+  genre: string;
+  isbn: string;
+  quantity: string;
+};
+

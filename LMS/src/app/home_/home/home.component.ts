@@ -6,7 +6,7 @@ import { BookdescriptionComponent } from '../bookdescription/bookdescription.com
 import { RouterModule } from '@angular/router';
 
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformServer } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AddBookComponent } from '../../manager/add-book/add-book.component';
 import { UserComponent } from '../../userProfile/user.component';
@@ -55,12 +55,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching books:', error);
       }
     );
-    let bookItemsString = localStorage.getItem('bookitem');
-    const bookItems: BookItem[] = bookItemsString ? JSON.parse(bookItemsString) : [];
+    // let bookItemsString = localStorage.getItem('bookitem');
+    // const bookItems: BookItem[] = bookItemsString ? JSON.parse(bookItemsString) : [];
     //const a = localStorage.setItem('bookitem', JSON.stringify(bookItemsString));
 
+     
     
-    console.log(bookItems);
+    //console.log(bookItems);
   }
 
   ngAfterViewInit(): void {
@@ -76,7 +77,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
   //  home to add to cart binding
+  selecteItem(book:any)
+  {
+    let b = localStorage.getItem('bookitemnew');
 
+    // Step 1: Convert the object to a string
+    const itemString = JSON.stringify(b);
+
+    // Step 2: Store it in localStorage
+    localStorage.setItem('selectedItem', itemString);
+    console.log('item', JSON.stringify(b));
+    console.log('itemString',b);
+  }
 
 
 

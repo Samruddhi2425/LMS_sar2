@@ -23,13 +23,13 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "src/public",
+                "output": "/"
+                
               }
             ],
-            "assets": [
-  "src/assets"
-]
-,
+          
+
             "styles": [
              
               "src/styles.css"
