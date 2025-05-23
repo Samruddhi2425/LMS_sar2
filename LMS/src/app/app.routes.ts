@@ -9,6 +9,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { UserComponent } from './userProfile/user.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { ViewBookComponent } from './admin/view-book/view-book.component';
 
 export const routes: Routes = [
     {path:"",component:LoginComponent},
@@ -28,4 +29,5 @@ export const routes: Routes = [
     {path:"register", component:RegisterComponent},
     {path:"login", component:LoginComponent},
     {path:"userProfile",component:UserComponent},
+    {path:"viewBooks",component:ViewBookComponent}
 ];
