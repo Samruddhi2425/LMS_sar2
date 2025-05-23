@@ -15,9 +15,9 @@
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
                                     class="img-fluid rounded-3" alt="Cotton T-shirt">
                             </div>
-                            <div class="col-md-3 col-lg-3 col-xl-3">
+                            <div class="col-md-3 col-lg-3 col-xl-3" style="overflow-x: auto;" >
                                 <p class="lead fw-normal mb-2">Book name: {{cart.bookName}}</p>
-                                <p><span class="text-muted">Author: </span><span class="text-muted">Category: </span>
+                                <p><span class="text-muted">Author: {{cart.authorName}}</span><br><span class="text-muted">Category:{{cart.genre}}</span>
                                 </p>
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
