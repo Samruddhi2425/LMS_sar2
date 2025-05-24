@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { ViewBookComponent } from './admin/view-book/view-book.component';
 
 export const routes: Routes = [
-    {path: "login",component:LoginComponent},
+    {path: "",component:LoginComponent},
     {path:"home",component:HomeComponent},
     {path:"genre", component:GenreComponent},
     {path:"cart", component:CartComponent},
