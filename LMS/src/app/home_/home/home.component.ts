@@ -30,7 +30,7 @@ interface BookItem {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule, UserComponent, CartComponent, DashboardComponent, LoginComponent],
+  imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule, CartComponent, DashboardComponent, LoginComponent],
 
 
   templateUrl: './home.component.html',

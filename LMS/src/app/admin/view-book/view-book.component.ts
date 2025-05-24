@@ -7,7 +7,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 interface Books {
   authorName: string;
   base64Image: string;
-  bookId: string;
+  bookId: number;
   bookName: string;
   genre: string;
   isbn: string;
