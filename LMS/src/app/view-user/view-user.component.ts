@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './view-user.component.css'
 })
 export class ViewUserComponent {
-
+  
 }
