@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GetbooksService } from '../../service/getbooks.service';
+import { CommonModule } from '@angular/common';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 
 interface Books {
@@ -14,7 +16,7 @@ interface Books {
 
 @Component({
   selector: 'app-view-book',
-  imports: [],
+  imports: [CommonModule,RouterModule,RouterOutlet],
   templateUrl: './view-book.component.html',
   providers:[GetbooksService],
   styleUrl: './view-book.component.css'
