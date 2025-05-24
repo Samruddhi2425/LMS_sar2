@@ -35,20 +35,20 @@
         <!-- card section -->
         <div class="col-md-3" *ngFor="let book of books" (click)="selecteItem(book)">
             <div class="card">
-                <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top" alt="Book Image">
+              <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image" alt="Book Image">
                 <div class="card-body">
                     <h5 class="card-title">{{book.bookName}}</h5>
                     <p class="card-text">by {{book.authorName}}</p>
                     <p class="card-text">{{book.genre}}</p>
                     <p class="card-text">ISBN - {{book.isbn}}</p>
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="h5 mb-0">Quantity - {{book.quantity}}</span>
+                        <!-- <span class="h5 mb-0">Quantity - {{book.quantity}}</span> -->
                         <!-- <div class="rating">
                                 ★★★★☆ <small class="text-muted">(4.2)</small>
                             </div> -->
                     </div>
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                        <button class="btn btn-success" type="button" data-bs-toggle="modal"
                             data-bs-target="#productModal" routerLink="/book">Quick View</button>
                         <button class="btn btn-outline-secondary" type="button" id="addToCartBtn" (click)="addToCart(book)">Add to Cart</button>
                     </div>
@@ -57,7 +57,7 @@
         </div>
 
         <!-- genere wise -->
-         <section class="category-carousel">
+    <section class="category-carousel">
     <div class="container">
       <h2 class="mb-4 text-center fw-bold">📚 Popular Book Categories</h2>
       <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -67,31 +67,31 @@
             <div class="row row-cols-2 row-cols-md-5 g-2">
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/fiction.jpg" alt="Book">
+                  <img src="/images/fiction.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>Fiction</h6>
                 </div>
               </div>
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/science.jpg" alt="Book">
+                  <img src="/images/science.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>Science</h6>
                 </div>
               </div>
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/history.jpg" alt="Book">
+                  <img src="/images/history.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>History</h6>
                 </div>
               </div>
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/comics.jpg" alt="Book">
+                  <img src="/images/comics.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>Comics</h6>
                 </div>
               </div>
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/romance.jpg" alt="Book">
+                  <img src="/images/romance.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>Romance</h6>
                 </div>
               </div>
@@ -102,31 +102,31 @@
             <div class="row row-cols-2 row-cols-md-5 g-2">
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/fantasy.jpg" alt="Book">
+                  <img src="/images/fantasy.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>Fantasy</h6>
                 </div>
               </div>
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/biography.jpg" alt="Book">
+                  <img src="/images/biography.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>Biography</h6>
                 </div>
               </div>
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/tech.jpg" alt="Book">
+                  <img src="/images/tech.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>Technology</h6>
                 </div>
               </div>
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/adventure.png" alt="Book">
+                  <img src="/images/adventure.png" class="card-img-top fixed-image" alt="Book">
                   <h6>Adventure</h6>
                 </div>
               </div>
               <div class="col">
                 <div class="book-card">
-                  <img src="/images/health.jpg" alt="Book">
+                  <img src="/images/health.jpg" class="card-img-top fixed-image" alt="Book">
                   <h6>Health</h6>
                 </div>
               </div>
