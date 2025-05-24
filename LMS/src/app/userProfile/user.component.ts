@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { GetusersService } from '../service/getusers.service';
+import { IssuebooksService } from '../service/issuebooks.service';
 
 @Component({
   selector: 'app-user',
@@ -9,21 +10,27 @@ import { GetusersService } from '../service/getusers.service';
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
-interface Users{
-  userId:number;
-  firstName:string;
-  lastName:string;
-  email:string;
-  pass:string;
-  mobileNo:string;
-}
+
 
 export class UserComponent {
-users:any[]=[];
-constructor(private getUserService: GetusersService){}
+//IssueBook
+issueBooks:any[]=[];
+constructor(private getIssueService: IssuebooksService){}
 
+  ngOnInit(): void{
+    this.getIssueService.getIssuBook().subscribe(
+      (issData)=>{
+      this.issueBooks = issData;
+      console.log(issData);
+    },
+    (error)=>{
+    console.error('Error while feting issue data');
+    }
+  );
+ }
 }
 
 
 
-}
+
+
