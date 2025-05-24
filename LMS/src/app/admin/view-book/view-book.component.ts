@@ -27,7 +27,6 @@ export class ViewBookComponent implements OnInit{
 constructor(private getBookService: GetbooksService){
   
 }
-
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
       (data) => {
