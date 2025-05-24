@@ -15,12 +15,17 @@ import { IssuebooksService } from '../service/issuebooks.service';
 export class UserComponent {
 //IssueBook
 issueBooks:any[]=[];
+returnedBooks: any[] = [];
+
 constructor(private getIssueService: IssuebooksService){}
 
   ngOnInit(): void{
+
     this.getIssueService.getIssuBook().subscribe(
       (issData)=>{
       this.issueBooks = issData;
+      this.returnedBooks = issData.filter(book => book.status === 'returned');
+      console.log(this.returnedBooks);
       console.log(issData);
     },
     (error)=>{
@@ -28,6 +33,8 @@ constructor(private getIssueService: IssuebooksService){}
     }
   );
  }
+
+ 
 }
 
 
