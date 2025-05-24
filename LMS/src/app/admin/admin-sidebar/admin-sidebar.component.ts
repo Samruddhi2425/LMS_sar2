@@ -7,10 +7,19 @@ import { ViewBookComponent } from '../view-book/view-book.component';
 
 @Component({
   selector: 'app-admin-sidebar',
-  imports: [RouterModule,AdminDashboardComponent,UserComponent,ViewBookComponent],
+  standalone: true,  // Only include this if you're using standalone components
+  imports: [RouterModule, AdminDashboardComponent, UserComponent, ViewBookComponent],
   templateUrl: './admin-sidebar.component.html',
-  styleUrl: './admin-sidebar.component.css'
+  styleUrls: ['./admin-sidebar.component.css']
 })
 export class AdminSidebarComponent {
+
+ toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  if (sidebar) {
+    sidebar.classList.toggle('show');
+  }
+}
+
 
 }
