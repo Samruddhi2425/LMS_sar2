@@ -19,14 +19,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let book of books" style="height: 50px;overflow-x: auto; overflow-y: auto;">
-                        <td>{{books.base64Image}}</td>
-                        <td>{{books.bookId}}</td>
-                        <td>{{books.bookName}}</td>
-                        <td>{{books.authorName}}</td>
-                        <td>{{books.isbn}}</td>
-                        <td>{{books.genre}}</td>
-                        <td>{{books.quantity}}</td>
+                    <tr *ngFor="let book of books">
+                        <td>{{book.base64Image}}</td>
+                        <td>{{book.bookId}}</td>
+                        <td>{{book.bookName}}</td>
+                        <td>{{book.authorName}}</td>
+                        <td>{{book.isbn}}</td>
+                        <td>{{book.genre}}</td>
+                        <td>{{book.quantity}}</td>
                         <td><button class="btn btn-outline-warning">Edit</button></td>
                     </tr>
                 </tbody>
