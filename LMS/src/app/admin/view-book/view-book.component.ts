@@ -7,7 +7,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 interface Books {
   authorName: string;
   base64Image: string;
-  bookId: string;
+  bookId: number;
   bookName: string;
   genre: string;
   isbn: string;
@@ -16,7 +16,7 @@ interface Books {
 
 @Component({
   selector: 'app-view-book',
-  imports: [CommonModule,RouterModule,RouterOutlet],
+  imports: [CommonModule,RouterModule],
   templateUrl: './view-book.component.html',
   providers:[GetbooksService],
   styleUrl: './view-book.component.css'
@@ -27,7 +27,6 @@ export class ViewBookComponent implements OnInit{
 constructor(private getBookService: GetbooksService){
   
 }
-
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
       (data) => {

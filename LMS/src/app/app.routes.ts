@@ -4,7 +4,7 @@ import { GenreComponent } from './genre/genre.component';
 import { CartComponent } from './home_/cart/cart.component';
 import { BookdescriptionComponent } from './home_/bookdescription/bookdescription.component';
 import { AdminComponent } from './admin/admin/admin.component';
-import { ManagerComponent } from './manager/manager/manager.component';
+
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { UserComponent } from './userProfile/user.component';
 import { RegisterComponent } from './register/register.component';
@@ -30,10 +30,10 @@ export const routes: Routes = [
 
         ]
     },
-    {
-        path: "manager", component: ManagerComponent,
-        children: []
-    },
+    // {
+    //     path: "manager", component: ManagerComponent,
+    //     children: []
+    // },
     { path: "register", component: RegisterComponent },
     { path: "home", component: HomeComponent },
     { path: "userProfile", component: UserComponent },

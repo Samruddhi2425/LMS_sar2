@@ -4,7 +4,7 @@ import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-login',
-  imports: [NavbarComponent,RegisterComponent],
+  imports: [NavbarComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

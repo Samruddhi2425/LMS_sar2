@@ -8,10 +8,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, isPlatformServer } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AddBookComponent } from '../../manager/add-book/add-book.component';
 import { UserComponent } from '../../userProfile/user.component';
 import { CartComponent } from '../cart/cart.component';
-import { DashboardComponent } from '../../manager/dashboard/dashboard.component';
 import { LoginComponent } from '../../login/login.component';
 import { CardService } from '../../card.service';
 
@@ -30,9 +28,7 @@ interface BookItem {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule, UserComponent, CartComponent, DashboardComponent, LoginComponent],
-
-
+  imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule, CartComponent, LoginComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [GetbooksService, CardService]
@@ -44,7 +40,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor(private getBookService: GetbooksService, private cardService: CardService) { }
 
-
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
       (data) => {
@@ -55,6 +50,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching books:', error);
       }
     );
+    
     // let bookItemsString = localStorage.getItem('bookitem');
     // const bookItems: BookItem[] = bookItemsString ? JSON.parse(bookItemsString) : [];
     //const a = localStorage.setItem('bookitem', JSON.stringify(bookItemsString));
