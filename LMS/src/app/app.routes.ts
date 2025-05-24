@@ -12,22 +12,22 @@ import { LoginComponent } from './login/login.component';
 import { ViewBookComponent } from './admin/view-book/view-book.component';
 
 export const routes: Routes = [
-    {path:"",component:LoginComponent},
-    {path:"home",component:HomeComponent},
+    {path:"login",component:LoginComponent},
+    {path:"",component:HomeComponent},
     {path:"genre", component:GenreComponent},
     {path:"cart", component:CartComponent},
     {path:"book",component:BookdescriptionComponent},
     {path:"admin", component:AdminComponent,
-        children:[
+        // children:[
             
-            {path:"",component:AdminDashboardComponent}
-        ]
+        //     {path:"",component:AdminDashboardComponent}
+        // ]
     },
     {path:"manager",component:ManagerComponent,
-        children:[]
+        //children:[]
     },
     {path:"register", component:RegisterComponent},
-    {path:"login", component:LoginComponent},
+    {path:"home", component:HomeComponent},
     {path:"userProfile",component:UserComponent},
     {path:"viewBooks",component:ViewBookComponent}
 ];

@@ -4,11 +4,12 @@ import { HomeComponent } from './home_/home/home.component';
 import { AddBookComponent } from './manager/add-book/add-book.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { CommonModule } from '@angular/common';
 // import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,LoginComponent,RegisterComponent],
+  imports: [RouterOutlet,LoginComponent,RegisterComponent,CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
