@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home_/home/home.component';
 import { GenreComponent } from './genre/genre.component';
 import { CartComponent } from './home_/cart/cart.component';
-import { BookdescriptionComponent } from './home_/bookdescription/bookdescription.component';
+import { BookdescriptionComponent } from './home_/bookdescription/bookdescription.component'; 
 import { AdminComponent } from './admin/admin/admin.component';
 import { ManagerComponent } from './manager/manager/manager.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
@@ -12,19 +12,19 @@ import { LoginComponent } from './login/login.component';
 import { ViewBookComponent } from './admin/view-book/view-book.component';
 
 export const routes: Routes = [
-    {path:"login",component:LoginComponent},
-    {path:"",component:HomeComponent},
+    {path:"",component:LoginComponent},
+    {path:"home",component:HomeComponent},
     {path:"genre", component:GenreComponent},
     {path:"cart", component:CartComponent},
     {path:"book",component:BookdescriptionComponent},
     {path:"admin", component:AdminComponent,
-        // children:[
+        children:[
             
-        //     {path:"",component:AdminDashboardComponent}
-        // ]
+            {path:"",component:AdminDashboardComponent}
+        ]
     },
     {path:"manager",component:ManagerComponent,
-        //children:[]
+        children:[]
     },
     {path:"register", component:RegisterComponent},
     {path:"home", component:HomeComponent},

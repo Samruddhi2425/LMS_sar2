@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { RegisterComponent } from '../register/register.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [NavbarComponent,RegisterComponent,CommonModule],
+  imports: [NavbarComponent,RegisterComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
