@@ -16,7 +16,7 @@ interface Books {
 
 @Component({
   selector: 'app-view-book',
-  imports: [CommonModule,RouterModule,RouterOutlet],
+  imports: [CommonModule,RouterModule],
   templateUrl: './view-book.component.html',
   providers:[GetbooksService],
   styleUrl: './view-book.component.css'
