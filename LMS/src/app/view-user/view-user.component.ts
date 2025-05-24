@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GetusersService } from '../service/getusers.service';
 
 @Component({
   selector: 'app-view-user',
@@ -6,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './view-user.component.html',
   styleUrl: './view-user.component.css'
 })
-export class ViewUserComponent {
+export class ViewUserComponent{
   
 }
