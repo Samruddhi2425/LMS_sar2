@@ -29,8 +29,6 @@ interface BookItem {
   selector: 'app-home',
   standalone: true,
   imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule, CartComponent, LoginComponent],
-
-
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [GetbooksService, CardService]
@@ -42,7 +40,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor(private getBookService: GetbooksService, private cardService: CardService) { }
 
-
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
       (data) => {
@@ -53,6 +50,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching books:', error);
       }
     );
+    
     // let bookItemsString = localStorage.getItem('bookitem');
     // const bookItems: BookItem[] = bookItemsString ? JSON.parse(bookItemsString) : [];
     //const a = localStorage.setItem('bookitem', JSON.stringify(bookItemsString));
