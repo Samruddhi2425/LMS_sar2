@@ -6,7 +6,7 @@ import { ViewBookComponent } from '../view-book/view-book.component';
 
 @Component({
   selector: 'app-admin-sidebar',
-  standalone: true,  // Only include this if you're using standalone components
+ // Only include this if you're using standalone components
   imports: [RouterModule, AdminDashboardComponent, ViewBookComponent],
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.css']

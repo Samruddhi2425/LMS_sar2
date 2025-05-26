@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GetbooksService } from '../../service/getbooks.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
-import { UserComponent } from '../userProfile/user.component';
+
 import { IssuebooksService } from '../../service/issuebooks.service';
 
 
@@ -18,9 +18,9 @@ interface Books {
 
 @Component({
   selector: 'app-view-book',
-  imports: [CommonModule,RouterModule,IssuebooksService],
-  standalone: true,
+  imports: [CommonModule,RouterModule,IssuebooksService], 
   templateUrl: './view-book.component.html',
+  
   providers:[GetbooksService],
   styleUrl: './view-book.component.css'
 })

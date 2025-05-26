@@ -23,7 +23,7 @@ export const routes: Routes = [
     { path: "cart", component: CartComponent },
     { path: "book", component: BookdescriptionComponent },
     {
-        path: "admin", component: AdminComponent,
+        path: "admin", component:  AdminComponent,
         children: [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
