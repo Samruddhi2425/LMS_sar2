@@ -3,6 +3,9 @@ import { GetbooksService } from '../../service/getbooks.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
+import { IssuebooksService } from '../../service/issuebooks.service';
+import { UserComponent } from '../userProfile/user.component';
+
 
 interface Books {
   authorName: string;
@@ -16,15 +19,18 @@ interface Books {
 
 @Component({
   selector: 'app-view-book',
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule,RouterModule,UserComponent], 
   templateUrl: './view-book.component.html',
+  
   providers:[GetbooksService],
   styleUrl: './view-book.component.css'
 })
 export class ViewBookComponent implements OnInit{
   books:any[]=[];
+  issueBooks:any[]=[];
+returnedBooks: any[] = [];
 
-constructor(private getBookService: GetbooksService){
+constructor(private getBookService: GetbooksService, private getIssueService: IssuebooksService ){
   
 }
   ngOnInit(): void {
@@ -37,6 +43,18 @@ constructor(private getBookService: GetbooksService){
         console.error('Error fetching books:', error);
       }
     );
+     this.getIssueService.getIssuBook().subscribe(
+      (issData)=>{
+      this.issueBooks = issData;
+      this.returnedBooks = issData.filter(book => book.status === 'returned');
+      console.log(this.returnedBooks);
+      console.log(issData);
+    },
+    (error)=>{
+    console.error('Error while feting issue data');
+    }
+  );
+
   }
 
 }

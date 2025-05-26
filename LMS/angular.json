@@ -15,6 +15,7 @@
           "options": {
             "outputPath": "dist/lms",
             "index": "src/index.html",
+           "aot": false,
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"

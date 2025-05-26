@@ -6,7 +6,7 @@ import { IssuebooksService } from '../../service/issuebooks.service';
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule,NavbarComponent],
+  imports: [CommonModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })

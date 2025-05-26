@@ -14,10 +14,9 @@ import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.compo
 import { AdminusersComponent } from './admin/adminusers/adminusers.component';
 import { AddBookComponent } from './admin/add-book/add-book.component';
 import { UpdateBookComponent } from './admin/update-book/update-book.component';
+import { ViewUserComponent } from './admin/view-user/view-user.component';
 
 export const routes: Routes = [
-    { path: "", component: LoginComponent },
-
     { path: "login", component: LoginComponent },
     {path:"register",component:RegisterComponent},
     { path: "home", component: HomeComponent },
@@ -25,12 +24,12 @@ export const routes: Routes = [
     { path: "cart", component: CartComponent },
     { path: "book", component: BookdescriptionComponent },
     {
-        path: "admin", component: AdminComponent,
+        path: "admin", component:  AdminComponent,
         children: [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
-            { path: "admin-users", component: AdminusersComponent }
+            { path: "admin-users", component: ViewUserComponent }
 
 
         ]

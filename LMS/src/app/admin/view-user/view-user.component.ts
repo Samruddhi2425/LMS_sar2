@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GetusersService } from '../../service/getusers.service';
 import { CommonModule } from '@angular/common';
+import { UserComponent } from '../userProfile/user.component';
 
 interface Users{
   userId:number;
@@ -13,7 +14,7 @@ interface Users{
 
 @Component({
   selector: 'app-view-user',
-  imports: [CommonModule],
+  imports: [CommonModule, UserComponent],
   templateUrl: './view-user.component.html',
   styleUrl: './view-user.component.css'
 })
