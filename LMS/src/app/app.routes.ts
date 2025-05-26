@@ -6,7 +6,7 @@ import { BookdescriptionComponent } from './home_/bookdescription/bookdescriptio
 import { AdminComponent } from './admin/admin/admin.component';
 
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { UserComponent } from './userProfile/user.component';
+import { UserComponent } from './admin/userProfile/user.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ViewBookComponent } from './admin/view-book/view-book.component';

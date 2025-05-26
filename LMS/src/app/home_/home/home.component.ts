@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, isPlatformServer } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UserComponent } from '../../userProfile/user.component';
+import { UserComponent } from '../../admin/userProfile/user.component';
 import { CartComponent } from '../cart/cart.component';
 import { LoginComponent } from '../../login/login.component';
 import { CardService } from '../../card.service';

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../home_/navbar/navbar.component';
-import { GetusersService } from '../service/getusers.service';
-import { IssuebooksService } from '../service/issuebooks.service';
+import { NavbarComponent } from '../../home_/navbar/navbar.component';
+import { GetusersService } from '../../service/getusers.service';
+import { IssuebooksService } from '../../service/issuebooks.service';
 
 @Component({
   selector: 'app-user',
