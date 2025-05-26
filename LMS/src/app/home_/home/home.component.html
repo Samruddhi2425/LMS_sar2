@@ -32,6 +32,22 @@
             </div>
         </div>
 
+        <!-- search section -->
+         <form (ngSubmit)="onSearch()">
+  <div class="input-group mb-3">
+    <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Search..."
+      [(ngModel)]="searchTerm"
+      name="searchTerm"
+      required
+    >
+    <button class="btn btn-primary" type="submit">Search</button>
+  </div>
+</form>
+
+
         <!-- card section -->
         <div class="col-md-3" *ngFor="let book of books" (click)="selecteItem(book)">
             <div class="card">
