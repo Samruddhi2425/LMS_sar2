@@ -17,6 +17,7 @@ import { UpdateBookComponent } from './admin/update-book/update-book.component';
 import { ViewUserComponent } from './admin/view-user/view-user.component';
 
 export const routes: Routes = [
+    { path: "", component: HomeComponent },
     { path: "login", component: LoginComponent },
     {path:"register",component:RegisterComponent},
     { path: "home", component: HomeComponent },
@@ -29,7 +30,8 @@ export const routes: Routes = [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
-            { path: "admin-users", component: ViewUserComponent }
+            { path: "admin-users", component: ViewUserComponent },
+            { path: "addbook", component:AddBookComponent}
 
 
         ]
