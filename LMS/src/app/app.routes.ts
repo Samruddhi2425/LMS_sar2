@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { ViewBookComponent } from './admin/view-book/view-book.component';
 import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.component';
 import { AdminusersComponent } from './admin/adminusers/adminusers.component';
+import { AddBookComponent } from './admin/add-book/add-book.component';
 
 export const routes: Routes = [
     { path: "login", component: LoginComponent },
@@ -37,5 +38,6 @@ export const routes: Routes = [
     { path: "register", component: RegisterComponent },
     { path: "home", component: HomeComponent },
     { path: "userProfile", component: UserComponent },
+    {path:"addBook",component:AddBookComponent}
 
 ];
