@@ -11,8 +11,8 @@
                 <!-- Name Field -->
                 <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
-                        <label formControlName="fname" class="form-label">First Name</label>
-                        <input type="fname" class="form-control" id="fname"
+                        <label class="form-label">First Name</label>
+                        <input type="fname" class="form-control" id="fname" formControlName="fname"
                             aria-describedby="fnameHelp">
                         <div *ngIf="regForm.get('fname')?.invalid && regForm.get('fname')?.touched">
                             Firstname is required.
@@ -41,17 +41,18 @@
 
                     <!-- Password Field -->
                     <div class="mb-3">
-                        <label for="password"
-                            class="form-label">Password</label>
-                        <input type="password" class="form-control"
-                            id="password">
+                        <div class="mb-3">
+  <label for="password" class="form-label">Password</label>
+  <input type="password" class="form-control" formControlName="pass" id="password">
+</div>
+
                     </div>
 
                     <div class="mb-3">
                         <label for="mobile"
                             class="form-label">Mobile</label>
                         <input type="mobile" class="form-control"
-                            id="Mobile" aria-describedby="Mobile">
+                            id="Mobile" aria-describedby="Mobile" formControlName="mobile">
                     </div>
 
                     <!-- Login Button -->
