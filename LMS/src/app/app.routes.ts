@@ -14,6 +14,7 @@ import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.compo
 import { AdminusersComponent } from './admin/adminusers/adminusers.component';
 
 export const routes: Routes = [
+    {path: "",component:LoginComponent},
     { path: "login", component: LoginComponent },
     { path: "home", component: HomeComponent },
     { path: "genre", component: GenreComponent },
