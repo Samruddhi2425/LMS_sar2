@@ -34,11 +34,21 @@
     </div>
 
     <!-- search section -->
-<div>
+<div class="row text-center">
   <!-- Search Input and Button -->
-  <input type="text" [(ngModel)]="searchTerm" placeholder="Search by book name" class="form-control">
-  <span><button (click)="onSearch()" class="btn btn-success">Search</button></span>
-</div>
+   <div class="col-3 p-1">
+   </div>
+   <div class="col-5 p-1">
+<input type="text" [(ngModel)]="searchTerm" placeholder="Search by book name" class="form-control">
+  
+   </div>
+   <div class="col-2 p-2">
+    <button (click)="onSearch()" class="btn btn-success">Search</button>
+
+   </div>
+   <div class="col-2 p-2">
+   </div>
+  </div>
 
 <div *ngIf="books.length === 0 && searchTerm.trim()">
   <p>No books found for "{{ searchTerm }}".</p>
