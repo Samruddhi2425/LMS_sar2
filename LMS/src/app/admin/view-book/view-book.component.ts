@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet } from '@angular/router';
 
 import { IssuebooksService } from '../../service/issuebooks.service';
+import { UserComponent } from '../userProfile/user.component';
 
 
 interface Books {
@@ -18,7 +19,7 @@ interface Books {
 
 @Component({
   selector: 'app-view-book',
-  imports: [CommonModule,RouterModule,IssuebooksService], 
+  imports: [CommonModule,RouterModule,UserComponent], 
   templateUrl: './view-book.component.html',
   
   providers:[GetbooksService],
