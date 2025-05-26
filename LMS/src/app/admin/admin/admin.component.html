@@ -1,58 +1,11 @@
 
-<!-- <app-admin-sidebar></app-admin-sidebar> -->
-<!-- <p>admin works!</p> -->
-
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2 p-0">
             <app-admin-sidebar></app-admin-sidebar>
         </div>
-        <div class="col-md-9">
-            <!-- <app-navbar></app-navbar> -->
-            <div class="container mt-4">
-                
-                <h2>Admin Dashboard</h2>
-                <div class="row text-center">
-
-                    <!-- Total Books -->
-                    <div class="col-md-4">
-                        <div class="card bg-light mb-3">
-                            <div class="card-header">Total Books</div>
-                            <div class="card-body">
-                                <h4 class="card-title">1234</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Total Users -->
-                    <div class="col-md-4">
-                        <div class="card bg-light mb-3">
-                            <div class="card-header">Total Users</div>
-                            <div class="card-body">
-                                <h4 class="card-title">567</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Active Borrowings -->
-                    <div class="col-md-4">
-                        <div class="card bg-light mb-3">
-                            <div class="card-header">Active Borrowings</div>
-                            <div class="card-body">
-                                <h4 class="card-title">89</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Quick Access Buttons -->
-                <div class="text-center mt-4">
-                    <!-- <a href="/books" class="btn btn-primary m-2">Manage Books</a>
-    <a href="/users" class="btn btn-primary m-2">Manage Users</a>
-    <a href="/borrowings" class="btn btn-primary m-2">Manage Borrowings</a> -->
-                </div>
-            </div>
+        <div class="col-md-10 p-3">
             <router-outlet></router-outlet>
         </div>
+    </div>
+</div>
