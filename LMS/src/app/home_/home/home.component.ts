@@ -40,16 +40,28 @@ export class HomeComponent implements OnInit, AfterViewInit {
   searchTerm: string = '';
 
   onSearch() {
-    if (this.searchTerm.trim()) {
-      console.log('Searching for:', this.searchTerm);
-      // Example: filter a list or call API
-      // this.filteredUsers = this.users.filter(user =>
-      //   user.username.toLowerCase().includes(this.searchTerm.toLowerCase())
-      // );
-    } else {
-      alert('Please enter a search term.');
-    }
+  if (this.searchTerm.trim()) {
+    console.log('Searching for:', this.searchTerm);
+
+    // Fetch books from the service (or use existing data if already fetched)
+    this.getBookService.getBooks().subscribe(
+      (data) => {
+        // Filter the books based on the search term
+        this.books = data.filter(book =>
+          book.bookName.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
+
+        console.log('Filtered books:', this.books);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+  } else {
+    alert('Please enter a search term.');
   }
+}
+
 
   constructor(private getBookService: GetbooksService, private cardService: CardService) { }
 
