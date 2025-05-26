@@ -14,6 +14,7 @@ import { AdminSidebarComponent } from './admin/admin-sidebar/admin-sidebar.compo
 import { AdminusersComponent } from './admin/adminusers/adminusers.component';
 import { AddBookComponent } from './admin/add-book/add-book.component';
 import { UpdateBookComponent } from './admin/update-book/update-book.component';
+import { ViewUserComponent } from './admin/view-user/view-user.component';
 
 export const routes: Routes = [
     {path: "",component:LoginComponent},
@@ -28,7 +29,7 @@ export const routes: Routes = [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
-            { path: "admin-users", component: AdminusersComponent }
+            { path: "admin-users", component: ViewUserComponent }
 
 
         ]
