@@ -3,53 +3,45 @@ import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from '../login/login.component';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-register',
-  imports: [NavbarComponent,RouterModule,ReactiveFormsModule,CommonModule,LoginComponent],
+  imports: [NavbarComponent,RouterModule,ReactiveFormsModule,CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent implements OnInit{
-  regForm!: FormGroup;
+export class RegisterComponent {
+  regForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router){
-    this.regForm = fb.group({
-      firstName: fb.control('',[Validators.required]),
-      lastName: fb.control('',[Validators.required]),
-      email: fb.control('',[Validators.required,Validators.email]),
-      pass: fb.control('',[Validators.required]),
-      mobileNo: fb.control('',[Validators.required])
-    })
-  }
-
-  ngOnInit(): void {
-    this.regForm = this.fb.group({
-      fname: ['',Validators.required],
-      lname: ['',Validators.required],
+  constructor(private fb: FormBuilder,private router: Router, private userService:UserService){
+    this.regForm=this.fb.group({
+      firstName: ['',Validators.required],
+      lastName: ['',Validators.required],
       email: ['',[Validators.required,Validators.email]],
-    })
+      pass:['',[Validators.required]],
+      mobileNo:['',[Validators.required]],
+    });
   }
 
-  onSubmit(){
-    if(this.regForm.valid){
-      alert("Success...");
-      this.router.navigate(['/login']);
-    }
-    else{
-      console.log("Error...");
+  
+ onSubmit() {
+    if (this.regForm.valid) {
+      this.userService.registerUser(this.regForm.value).subscribe(
+        res => {
+          alert('User registered successfully!');
+          this.regForm.reset(); 
+        },
+        err => {
+          console.error('Registration error:', err);
+          alert('Registration failed. Please try again.');
+          console.log(this.regForm.value);
+        }
+      );
     }
   }
 
-  register():void
-  {
-    let user = {
-      firstName: this.regForm.get("firstName")?.value,
-      lastName: this.regForm.get("lastName")?.value,
-      email: this.regForm.get("email")?.value,
-      pass: this.regForm.get("pass")?.value,
-      mobileNo: this.regForm.get("mobileNo")?.value
-    }
-  }
+
+
 }
+

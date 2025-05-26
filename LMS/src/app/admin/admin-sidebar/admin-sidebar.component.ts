@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
-import { UserComponent } from '../../userProfile/user.component';
+
+import { ViewBookComponent } from '../view-book/view-book.component';
+import { UserComponent } from '../userProfile/user.component';
 
 @Component({
   selector: 'app-admin-sidebar',

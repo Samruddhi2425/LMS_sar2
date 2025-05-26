@@ -16,7 +16,10 @@ import { AddBookComponent } from './admin/add-book/add-book.component';
 import { UpdateBookComponent } from './admin/update-book/update-book.component';
 
 export const routes: Routes = [
+    { path: "", component: LoginComponent },
+
     { path: "login", component: LoginComponent },
+    {path:"register",component:RegisterComponent},
     { path: "home", component: HomeComponent },
     { path: "genre", component: GenreComponent },
     { path: "cart", component: CartComponent },

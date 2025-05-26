@@ -12,18 +12,18 @@
                 <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <label class="form-label">First Name</label>
-                        <input type="fname" class="form-control" id="fname" formControlName="fname"
+                        <input type="firstName" class="form-control" id="firstName" formControlName="firstName"
                             aria-describedby="fnameHelp">
-                        <div *ngIf="regForm.get('fname')?.invalid && regForm.get('fname')?.touched">
+                        <div *ngIf="regForm.get('firstName')?.invalid && regForm.get('firstName')?.touched">
                             Firstname is required.
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="lname" class="form-label">Last Name</label>
-                        <input type="lname" class="form-control" formControlName="lname" id="lname"
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="lastName" class="form-control" formControlName="lastName" id="lastName"
                             aria-describedby="lnameHelp">
-                        <div *ngIf="regForm.get('lname')?.invalid && regForm.get('lname')?.touched">
+                        <div *ngIf="regForm.get('lastName')?.invalid && regForm.get('lastName')?.touched">
                             Lastname is required.
                         </div>
                     </div>
@@ -42,17 +42,17 @@
                     <!-- Password Field -->
                     <div class="mb-3">
                         <div class="mb-3">
-  <label for="password" class="form-label">Password</label>
-  <input type="password" class="form-control" formControlName="pass" id="password">
+  <label for="pass" class="form-label">Password</label>
+  <input type="pass" class="form-control" formControlName="pass" id="pass">
 </div>
 
                     </div>
 
                     <div class="mb-3">
-                        <label for="mobile"
+                        <label for="mobileNo"
                             class="form-label">Mobile</label>
-                        <input type="mobile" class="form-control"
-                            id="Mobile" aria-describedby="Mobile" formControlName="mobile">
+                        <input type="mobileNo" class="form-control"
+                            id="mobileNo" aria-describedby="mobileNo" formControlName="mobileNo">
                     </div>
 
                     <!-- Login Button -->
