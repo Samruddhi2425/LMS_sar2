@@ -3,17 +3,26 @@ import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-register',
-  imports: [NavbarComponent,RouterModule,ReactiveFormsModule,CommonModule],
+  imports: [NavbarComponent,RouterModule,ReactiveFormsModule,CommonModule,LoginComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
 export class RegisterComponent implements OnInit{
   regForm!: FormGroup;
 
-  constructor(private fb: FormBuilder,private router: Router){}
+  constructor(private fb: FormBuilder,private router: Router){
+    this.regForm = fb.group({
+      firstName: fb.control('',[Validators.required]),
+      lastName: fb.control('',[Validators.required]),
+      email: fb.control('',[Validators.required,Validators.email]),
+      pass: fb.control('',[Validators.required]),
+      mobileNo: fb.control('',[Validators.required])
+    })
+  }
 
   ngOnInit(): void {
     this.regForm = this.fb.group({
@@ -35,6 +44,12 @@ export class RegisterComponent implements OnInit{
 
   register():void
   {
-    
+    let user = {
+      firstName: this.regForm.get("firstName")?.value,
+      lastName: this.regForm.get("lastName")?.value,
+      email: this.regForm.get("email")?.value,
+      pass: this.regForm.get("pass")?.value,
+      mobileNo: this.regForm.get("mobileNo")?.value
+    }
   }
 }
