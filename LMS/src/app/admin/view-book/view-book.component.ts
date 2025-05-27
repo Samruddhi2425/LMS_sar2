@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { GetbooksService } from '../../service/getbooks.service';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Route,RouterModule, RouterOutlet } from '@angular/router';
 
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { UserComponent } from '../userProfile/user.component';
+import { UpdateBookComponent } from '../update-book/update-book.component';
 
 
 interface Books {
@@ -19,7 +20,7 @@ interface Books {
 
 @Component({
   selector: 'app-view-book',
-  imports: [CommonModule,RouterModule,UserComponent], 
+  imports: [CommonModule,RouterModule,UserComponent,UpdateBookComponent], 
   templateUrl: './view-book.component.html',
   
   providers:[GetbooksService],
@@ -28,11 +29,12 @@ interface Books {
 export class ViewBookComponent implements OnInit{
   books:any[]=[];
   issueBooks:any[]=[];
-returnedBooks: any[] = [];
+  returnedBooks: any[] = [];
 
-constructor(private getBookService: GetbooksService, private getIssueService: IssuebooksService ){
-  
-}
+  constructor(private getBookService: GetbooksService, 
+            private getIssueService: IssuebooksService,
+            ){}
+
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
       (data) => {
@@ -56,5 +58,9 @@ constructor(private getBookService: GetbooksService, private getIssueService: Is
   );
 
   }
+// goToUpdateBook(bookId:number): void{
+
+// //  this.router.navigate(['/admin/viewBooks/update_book', bookId]);
+// }
 
 }
