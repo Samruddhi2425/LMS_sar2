@@ -1,4 +1,4 @@
-<form (ngSubmit)="updateBook()" #bookForm="ngForm" class="book-form">
+<form  (ngSubmit)="updateBook()"  #bookForm="ngForm" class="book-form">
 
   <h2 class="form-title">📚 Update Book</h2>
 
@@ -32,7 +32,7 @@
     <input type="number" name="quantity" id="quantity" [(ngModel)]="book.quantity" min="1" required />
   </div>
 
-  <button type="submit" [disabled]="!bookForm.form.valid" class="submit-btn">
+  <button  type="submit" [disabled]="!bookForm.form.valid" class="submit-btn" >
     Update Book
   </button>
 </form>
