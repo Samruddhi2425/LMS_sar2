@@ -23,13 +23,19 @@ export const routes: Routes = [
     { path: "genre", component: GenreComponent },
     { path: "cart", component: CartComponent },
     { path: "book", component: BookdescriptionComponent },
-    {
-        path: "admin", component:  AdminComponent,
+   // app-routing.module.ts (or your routing module)
+
+     { path: 'admin/updateBook/:id', component: UpdateBookComponent },
+
+
+
+      {  path: "admin", component:  AdminComponent,
         children: [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
             { path: "admin-users", component: ViewUserComponent }
+            
 
 
         ]
@@ -41,7 +47,6 @@ export const routes: Routes = [
     { path: "register", component: RegisterComponent },
     { path: "home", component: HomeComponent },
     { path: "userProfile", component: UserComponent },
-    {path:"addBook",component:AddBookComponent},
-    {path:"updateBook",component:UpdateBookComponent}
+    {path:"addBook",component:AddBookComponent}
 
 ];
