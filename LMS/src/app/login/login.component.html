@@ -5,21 +5,21 @@
            
 
             <div class="col-md-6 col-lg-4">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                     <fieldset class="border p-3 rounded">
                         <legend class="float-none w-auto px-2">Login</legend>
                         
                         <!-- Email Field -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" formControlName="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+                            <input type="email" formControlName="email" [(ngModel)]="email" class="form-control" id="email" aria-describedby="emailHelp" required>
                             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
                         
                         <!-- Password Field -->
                         <div class="mb-3">
                             <label for="pass" class="form-label">Password</label>
-                            <input type="pass" formControlName="pass" class="form-control" id="pass" required>
+                            <input type="pass" formControlName="pass" [(ngModel)]="pass" class="form-control" id="pass" required>
                         </div>
                         
                         

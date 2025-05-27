@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 export class IssuebooksService {
   private baseUrl = "https://localhost:7252/api/IssueBook";
   constructor(private http : HttpClient) { }
+
+  issueBookData :any[]=[]
+
   getIssuBook(): Observable<any[]>{
     return this.http.get<any[]>(this.baseUrl+"/ViewAllIssueBook");
   }
@@ -14,5 +17,13 @@ export class IssuebooksService {
   addIssBook(IssueData:any): Observable<any[]>{
     return this.http.post<any[]>(this.baseUrl+"/AddIssuBook", IssueData);
   }
+
+  issueBookByUser(userId:number):Observable<any[]>{
+    return this.http.get<any[]>(this.baseUrl + `/IssueBookById/${userId}`)
+  }
+
+  // issueBookByUser(userId:number):number{
+  //   return this.issueBookData.filter(issue => issue.userId === userId).length;
+  // }
 
 }
