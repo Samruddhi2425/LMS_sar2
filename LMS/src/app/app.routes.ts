@@ -15,6 +15,7 @@ import { AdminusersComponent } from './admin/adminusers/adminusers.component';
 import { AddBookComponent } from './admin/add-book/add-book.component';
 import { UpdateBookComponent } from './admin/update-book/update-book.component';
 import { ViewUserComponent } from './admin/view-user/view-user.component';
+import { ManagerComponent } from './manager/manager/manager.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -40,10 +41,10 @@ export const routes: Routes = [
 
         ]
     },
-    // {
-    //     path: "manager", component: ManagerComponent,
-    //     children: []
-    // },
+    {
+        path: "manager", component: ManagerComponent,
+        children: []
+    },
     { path: "register", component: RegisterComponent },
     { path: "home", component: HomeComponent },
     { path: "userProfile", component: UserComponent },
