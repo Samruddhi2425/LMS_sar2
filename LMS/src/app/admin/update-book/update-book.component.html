@@ -32,6 +32,15 @@
     <input type="number" name="quantity" id="quantity" [(ngModel)]="book.quantity" min="1" required />
   </div>
 
+  <div class="form-group">
+        <label for="image">Book Cover</label>
+    <!-- <input type="text" name="img" id="img" [(ngModel)]="book.base64Image" required /> -->
+    <div>
+      <img [src]="'data:image/png;base64,' + book.base64Image" class="img-thumbnail book-img" class="card-img-top fixed-image" alt="Book Image">
+    </div>
+        <input type="file" (change)="onFileChange($event)"id="image" required />
+  </div>
+
   <button  type="submit" [disabled]="!bookForm.form.valid" class="submit-btn" >
     Update Book
   </button>

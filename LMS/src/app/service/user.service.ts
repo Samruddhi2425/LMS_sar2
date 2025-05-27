@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   providedIn: 'root'
 })
 export class UserService {
+  issueBookData: any[]=[];
 private apiUrl = 'https://localhost:7252/api/Users/register';
   constructor(private http: HttpClient) { }
   registerUser(userData: any): Observable<any> {
