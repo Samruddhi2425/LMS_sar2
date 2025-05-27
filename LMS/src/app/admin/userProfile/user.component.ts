@@ -14,8 +14,11 @@ import { IssuebooksService } from '../../service/issuebooks.service';
 
 export class UserComponent {
 //IssueBook
+books:any[]=[];
 issueBooks:any[]=[];
-returnedBooks: any[] = [];
+returnedBooks: any[]=[];
+
+bookMap:{[key:string]:string}={};
 
 constructor(private getIssueService: IssuebooksService){}
 
@@ -32,6 +35,9 @@ constructor(private getIssueService: IssuebooksService){}
     console.error('Error while feting issue data');
     }
   );
+  this.books.forEach(book=>{
+    this.bookMap[book.bookId] = book.bookTitle;
+  })
  }
 
  

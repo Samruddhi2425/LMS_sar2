@@ -21,7 +21,6 @@
             Select Role
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/admin">Admin</a></li>
             <li><a class="dropdown-item" href="/manager">Manager</a></li>
             <li>
               <hr class="dropdown-divider">
@@ -37,7 +36,7 @@
         </li>
 
       </ul>
-      
+      <div *ngIf="role">Logged in as: {{ role | titlecase }}</div>
     </div>
 
     <div class=" m-2">

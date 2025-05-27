@@ -1,299 +1,316 @@
 <app-navbar></app-navbar>
 
 <div class="container-fluid">
-    <div class="row">
-        <!-- welcome -->
-        <div class="welcome-section">
-            <div class="welcome-content">
-                <h1>Welcome to Our Digital Library</h1>
-                <p class="lead">Discover, Learn, and Explore Our Vast Collection of Resources</p>
-                <div class="welcome-features">
-                    <div class="feature">
-                        <i class="fas fa-book-open"></i>
-                        <p>Access thousands of books, journals, and multimedia</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-search"></i>
-                        <p>Powerful search tools to find exactly what you need</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-clock"></i>
-                        <p>24/7 online access to digital resources</p>
-                    </div>
-                </div>
-                <div class="welcome-actions">
-                    <a href="/genre" class="btn btn-primary">Browse Catalog</a>
-                    <a href="/login" class="btn btn-secondary">Member Login</a>
-                </div>
-            </div>
-            <div class="welcome-image">
-                
-                <img src="/images/HERO.jpg" alt="Modern library interior with books and reading spaces" style="object-fit:cover;">
-            </div>
+  <div class="row">
+    <!-- welcome -->
+    <div class="welcome-section">
+      <div class="welcome-content">
+        <h1>Welcome to Our Digital Library</h1>
+        <p class="lead">Discover, Learn, and Explore Our Vast Collection of Resources</p>
+        <div class="welcome-features">
+          <div class="feature">
+            <i class="fas fa-book-open"></i>
+            <p>Access thousands of books, journals, and multimedia</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-search"></i>
+            <p>Powerful search tools to find exactly what you need</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-clock"></i>
+            <p>24/7 online access to digital resources</p>
+          </div>
         </div>
+        <div class="welcome-actions">
+          <a href="/genre" class="btn btn-primary">Browse Catalog</a>
+          <a href="/login" class="btn btn-secondary">Member Login</a>
+        </div>
+      </div>
+      <div class="welcome-image">
 
-        <!-- search section -->
-         <form (ngSubmit)="onSearch()">
-  <div class="input-group mb-3">
-    <input 
-      type="text" 
-      class="form-control" 
-      placeholder="Search..."
-      [(ngModel)]="searchTerm"
-      name="searchTerm"
-      required
-    >
-    <button class="btn btn-primary" type="submit">Search</button>
+        <img src="/images/HERO.jpg" alt="Modern library interior with books and reading spaces"
+          style="object-fit:cover;">
+      </div>
+    </div>
+
+    <!-- search section -->
+<div class="row text-center">
+  <!-- Search Input and Button -->
+   <div class="col-3 p-1">
+   </div>
+   <div class="col-5 p-1">
+<input type="text" [(ngModel)]="searchTerm" placeholder="Search by book name" class="form-control">
+  
+   </div>
+   <div class="col-2 p-2">
+    <button (click)="onSearch()" class="btn btn-success">Search</button>
+
+   </div>
+   <div class="col-2 p-2">  
+   </div>
   </div>
-</form>
+
+<div *ngIf="books.length === 0 && searchTerm.trim()">
+  <p>No books found for "{{ searchTerm }}".</p>
+</div>
+
+<div *ngIf="books.length > 0">
+  <!-- <div *ngFor="let book of books">
+    <h3>{{ book.bookName }}</h3>
+    <p>{{ book.authorName }}</p>
+  </div> -->
+</div>
 
 
-        <!-- card section -->
-        <div class="col-md-3" *ngFor="let book of books" (click)="selecteItem(book)">
-            <div class="card">
-              <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image" alt="Book Image">
-                <div class="card-body">
-                    <h5 class="card-title">{{book.bookName}}</h5>
-                    <p class="card-text">by {{book.authorName}}</p>
-                    <p class="card-text">{{book.genre}}</p>
-                    <p class="card-text">ISBN - {{book.isbn}}</p>
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <!-- <span class="h5 mb-0">Quantity - {{book.quantity}}</span> -->
-                        <!-- <div class="rating">
+    <!-- card section -->
+    <div class="col-md-3" *ngFor="let book of books" (click)="selecteItem(book)">
+      <div class="card">
+        <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image" alt="Book Image">
+        <div class="card-body">
+          <h5 class="card-title">{{book.bookName}}</h5>
+          <p class="card-text">by {{book.authorName}}</p>
+          <p class="card-text">{{book.genre}}</p>
+          <p class="card-text">ISBN - {{book.isbn}}</p>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <!-- <span class="h5 mb-0">Quantity - {{book.quantity}}</span> -->
+            <!-- <div class="rating">
                                 ★★★★☆ <small class="text-muted">(4.2)</small>
                             </div> -->
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-success" type="button" data-bs-toggle="modal"
-                            data-bs-target="#productModal" routerLink="/book">Quick View</button>
-                        <button class="btn btn-outline-secondary" type="button" id="addToCartBtn" (click)="addToCart(book)">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+          </div>
+          <div class="d-grid gap-2">
+            <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#productModal"
+              routerLink="/book">Quick View</button>
+            <button class="btn btn-outline-secondary" type="button" id="addToCartBtn" (click)="addToCart(book)">Add to
+              Cart</button>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <!-- genere wise -->
+    <!-- genere wise -->
     <section class="category-carousel">
-    <div class="container">
-      <h2 class="mb-4 text-center fw-bold">📚 Popular Book Categories</h2>
-      <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
+      <div class="container">
+        <h2 class="mb-4 text-center fw-bold">📚 Popular Book Categories</h2>
+        <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
 
-          <div class="carousel-item active">
-            <div class="row row-cols-2 row-cols-md-5 g-2">
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/fiction.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>Fiction</h6>
+            <div class="carousel-item active">
+              <div class="row row-cols-2 row-cols-md-5 g-2">
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/fiction.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>Fiction</h6>
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/science.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>Science</h6>
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/science.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>Science</h6>
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/history.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>History</h6>
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/history.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>History</h6>
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/comics.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>Comics</h6>
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/comics.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>Comics</h6>
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/romance.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>Romance</h6>
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/romance.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>Romance</h6>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="carousel-item">
-            <div class="row row-cols-2 row-cols-md-5 g-2">
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/fantasy.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>Fantasy</h6>
+            <div class="carousel-item">
+              <div class="row row-cols-2 row-cols-md-5 g-2">
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/fantasy.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>Fantasy</h6>
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/biography.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>Biography</h6>
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/biography.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>Biography</h6>
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/tech.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>Technology</h6>
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/tech.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>Technology</h6>
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/adventure.png" class="card-img-top fixed-image" alt="Book">
-                  <h6>Adventure</h6>
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/adventure.png" class="card-img-top fixed-image" alt="Book">
+                    <h6>Adventure</h6>
+                  </div>
                 </div>
-              </div>
-              <div class="col">
-                <div class="book-card">
-                  <img src="/images/health.jpg" class="card-img-top fixed-image" alt="Book">
-                  <h6>Health</h6>
+                <div class="col">
+                  <div class="book-card">
+                    <img src="/images/health.jpg" class="card-img-top fixed-image" alt="Book">
+                    <h6>Health</h6>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
 
-        </div>
-
-        <!-- Controls -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-        <!-- about us -->
-          <section class="about-section text-center text-md-start" id="aboutus">
-    <div class="container">
-      <div class="row align-items-center">
-        <!-- Text Content -->
-        <div class="col-md-6 mb-4 mb-md-0">
-          <h2 class="text-primary h4">About Our Library</h2>
-          <p>
-            Welcome to our Library Management System — your digital gateway to knowledge and discovery.
-            Our mission is to simplify the way readers and administrators manage, search, and interact with books.
-            From organizing categories to real-time availability, we ensure a seamless and enriching experience for every user.
-          </p>
-          <p>
-            Designed with the latest technology and a passion for learning, our system empowers libraries to go beyond shelves and embrace the future.
-            Whether you're a student, a researcher, or a lifelong reader, we're here to support your journey.
-          </p>
-        </div>
-
-        <!-- Image Content -->
-        <div class="col-md-6">
-          <img src="/images/herolibrary.jpg" alt="Library Team" class="team-image">
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- about us -->
+    <section class="about-section text-center text-md-start" id="aboutus">
+      <div class="container">
+        <div class="row align-items-center">
+          <!-- Text Content -->
+          <div class="col-md-6 mb-4 mb-md-0">
+            <h2 class="text-primary h4">About Our Library</h2>
+            <p>
+              Welcome to our Library Management System — your digital gateway to knowledge and discovery.
+              Our mission is to simplify the way readers and administrators manage, search, and interact with books.
+              From organizing categories to real-time availability, we ensure a seamless and enriching experience for
+              every user.
+            </p>
+            <p>
+              Designed with the latest technology and a passion for learning, our system empowers libraries to go beyond
+              shelves and embrace the future.
+              Whether you're a student, a researcher, or a lifelong reader, we're here to support your journey.
+            </p>
+          </div>
+
+          <!-- Image Content -->
+          <div class="col-md-6">
+            <img src="/images/herolibrary.jpg" alt="Library Team" class="team-image">
+          </div>
+        </div>
+      </div>
+    </section>
 
 
-  <!--  contact us -->
+    <!--  contact us -->
     <div class="container" id="contactus">
-  <div class="contact-section row align-items-center">
-    <!-- Left: Image -->
-    <div class="col-md-6 mb-4 mb-md-0">
-      <img src="/images/contact.png" alt="Contact Us" class="contact-image w-100">
+      <div class="contact-section row align-items-center">
+        <!-- Left: Image -->
+        <div class="col-md-6 mb-4 mb-md-0">
+          <img src="/images/contact.png" alt="Contact Us" class="contact-image w-100">
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div class="col-md-6">
+          <h2 class="mb-4">Contact Us</h2>
+          <p class="mb-4 text-muted">Have questions or need help with our Library Management System? Reach out to us and
+            we’ll respond as soon as we can.</p>
+
+          <div class="info-box">
+            <i class="bi bi-telephone info-icon"></i>
+            <span>+91 98765 43210</span>
+          </div>
+          <div class="info-box">
+            <i class="bi bi-envelope info-icon"></i>
+            <span>support&#64;librarysystem.com</span>
+          </div>
+          <div class="info-box">
+            <i class="bi bi-geo-alt info-icon"></i>
+            <span>123 Library Lane, Book City, India</span>
+          </div>
+
+          <form>
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="mb-3">
+              <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-send">Send Message</button>
+          </form>
+        </div>
+      </div>
     </div>
 
-    <!-- Right: Contact Form -->
-    <div class="col-md-6">
-      <h2 class="mb-4">Contact Us</h2>
-      <p class="mb-4 text-muted">Have questions or need help with our Library Management System? Reach out to us and we’ll respond as soon as we can.</p>
+    <!--  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- footer section -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 footer-section">
+            <div class="footer-logo">NetraLibrary</div>
+            <p class="footer-about">We are dedicated to providing the best service to our customers. Our
+              mission
+              is to create innovative solutions that make a difference in people's lives.</p>
+            <div class="social-links">
+              <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
 
-      <div class="info-box">
-        <i class="bi bi-telephone info-icon"></i>
-        <span>+91 98765 43210</span>
-      </div>
-      <div class="info-box">
-        <i class="bi bi-envelope info-icon"></i>
-        <span>support&#64;librarysystem.com</span>
-      </div>
-      <div class="info-box">
-        <i class="bi bi-geo-alt info-icon"></i>
-        <span>123 Library Lane, Book City, India</span>
-      </div>
+          <div class="col-lg-2 col-md-6 footer-section">
+            <h5>Quick Links</h5>
+            <ul class="footer-links">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Products</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">Careers</a></li>
+            </ul>
+          </div>
 
-      <form>
-        <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Your Name" required>
+          <div class="col-lg-2 col-md-6 footer-section">
+            <h5>Support</h5>
+            <ul class="footer-links">
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Contact Support</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 footer-section">
+            <h5>Newsletter</h5>
+            <p class="footer-about">Subscribe to our newsletter for updates, news, and exclusive offers.</p>
+            <div class="footer-newsletter">
+              <input type="email" placeholder="Enter your email">
+              <button class="newsletter-btn">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="mb-3">
-          <input type="email" class="form-control" placeholder="Your Email" required>
+
+        <div class="footer-bottom">
+          <ul class="footer-bottom-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+          <p>© 2024 CompanyName. All rights reserved.</p>
         </div>
-        <div class="mb-3">
-          <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-send">Send Message</button>
-      </form>
-    </div>
+      </div>
+    </footer>
   </div>
 </div>
-
-<!--  -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-        <!-- footer section -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 footer-section">
-                        <div class="footer-logo">NetraLibrary</div>
-                        <p class="footer-about">We are dedicated to providing the best service to our customers. Our
-                            mission
-                            is to create innovative solutions that make a difference in people's lives.</p>
-                        <div class="social-links">
-                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-6 footer-section">
-                        <h5>Quick Links</h5>
-                        <ul class="footer-links">
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Products</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Careers</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-2 col-md-6 footer-section">
-                        <h5>Support</h5>
-                        <ul class="footer-links">
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Help Center</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms of Service</a></li>
-                            <li><a href="#">Contact Support</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-4 footer-section">
-                        <h5>Newsletter</h5>
-                        <p class="footer-about">Subscribe to our newsletter for updates, news, and exclusive offers.</p>
-                        <div class="footer-newsletter">
-                            <input type="email" placeholder="Enter your email">
-                            <button class="newsletter-btn">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="footer-bottom">
-                    <ul class="footer-bottom-links">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Cookie Policy</a></li>
-                    </ul>
-                    <p>© 2024 CompanyName. All rights reserved.</p>
-                </div>
-            </div>
-        </footer>
-    </div>
-</div>
- 
