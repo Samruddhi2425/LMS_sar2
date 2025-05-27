@@ -3,7 +3,7 @@ import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { RegisterComponent } from '../register/register.component';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,19 +14,22 @@ import { RouterModule } from '@angular/router';
 export class LoginComponent {
 loginForm: FormGroup;
 
-constructor(fb: FormBuilder){
-  this.loginForm = fb.group({
-    email: fb.control('',[Validators.required]),
-    pass: fb.control('',Validators.required)
-  })
-}
+  constructor(private fb: FormBuilder,private router: Router) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      pass: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
 
-onSubmit() {
-throw new Error('Method not implemented.');
-}
-
-login(){
-  
-}
-
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log('Form Submitted', this.loginForm.value);
+      // Handle login logic here
+      this.router.navigate(['/home']);
+    }
+    else{
+      alert("login failed...!")
+      this.loginForm.reset(); 
+    }
+  }
 }

@@ -36,6 +36,17 @@ export class AddBookComponent {
     this.http.post('https://localhost:7252/api/Books/AddBook', this.book)
       .subscribe(() => alert('Book Uploaded'));
       alert("data is successfully added");
+      //alert('Book Uploaded');
+
+    // ✅ Reset the book object
+    this.book = {
+      bookName: '',
+      authorName: '',
+      isbn: '',
+      genre: '',
+      quantity: '',
+      base64Image: ''
+    };
   }
 
 }

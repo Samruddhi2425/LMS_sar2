@@ -17,8 +17,9 @@ import { UpdateBookComponent } from './admin/update-book/update-book.component';
 import { ViewUserComponent } from './admin/view-user/view-user.component';
 
 export const routes: Routes = [
-    {path: "",component:LoginComponent},
+    { path: "", component: HomeComponent },
     { path: "login", component: LoginComponent },
+    {path:"register",component:RegisterComponent},
     { path: "home", component: HomeComponent },
     { path: "genre", component: GenreComponent },
     { path: "cart", component: CartComponent },
@@ -35,7 +36,6 @@ export const routes: Routes = [
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
             { path: "admin-users", component: ViewUserComponent }
-            
 
 
         ]
