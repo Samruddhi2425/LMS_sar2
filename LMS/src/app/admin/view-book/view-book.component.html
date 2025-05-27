@@ -28,7 +28,7 @@
     </div>
     <tbody>
         <tr *ngFor="let book of books">
-            <td>{{book.base64Image}}</td>
+            <td><img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image" alt="Book Image"></td>
             <td>{{book.bookId}}</td>
             <td>{{book.bookName}}</td>
             <td>{{book.authorName}}</td>
