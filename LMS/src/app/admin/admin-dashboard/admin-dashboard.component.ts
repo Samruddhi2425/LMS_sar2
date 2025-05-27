@@ -11,19 +11,32 @@ import { GetusersService } from '../../service/getusers.service';
 })
 export class AdminDashboardComponent {
 
-  totalBooks: any[]=[];
+  totalBooks!: number;
   totalUser!: number;
   totalIssueBooks: any[]=[];
   constructor(
     private getBooksService: GetbooksService, 
     private issueBooksService: IssuebooksService,
-    private getUsersService: GetusersService
-  ){
+    private getUsersService: GetusersService)
+  {
     getUsersService.getUsers().subscribe({
       next: (res:any[]) => {
         this.totalUser = res.length;
       }
-    })
+    });
+
+    getBooksService.getBooks().subscribe({
+      next:(res:any[])=>{
+        this.totalBooks = res.length;
+      }
+    });
+
+    issueBooksService.getIssuBook().subscribe({
+      next: (res:any)  =>{
+        this.totalIssueBooks = res.length;
+      }
+    });
+    
   }
 
 }
