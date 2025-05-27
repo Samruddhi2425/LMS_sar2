@@ -19,23 +19,26 @@ import { ViewUserComponent } from './admin/view-user/view-user.component';
 export const routes: Routes = [
     { path: "", component: HomeComponent },
     { path: "login", component: LoginComponent },
-    {path:"register",component:RegisterComponent},
+    { path: "register", component: RegisterComponent },
     { path: "home", component: HomeComponent },
     { path: "genre", component: GenreComponent },
     { path: "cart", component: CartComponent },
     { path: "book", component: BookdescriptionComponent },
-   // app-routing.module.ts (or your routing module)
+    // app-routing.module.ts (or your routing module)
 
-     { path: 'admin/updateBook/:id', component: UpdateBookComponent },
+    { path: 'admin/updateBook/:id', component: UpdateBookComponent },
 
 
 
-      {  path: "admin", component:  AdminComponent,
+    {
+        path: "admin", component: AdminComponent,
         children: [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
-            { path: "admin-users", component: ViewUserComponent }
+            { path: "admin-users", component: ViewUserComponent },
+            { path: 'update_book/:id', component: UpdateBookComponent }
+
 
 
         ]
@@ -47,6 +50,6 @@ export const routes: Routes = [
     { path: "register", component: RegisterComponent },
     { path: "home", component: HomeComponent },
     { path: "userProfile", component: UserComponent },
-    {path:"addBook",component:AddBookComponent}
+    { path: "addBook", component: AddBookComponent }
 
 ];

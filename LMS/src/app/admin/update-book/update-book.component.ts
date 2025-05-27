@@ -1,10 +1,11 @@
 import { Component,NgModule, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GetbooksService } from '../../service/getbooks.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-update-book',
-  imports: [RouterModule ],
+  imports: [RouterModule,FormsModule ],
   templateUrl: './update-book.component.html',
   styleUrl: './update-book.component.css'
 })

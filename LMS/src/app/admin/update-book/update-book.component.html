@@ -31,3 +31,8 @@
     <label for="quantity">Quantity</label>
     <input type="number" name="quantity" id="quantity" [(ngModel)]="book.quantity" min="1" required />
   </div>
+
+  <button type="submit" [disabled]="!bookForm.form.valid" class="submit-btn">
+    Update Book
+  </button>
+</form>
