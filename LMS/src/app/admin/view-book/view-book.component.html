@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let book of books">
-                            <td><img [src]="'data:image/png;base64,' + book.base64Image" class="img-thumbnail book-img" alt="Book Image"></td>
+                            <td><img [src]="'data:image/png;base64,' + book.base64Image" class="img-thumbnail book-img" class="card-img-top fixed-image" alt="Book Image"></td>
                             <td>{{book.bookId}}</td>
                             <td>{{book.bookName}}</td>
                             <td>{{book.authorName}}</td>
