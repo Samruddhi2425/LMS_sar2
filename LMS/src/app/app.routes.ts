@@ -17,8 +17,12 @@ import { UpdateBookComponent } from './admin/update-book/update-book.component';
 import { ViewUserComponent } from './admin/view-user/view-user.component';
 import { ManagerComponent } from './manager/manager/manager.component';
 import { ManagerdashboardComponent } from './manager/managerdashboard/managerdashboard.component';
-import { Component } from '@angular/core';
-import { AddManagerComponent } from './admin/add-manager/add-manager.component';
+import { MViewBookComponent } from './manager/m-view-book/m-view-book.component';
+import { MViewUserComponent } from './manager/m-view-user/m-view-user.component';
+import { UpdateManagerComponent } from './admin/update-manager/update-manager.component';
+import { MUpdateBookComponent } from './manager/m-update-book/m-update-book.component';
+import { MAddBookComponent } from './manager/m-add-book/m-add-book.component';
+
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -37,9 +41,14 @@ export const routes: Routes = [
             //{ path: '', redirectTo: 'managerLogin', pathMatch: 'full' },
             {path:'',component:LoginComponent},
             {path: 'managerdashboard', component: ManagerdashboardComponent },
-            {path: 'viewbook', component: ViewBookComponent},
-        //     {path:'manager-user', component: MViewUserComponent}
-        //     {path:'update_book/:id', component: MUpdateBookComponent}
+            {path: 'viewBook', component: MViewBookComponent},
+            {path: 'addbook', component:MAddBookComponent},
+            {path: 'viewUser', component: MViewUserComponent},
+            {path:'updateManager',component:UpdateManagerComponent},
+             {path:'update-book/:id', component: MUpdateBookComponent}
+            
+        
+           
          ]
     },
     {
@@ -49,8 +58,7 @@ export const routes: Routes = [
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
             { path: "admin-users", component: ViewUserComponent },
-            { path: 'update_book/:id', component: UpdateBookComponent },
-            { path: 'addManager',component:AddManagerComponent}
+            { path: 'update_book/:id', component: UpdateBookComponent }
         ]
     },
     { path: "register", component: RegisterComponent },
