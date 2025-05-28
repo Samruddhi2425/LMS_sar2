@@ -1,48 +1,4 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" style="position: sticky; top: 0; z-index: 1000; ">
-  <div class="container-fluid">
-    <!-- <a class="navbar-brand" href="#">Fixed top</a> -->
-     <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Returned Books</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="admin/viewBooks/#Pending-Book">Pending-Book</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="javascript:void(0)">Link</a>
-        </li>
-      </ul>
-  </div>
-</nav>
-
-<!-- <div class="container mt-4">
-    
-    <div>
-    <span>
-
-        <div>
-            <a>
-                <div><a href="#" class="btn btn-primary">Returned Books</a></div>
-            </a>
-        </div>
-        <div>
-            <a>
-                <div><a href="#" class="btn btn-primary">Returned Books</a></div>
-            </a>
-        </div>
-        <div>
-            <a>
-                <div><a href="#" class="btn btn-primary">Returned Books</a></div>
-            </a>
-        </div>
-
-    </span>
-    </div> -->
-
-
-
-
-
+<div class="container mt-4">
     <div class="container mt-3">
         <!-- Books Card -->
         <div class="card card-custom mb-3 shadow-sm">
@@ -77,8 +33,6 @@
                                 <a [routerLink]="['/admin/update_book', book.bookId]"
                                     class="btn btn-sm btn-outline-light">Edit</a>
                             </td>
-
-
                         </tr>
                     </tbody>
                 </table>
@@ -86,7 +40,7 @@
         </div>
     </div>
 
-    <div class="container mt-3" id="Pending-Book">
+    <div class="container mt-3">
         <!-- Pending Returns -->
         <div class="card card-custom mb-3 shadow-sm">
             <div class="card-header bg-dark text-white fw-bold">Pending Returns</div>
@@ -137,5 +91,5 @@
             </div>
         </div>
     </div>
-
+</div>
 <router-outlet />
