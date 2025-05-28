@@ -40,8 +40,6 @@ export class AddManagerComponent{
     // Set password only now
      this.addManagerForm.get('pass')?.setValue(password);
 
-    console.log('Form submitted with:', formValues);
-
     if (this.addManagerForm.valid) {
       this.userService.registerManager(fullData).subscribe(
         res => {
