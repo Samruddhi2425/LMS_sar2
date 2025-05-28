@@ -48,9 +48,9 @@ loginForm: FormGroup;
     (res: any) => {
       if (res.status === 'success') {
         if (res.userType === 'manager') {
-          this.router.navigate(['/manager-dashboard']);
+          this.router.navigate(['/admindashboard']);
         } else if (res.userType === 'user') {
-          this.router.navigate(['/user-dashboard']);
+          this.router.navigate(['/userProfile']);
         }
       } else {
         this.error = "Invalid login attempt";
