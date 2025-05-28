@@ -4,6 +4,14 @@ import { Router } from '@angular/router';
 import { UserService } from '../../service/user.service';
 import { CommonModule } from '@angular/common';
 
+interface Managers {
+  mId: number;
+  mfirstName: string;
+  mlastName: string;
+  email: string;
+  pass: string;
+  mobileNo: string;
+}
 
 @Component({
   selector: 'app-add-manager',
