@@ -14,14 +14,13 @@ import { ViewBookComponent } from '../view-book/view-book.component';
 })
 export class AdminSidebarComponent {
 
- toggleSidebar() {
-  const sidebar = document.querySelector('.sidebar');
-  if (sidebar) {
-    sidebar.classList.toggle('show');
-  }
-}
+isSidebarVisible = false;
 
-isSidebarVisible: boolean = false;
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
+  }
+
+// isSidebarVisible: boolean = false;
 
 // toggleSidebar() {
 //   this.isSidebarVisible = !this.isSidebarVisible;
