@@ -4,55 +4,84 @@ import { Router } from '@angular/router';
 import { UserService } from '../../service/user.service';
 import { CommonModule } from '@angular/common';
 
+interface Managers {
+  mId: number;
+  mfirstName: string;
+  mlastName: string;
+  email: string;
+  pass: string;
+  mobileNo: string;
+}
+
 @Component({
   selector: 'app-add-manager',
-  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './add-manager.component.html',
-  styleUrl: './add-manager.component.css'
+  styleUrls: ['./add-manager.component.css'],
+  imports: [CommonModule, ReactiveFormsModule],
+  providers: [UserService]
 })
-export class AddManagerComponent{
+export class AddManagerComponent implements OnInit {
 
-  addManagerForm: FormGroup;
+  addManagerForm!: FormGroup;
+  managers: any[] = [];
 
-  constructor(private fb: FormBuilder,private router: Router, private userService:UserService){
-    this.addManagerForm=this.fb.group({
-      mfirstName: ['',Validators.required],
-      mlastName: ['',Validators.required],
-      email: ['',[Validators.required,Validators.email]],
-      // pass:['',[Validators.required]],
-      mobileNo:['',[Validators.required]],
-    });  
-    
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
+  ) { }
+
+  ngOnInit(): void {
+    this.addManagerForm = this.fb.group({
+      mfirstName: ['', Validators.required],
+      mlastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      mobileNo: ['', Validators.required]
+    });
+
+    this.userService.getManagers().subscribe(
+      (data) => {
+        this.managers = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching managers:', error);
+      }
+    )
   }
-  
 
-  
- onSubmit() {  
-  const formValues = this.addManagerForm.value;
-    
+  onSubmit(): void {
+    if (this.addManagerForm.invalid) {
+      this.addManagerForm.markAllAsTouched();
+      alert('Please fill in all required fields correctly.');
+      return;
+    }
+
+    const formValues = this.addManagerForm.value;
     const password = formValues.mfirstName + '123';
 
     const fullData = {
       ...formValues,
-      pass:password
+      pass: password
     };
 
-    // Set password only now
-     this.addManagerForm.get('pass')?.setValue(password);
-
-    if (this.addManagerForm.valid) {
-      this.userService.registerManager(fullData).subscribe(
-        res => {
-          const password = this.addManagerForm.get('mfirstName')?.value+'123';
-          alert('Manager registered successfully!');
-          this.addManagerForm.reset(); 
-        },
-        err => {
-          console.error('Registration error:', err);
-          alert('Registration failed. Please try again.');
-          console.log(this.addManagerForm.value);
-        }
-      );
-    }
+    this.userService.registerManager(fullData).subscribe(
+      (res: any) => {
+        alert(res.message || 'Manager registered successfully!');
+        this.addManagerForm.reset();
+        this.router.navigate(['/login']);
+      },
+      (err: any) => {
+        console.error('Registration error:', err);
+        alert(err.error?.message || 'Registration failed. Please try again.');
+      }
+    );
   }
+
+  updateManager(){
+
+  }
+
+  
+
 }

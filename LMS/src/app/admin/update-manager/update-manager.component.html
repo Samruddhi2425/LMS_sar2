@@ -1,0 +1,34 @@
+<p>update-manager works!</p>
+<form  (ngSubmit)="updateManager()"  #managerForm="ngForm" class="manager-form">
+
+  <h2 class="form-title">📚 Update Book</h2>
+
+  <div class="form-group">
+    <label for="bookId">Manager ID</label>
+    <input type="number" name="mId" id="mId" [(ngModel)]="manager.mId" readonly required />
+  </div>
+
+  <div class="form-group">
+    <label for="mfirstName">Book Name</label>
+    <input type="text" name="mfirstName" id="mfirstName" [(ngModel)]="manager.mfirstName" required />
+  </div>
+
+  <div class="form-group">
+    <label for="mlastName">Author</label>
+    <input type="text" name="mlastName" id="mlastName" [(ngModel)]="manager.mlastName" required />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="text" name="email" id="email" [(ngModel)]="manager.email" required />
+  </div>
+
+  <div class="form-group">
+    <label for="mobileNo">MobileNo</label>
+    <input type="text" name="mobileNo" id="mobileNo" [(ngModel)]="manager.mobileNo" required />
+  </div>
+
+  <button  type="submit" [disabled]="!managerForm.form.valid" class="submit-btn" >
+    Update Book
+  </button>
+</form>

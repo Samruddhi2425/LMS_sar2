@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CardService } from '../../card.service';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   providers: [CardService],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
