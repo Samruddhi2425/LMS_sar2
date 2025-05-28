@@ -18,6 +18,7 @@ import { ViewUserComponent } from './admin/view-user/view-user.component';
 import { ManagerComponent } from './manager/manager/manager.component';
 import { ManagerdashboardComponent } from './manager/managerdashboard/managerdashboard.component';
 import { Component } from '@angular/core';
+import { AddManagerComponent } from './admin/add-manager/add-manager.component';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -48,7 +49,8 @@ export const routes: Routes = [
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
             { path: "admin-users", component: ViewUserComponent },
-            { path: 'update_book/:id', component: UpdateBookComponent }
+            { path: 'update_book/:id', component: UpdateBookComponent },
+            { path: 'addManager',component:AddManagerComponent}
         ]
     },
     { path: "register", component: RegisterComponent },
