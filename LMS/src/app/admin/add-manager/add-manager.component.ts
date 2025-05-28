@@ -16,8 +16,8 @@ export class AddManagerComponent{
 
   constructor(private fb: FormBuilder,private router: Router, private userService:UserService){
     this.addManagerForm=this.fb.group({
-      firstName: ['',Validators.required],
-      lastName: ['',Validators.required],
+      mfirstName: ['',Validators.required],
+      mlastName: ['',Validators.required],
       email: ['',[Validators.required,Validators.email]],
       // pass:['',[Validators.required]],
       mobileNo:['',[Validators.required]],
@@ -30,7 +30,7 @@ export class AddManagerComponent{
  onSubmit() {  
   const formValues = this.addManagerForm.value;
     
-    const password = formValues.firstName + '123';
+    const password = formValues.mfirstName + '123';
 
     const fullData = {
       ...formValues,
@@ -43,7 +43,7 @@ export class AddManagerComponent{
     if (this.addManagerForm.valid) {
       this.userService.registerManager(fullData).subscribe(
         res => {
-          const password = this.addManagerForm.get('firstName')?.value+'123';
+          const password = this.addManagerForm.get('mfirstName')?.value+'123';
           alert('Manager registered successfully!');
           this.addManagerForm.reset(); 
         },

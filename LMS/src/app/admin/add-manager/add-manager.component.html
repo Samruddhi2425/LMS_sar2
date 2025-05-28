@@ -9,8 +9,8 @@
                 <form [formGroup]="addManagerForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <label class="form-label">First Name</label>
-                        <input type="firstName" class="form-control"
-                            id="firstName" formControlName="firstName"
+                        <input type="text" class="form-control"
+                            id="mfirstName" formControlName="mfirstName"
                             aria-describedby="fnameHelp">
                         <div
                             *ngIf="addManagerForm.get('firstName')?.invalid && addManagerForm.get('firstName')?.touched">
@@ -21,8 +21,8 @@
                     <div class="mb-3">
                         <label for="lastName" class="form-label">Last
                             Name</label>
-                        <input type="lastName" class="form-control"
-                            formControlName="lastName" id="lastName"
+                        <input type="text" class="form-control"
+                            formControlName="mlastName" id="mlastName"
                             aria-describedby="lnameHelp">
                         <div
                             *ngIf="addManagerForm.get('lastName')?.invalid && addManagerForm.get('lastName')?.touched">
