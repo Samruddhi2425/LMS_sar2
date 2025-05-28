@@ -14,10 +14,7 @@ import { UpdateBookComponent } from './admin/update-book/update-book.component';
 import { ViewUserComponent } from './admin/view-user/view-user.component';
 import { ManagerComponent } from './manager/manager/manager.component';
 import { ManagerdashboardComponent } from './manager/managerdashboard/managerdashboard.component';
-import { MViewBookComponent } from './manager/m-view-book/m-view-book.component';
-import { MViewUserComponent } from './manager/m-view-user/m-view-user.component';
 import { UpdateManagerComponent } from './admin/update-manager/update-manager.component';
-import { MUpdateBookComponent } from './manager/m-update-book/m-update-book.component';
 import { AddManagerComponent } from './admin/add-manager/add-manager.component';
 
 
