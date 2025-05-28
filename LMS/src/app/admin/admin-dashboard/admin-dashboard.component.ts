@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GetbooksService } from '../../service/getbooks.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { GetusersService } from '../../service/getusers.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -13,11 +14,13 @@ export class AdminDashboardComponent {
 
   totalBooks!: number;
   totalUser!: number;
+  totalManagers!:number;
   totalIssueBooks: any[]=[];
   constructor(
     private getBooksService: GetbooksService, 
     private issueBooksService: IssuebooksService,
-    private getUsersService: GetusersService)
+    private getUsersService: GetusersService,
+  private userService:UserService)
   {
     getUsersService.getUsers().subscribe({
       next: (res:any[]) => {
@@ -36,6 +39,12 @@ export class AdminDashboardComponent {
         this.totalIssueBooks = res.length;
       }
     });
+
+    userService.getManagers().subscribe({
+      next: (res:any)  =>{
+        this.totalManagers = res.length;
+      }
+    })
     
   }
 
