@@ -78,8 +78,12 @@ export class AddManagerComponent implements OnInit {
     );
   }
 
-  updateManager(){
+  updateManagerBtn(){
+    this.router.navigate(['/admin/updateManager']);
+  }
 
+  deleteManagerBtn(){
+    
   }
 
   
