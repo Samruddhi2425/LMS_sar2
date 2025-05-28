@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ManagersidebarComponent } from '../managersidebar/managersidebar.component';
 
 @Component({
   selector: 'app-manager',
-  imports: [],
+  imports: [RouterOutlet, ManagersidebarComponent],
   templateUrl: './manager.component.html',
   styleUrl: './manager.component.css'
 })
