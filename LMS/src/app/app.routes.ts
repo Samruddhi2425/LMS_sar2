@@ -32,12 +32,11 @@ export const routes: Routes = [
 
     {path:"manager", component: ManagerComponent,
         children: [
-            { path: '', redirectTo: 'managerdashboard', pathMatch: 'full' },
+            //{ path: '', redirectTo: 'managerLogin', pathMatch: 'full' },
+            {path:'',component:LoginComponent},
             { path: 'managerdashboard', component: ManagerdashboardComponent },
-
         ]
     },
-
     {
         path: "admin", component: AdminComponent,
         children: [
@@ -46,14 +45,7 @@ export const routes: Routes = [
             { path: "viewBooks", component: ViewBookComponent },
             { path: "admin-users", component: ViewUserComponent },
             { path: 'update_book/:id', component: UpdateBookComponent }
-
-
-
         ]
-    },
-    {
-        path: "manager", component: ManagerComponent,
-        children: []
     },
     { path: "register", component: RegisterComponent },
     { path: "home", component: HomeComponent },
