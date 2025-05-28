@@ -22,6 +22,7 @@ import { MViewUserComponent } from './manager/m-view-user/m-view-user.component'
 import { UpdateManagerComponent } from './admin/update-manager/update-manager.component';
 import { MUpdateBookComponent } from './manager/m-update-book/m-update-book.component';
 import { MAddBookComponent } from './manager/m-add-book/m-add-book.component';
+import { AddManagerComponent } from './admin/add-manager/add-manager.component';
 
 
 export const routes: Routes = [
@@ -44,7 +45,6 @@ export const routes: Routes = [
             {path: 'viewBook', component: MViewBookComponent},
             {path: 'addbook', component:MAddBookComponent},
             {path: 'viewUser', component: MViewUserComponent},
-            {path:'updateManager',component:UpdateManagerComponent},
              {path:'update-book/:id', component: MUpdateBookComponent}
             
         
@@ -58,6 +58,8 @@ export const routes: Routes = [
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
             { path: "admin-users", component: ViewUserComponent },
+            {path:'addManager',component:AddManagerComponent},
+            {path:'updateManager',component:UpdateManagerComponent},
             { path: 'update_book/:id', component: UpdateBookComponent }
         ]
     },

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../service/user.service';
@@ -10,7 +10,7 @@ import { UserService } from '../../service/user.service';
   templateUrl: './update-manager.component.html',
   styleUrl: './update-manager.component.css'
 })
-export class UpdateManagerComponent {
+export class UpdateManagerComponent implements OnInit{
 
   mId!: number;
   // book: any = {
@@ -32,7 +32,7 @@ export class UpdateManagerComponent {
 
 
   ngOnInit(): void {
-    this.mId = +this.route.snapshot.paramMap.get('id')!;
+    this.mId = +this.route.snapshot.paramMap.get('mId')!;
     this.loadManager();
   }
   loadManager() {
