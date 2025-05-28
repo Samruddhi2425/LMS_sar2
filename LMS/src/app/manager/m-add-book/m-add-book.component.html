@@ -1,0 +1,75 @@
+<div class="page-wrapper">
+  <div class="form-container">
+    <form (submit)="uploadBook()" class="book-form">
+      <h2 class="form-title">📚 Add a New Book</h2>
+
+      <div class="form-group">
+        <label for="bookName">Book Name</label>
+        <input
+          type="text"
+          [(ngModel)]="book.bookName"
+          name="bookName"
+          id="bookName"
+          placeholder="e.g. The Alchemist"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="authorName">Author</label>
+        <input
+          type="text"
+          [(ngModel)]="book.authorName"
+          name="authorName"
+          id="authorName"
+          placeholder="e.g. Paulo Coelho"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <input
+          type="text"
+          [(ngModel)]="book.isbn"
+          name="isbn"
+          id="isbn"
+          placeholder="e.g. 978-3-16-148410-0"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <input
+          type="text"
+          [(ngModel)]="book.genre"
+          name="genre"
+          id="genre"
+          placeholder="e.g. Fiction"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input
+          type="number"
+          [(ngModel)]="book.quantity"
+          name="quantity"
+          id="quantity"
+          min="1"
+          placeholder="e.g. 10"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="image">Book Cover</label>
+        <input type="file" (change)="onFileChange($event)" id="image" required />
+      </div>
+
+      <button type="submit" class="btn btn-outline-primary">📤 Upload Book</button>
+    </form>
+  </div>
+</div>
