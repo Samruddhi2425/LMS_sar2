@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { RegisterComponent } from '../register/register.component';
 import { CommonModule } from '@angular/common';
@@ -12,45 +12,42 @@ import { AuthService } from '../service/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
-loginForm: FormGroup;
+export class LoginComponent implements OnInit {
+  loginForm!: FormGroup;
+  error: string = '';
 
-email = '';
-  pass = '';
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  constructor(private fb: FormBuilder,private router: Router,private authService: AuthService) {
+  ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      pass: ['', [Validators.required, Validators.minLength(6)]]
+      pass: ['', Validators.required],
     });
   }
 
+  login(): void {
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.pass;
 
-
-  // onSubmit() {
-  //   if (this.loginForm.valid) {
-  //     console.log('Form Submitted', this.loginForm.value);
-  //     // Handle login logic here
-  //     this.router.navigate(['/home']);
-  //   }
-  //   else{
-  //     alert("login failed...!")
-  //     this.loginForm.reset(); 
-  //   }
-  // }
-
-  onLogin() {
-    this.authService.login(this.email, this.pass).subscribe(res => {
-      if (res.status === 'success') {
-        // Save role and redirect
-        localStorage.setItem('role', res.role);
-        // if (res.role === 'admin') this.router.navigate(['/admin']);
-        // else 
-        if (res.role === 'manager') this.router.navigate(['/manager']);
-        else this.router.navigate(['/userProfile']);
-      } else {
-        alert('Login failed');
+    this.authService.login(email, password).subscribe(
+      (res: any) => {
+        if (res.status === 'success') {
+          if (res.userType === 'manager') {
+            this.router.navigate(['/manager']);
+          } else {
+            this.router.navigate(['/userProfile']);
+          }
+        } else {
+          this.error = 'Invalid login attempt';
+        }
+      },
+      (err) => {
+        this.error = 'Login failed';
       }
-    });
+    );
   }
 }

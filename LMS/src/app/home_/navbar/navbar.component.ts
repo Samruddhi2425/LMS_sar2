@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CardService } from '../../card.service';
 import { AuthService } from '../../service/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [CommonModule],
   providers: [CardService],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -14,7 +15,7 @@ role: string | null = '';
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    this.role = this.authService.getRole();
-  }
+  // ngOnInit() {
+  //   this.role = this.authService.getRole();
+  // }
 }
