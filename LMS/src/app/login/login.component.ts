@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { RegisterComponent } from '../register/register.component';
 import { CommonModule } from '@angular/common';
@@ -12,11 +12,13 @@ import { AuthService } from '../service/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 loginForm: FormGroup;
 
-email = '';
+  email = '';
   pass = '';
+  error='';
+  
 
   constructor(private fb: FormBuilder,private router: Router,private authService: AuthService) {
     this.loginForm = this.fb.group({
@@ -25,32 +27,38 @@ email = '';
     });
   }
 
-
-
-  // onSubmit() {
-  //   if (this.loginForm.valid) {
-  //     console.log('Form Submitted', this.loginForm.value);
-  //     // Handle login logic here
-  //     this.router.navigate(['/home']);
-  //   }
-  //   else{
-  //     alert("login failed...!")
-  //     this.loginForm.reset(); 
-  //   }
+  // onLogin() {
+  //   this.authService.login(this.email, this.pass).subscribe(res => {
+  //     if (res.status === 'success') {
+  //       // Save role and redirect
+  //       localStorage.setItem('role', res.role);
+  //       // if (res.role === 'admin') this.router.navigate(['/admin']);
+  //       // else 
+  //       if (res.role === 'manager') this.router.navigate(['/manager']);
+  //       else this.router.navigate(['/userProfile']);
+  //     } else {
+  //       alert('Login failed');
+  //     }
+  //   });
   // }
+  ngOnInit(): void {}
 
-  onLogin() {
-    this.authService.login(this.email, this.pass).subscribe(res => {
+  login() {
+  this.authService.login(this.email, this.pass).subscribe(
+    (res: any) => {
       if (res.status === 'success') {
-        // Save role and redirect
-        localStorage.setItem('role', res.role);
-        // if (res.role === 'admin') this.router.navigate(['/admin']);
-        // else 
-        if (res.role === 'manager') this.router.navigate(['/manager']);
-        else this.router.navigate(['/userProfile']);
+        if (res.userType === 'manager') {
+          this.router.navigate(['/manager-dashboard']);
+        } else if (res.userType === 'user') {
+          this.router.navigate(['/user-dashboard']);
+        }
       } else {
-        alert('Login failed');
+        this.error = "Invalid login attempt";
       }
-    });
-  }
+    },
+    err => {
+      this.error = "Login failed";
+    }
+  );
+}
 }

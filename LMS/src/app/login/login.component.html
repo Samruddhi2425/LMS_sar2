@@ -5,7 +5,7 @@
            
 
             <div class="col-md-6 col-lg-4">
-                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
                     <fieldset class="border p-3 rounded">
                         <legend class="float-none w-auto px-2">Login</legend>
                         
@@ -51,6 +51,9 @@
                             <h5>New to library ? 
                             <span><a href="/register" class="text-decoration-none text-center">Sign Up now.</a></span></h5>
                         </div>
+                        <div *ngIf="error" class="alert alert-danger">
+  {{ error }}
+</div>
                     </fieldset>
                 </form>
             </div>
