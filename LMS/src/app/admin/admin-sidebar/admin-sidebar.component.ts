@@ -14,11 +14,18 @@ import { ViewBookComponent } from '../view-book/view-book.component';
 })
 export class AdminSidebarComponent {
 
-isSidebarVisible = false;
+myFunction(): void {
+  const x = document.getElementById("myTopnav");
 
-  toggleSidebar() {
-    this.isSidebarVisible = !this.isSidebarVisible;
+  if (x) {
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
   }
+}
+
 
 // isSidebarVisible: boolean = false;
 
