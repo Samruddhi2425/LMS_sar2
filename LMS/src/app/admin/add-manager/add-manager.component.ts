@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class AddManagerComponent implements OnInit {
 
   addManagerForm!: FormGroup;
+  managers:any[]=[];
 
   constructor(
     private fb: FormBuilder,
