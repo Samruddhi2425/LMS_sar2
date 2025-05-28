@@ -32,4 +32,8 @@ export class UserService {
     return this.http.get<any[]>(this.managerUrl + `getById/${mId}`);
   }
 
+  deleteManager(mId:number):Observable<any>{
+    return this.http.delete(this.managerUrl+`delete/${mId}`);
+  }
+
 }

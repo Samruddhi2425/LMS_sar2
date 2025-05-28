@@ -110,8 +110,8 @@
                                     <td>{{manager.mlastName}}</td>
                                     <td>{{manager.email}}</td>
                                     <td>{{manager.mobileNo}}</td>
-                                    <td><button class="btn btn-outline-warning" (click)="updateManagerBtn()">Edit</button></td>
-                                    <td><button class="btn btn-outline-danger" (click)="deleteManagerBtn()">Delete</button></td>
+                                    <td><button class="btn btn-outline-warning" routerLink="/admin/updateManager">Edit</button></td>
+                                    <td><button class="btn btn-outline-danger" (click)="deleteManagerBtn(manager.mId)">Delete</button></td>
                                 </tr>
                             </tbody>
                         </table>
