@@ -22,18 +22,9 @@ export class AddManagerComponent{
       // pass:['',[Validators.required]],
       mobileNo:['',[Validators.required]],
     });  
-    this.addManagerForm.get('firstName')?.valueChanges.subscribe(firstName => {
-      const password = (firstName || '') + '123';
-      this.addManagerForm.get('pass')?.setValue(password);
-    });
+    
   }
-  // ngOnInit(): void {
-  //   // Subscribe to changes in the firstName field
-  //   this.addManagerForm.get('firstName')?.valueChanges.subscribe(firstName => {
-  //     const password = (firstName || '') + '123';
-  //     this.addManagerForm.get('pass')?.setValue(password);
-  //   });
-  // }
+  
 
   
  onSubmit() {  
@@ -43,19 +34,16 @@ export class AddManagerComponent{
 
     const fullData = {
       ...formValues,
-      pass: password
+      pass:password
     };
 
     // Set password only now
-    // this.addManagerForm.get('pass')?.setValue(password);
-
-    console.log('Form submitted with:', fullData);
+     this.addManagerForm.get('pass')?.setValue(password);
 
     if (this.addManagerForm.valid) {
-      this.userService.registerManager(this.addManagerForm.value).subscribe(
+      this.userService.registerManager(fullData).subscribe(
         res => {
           const password = this.addManagerForm.get('firstName')?.value+'123';
-          pass:password;
           alert('Manager registered successfully!');
           this.addManagerForm.reset(); 
         },

@@ -41,7 +41,7 @@
 
 /* Default: hide sidebar on small screens */
 .sidebar {
-  width: 250px;
+  width: 200px;
 }
 
 @media (max-width: 768px) {
