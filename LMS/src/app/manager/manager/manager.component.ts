@@ -8,6 +8,10 @@ import { ManagersidebarComponent } from '../managersidebar/managersidebar.compon
   templateUrl: './manager.component.html',
   styleUrl: './manager.component.css'
 })
+
+
 export class ManagerComponent {
+  
+
 
 }

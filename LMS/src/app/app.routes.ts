@@ -17,6 +17,7 @@ import { UpdateBookComponent } from './admin/update-book/update-book.component';
 import { ViewUserComponent } from './admin/view-user/view-user.component';
 import { ManagerComponent } from './manager/manager/manager.component';
 import { ManagerdashboardComponent } from './manager/managerdashboard/managerdashboard.component';
+import { Component } from '@angular/core';
 
 export const routes: Routes = [
     { path: "", component: HomeComponent },
@@ -34,8 +35,11 @@ export const routes: Routes = [
         children: [
             //{ path: '', redirectTo: 'managerLogin', pathMatch: 'full' },
             {path:'',component:LoginComponent},
-            { path: 'managerdashboard', component: ManagerdashboardComponent },
-        ]
+            {path: 'managerdashboard', component: ManagerdashboardComponent },
+            {path: 'viewbook', component: ViewBookComponent},
+        //     {path:'manager-user', component: MViewUserComponent}
+        //     {path:'update_book/:id', component: MUpdateBookComponent}
+         ]
     },
     {
         path: "admin", component: AdminComponent,
