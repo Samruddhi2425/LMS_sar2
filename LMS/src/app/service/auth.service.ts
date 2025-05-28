@@ -6,15 +6,22 @@ import { Observable } from 'rxjs';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  login(email: string, pass: string): Observable<any> {
-    return this.http.post('/api/login', { email, pass });
-  }
+  // login(email: string, pass: string): Observable<any> {
+  //   return this.http.post('/api/login', { email, pass });
+  // }
 
-  getRole(): string | null {
-    return localStorage.getItem('role');
-  }
+  // getRole(): string | null {
+  //   return localStorage.getItem('role');
+  // }
 
-  logout() {
-    localStorage.removeItem('role');
-  }
+  // logout() {
+  //   localStorage.removeItem('role');
+  // }
+
+  login(email: string, password: string): Observable<any> {
+  return this.http.post<any>('https://your-api-url/api/login', {
+    email: email,
+    password: password
+  });
+}
 }

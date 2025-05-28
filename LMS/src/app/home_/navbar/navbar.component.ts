@@ -15,7 +15,7 @@ role: string | null = '';
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit() {
-    this.role = this.authService.getRole();
-  }
+  // ngOnInit() {
+  //   this.role = this.authService.getRole();
+  // }
 }
