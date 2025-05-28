@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GetbooksService } from '../../service/getbooks.service';
 import { FormsModule } from '@angular/forms';
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './m-update-book.component.html',
   styleUrl: './m-update-book.component.css'
 })
-export class MUpdateBookComponent {
+export class MUpdateBookComponent implements OnInit {
  bookId!: number;
   
    book : any = {
