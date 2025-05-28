@@ -9,13 +9,14 @@ export class UserService {
   issueBookData: any[]=[];
 private apiUrl = 'https://localhost:7252/api/Users/register';
   constructor(private http: HttpClient) { }
+
   registerUser(userData: any): Observable<any> {
     return this.http.post(this.apiUrl, userData);
   }
 
   private managerUrl = 'https://localhost:7252/api/Managers/register';
   registerManager(managerData: any): Observable<any> {
-    return this.http.post(this.managerUrl, managerData);
+    return this.http.post<any>(this.managerUrl, managerData);
   }
 
 
