@@ -78,14 +78,26 @@ export class AddManagerComponent implements OnInit {
     );
   }
 
-  updateManagerBtn(){
+  updateManagerBtn() {
     this.router.navigate(['/admin/updateManager']);
   }
 
-  deleteManagerBtn(){
-    
+  deleteManagerBtn(mId: number) {
+    const confirmed = window.confirm('Are you sure you want to delete this item?');
+
+    if (confirmed) {
+      // Call your delete service or logic
+      this.userService.deleteManager(mId).subscribe(() => {
+        console.log('Item deleted:', mId);
+        // You can also refresh a list, show success message, etc.
+      }, error => {
+        console.error('Delete failed:', error);
+      });
+    } else {
+      console.log('Delete cancelled');
+    }
   }
 
-  
+
 
 }

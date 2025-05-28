@@ -53,7 +53,7 @@ export class UpdateManagerComponent implements OnInit{
   // }
 
   updateManager() {
-     console.log("Submitting book to backend:", this.manager); // Add this line
+     console.log("Submitting manager data to backend:", this.manager); // Add this line
     this.userService.updateManager(this.manager).subscribe({
       next: res => {
         console.log("res"+res);
@@ -64,9 +64,5 @@ export class UpdateManagerComponent implements OnInit{
       error: err => console.error('Error updating manager:', err)
       
     });
-  }
-
-  deleteManager(){
-    
   }
 }
