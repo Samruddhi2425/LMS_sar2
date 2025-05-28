@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-m-update-book',
   imports: [RouterModule, FormsModule],
   templateUrl: './m-update-book.component.html',
+  providers:[GetbooksService],
   styleUrl: './m-update-book.component.css'
 })
 export class MUpdateBookComponent implements OnInit {
