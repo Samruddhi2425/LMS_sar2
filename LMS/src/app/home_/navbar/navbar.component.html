@@ -32,7 +32,7 @@
     <button *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-dark">Login</button>
 
     <!-- Show profile and logout if logged in -->
-    <a *ngIf="isLoggedIn" routerLink="/userProfile" class=" me-3">Profile > <i class="bi bi-person"></i></a>
+    <a *ngIf="isLoggedIn" [href]="profileLink" class=" me-3">Profile > <i class="bi bi-person"></i></a>
     <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-danger">Logout</button>
 
     <div class=" m-2">
