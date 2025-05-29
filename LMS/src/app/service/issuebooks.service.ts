@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { issueBooks } from '../admin/view-user/view-user.component';
 
 export interface IssueBookData{
   issueId: number,
@@ -14,6 +15,7 @@ export interface IssueBookData{
   userName:string,
   fine: string
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -40,5 +42,27 @@ export class IssuebooksService {
   // }
 
  
+  getOrders() {
+    return this.http.get<any>(this.baseUrl + 'GetOrders').pipe(
+      map((orders) => {
+        let newOrders = orders.map((order: any) => {
+          let newOrder: issueBooks = {
+            issueId: order.issueId,
+            userId: order.userId,
+            userName: order.user.firstName + ' ' + order.user.lastName,
+            bookId: order.bookId,
+            issueDate: order.orderDate,
+            //returned: order.returned,
+            returnDate: order.returnDate,
+            finePaid: order.finePaid,
+            bookTitle: '',
+            status: ''
+          };
+          return newOrder;
+        });
+        return newOrders;
+      })
+    );
+  }
 
 }
