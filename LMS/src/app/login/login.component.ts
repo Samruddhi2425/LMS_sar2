@@ -29,25 +29,55 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login(): void {
-    const email = this.loginForm.value.email;
-    const password = this.loginForm.value.pass;
+  // login(): void {
+  //   const email = this.loginForm.value.email;
+  //   const password = this.loginForm.value.pass;
 
-    this.authService.login(email, password).subscribe(
-      (res: any) => {
-        if (res.status === 'success') {
-          if (res.userType === 'manager') {
-            this.router.navigate(['/manager']);
-          } else {
-            this.router.navigate(['/userProfile']);
-          }
+  //   this.authService.login(email, password).subscribe(
+  //     (res: any) => {
+  //       if (res.status === 'success') {
+  //         if (res.userType === 'manager') {
+  //           this.router.navigate(['/manager']);
+  //         } else {
+  //           this.router.navigate(['/userProfile']);
+  //         }
+  //       } else {
+  //         this.error = 'Invalid login attempt';
+  //       }
+  //     },
+  //     (err) => {
+  //       this.error = 'Login failed';
+  //     }
+  //   );
+  // }
+
+
+  login(): void {
+  const email = this.loginForm.value.email;
+  const password = this.loginForm.value.pass;
+
+  this.authService.login(email, password).subscribe(
+    (res: any) => {
+      if (res.status === 'success') {
+        // Save user info in localStorage
+        localStorage.setItem('userType', res.userType);
+        // localStorage.setItem('token', res.token); // optional, if your API returns a token
+
+        // Redirect based on user type
+        if (res.userType === 'manager') {
+          this.router.navigate(['/manager']);
         } else {
-          this.error = 'Invalid login attempt';
+          this.router.navigate(['/userProfile']);
         }
-      },
-      (err) => {
-        this.error = 'Login failed';
+      } else {
+        this.error = 'Invalid login attempt';
       }
-    );
-  }
+    },
+    (err) => {
+      this.error = 'Login failed';
+    }
+  );
+}
+
+
 }

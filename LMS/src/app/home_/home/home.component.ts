@@ -39,30 +39,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   books: any[] = [];
   searchTerm: string = '';
 
-  onSearch() {
-  if (this.searchTerm.trim()) {
-    console.log('Searching for:', this.searchTerm);
-
-    // Fetch books from the service (or use existing data if already fetched)
-    this.getBookService.getBooks().subscribe(
-      (data) => {
-        // Filter the books based on the search term
-        this.books = data.filter(book =>
-          book.bookName.toLowerCase().includes(this.searchTerm.toLowerCase())
-        );
-
-        console.log('Filtered books:', this.books);
-      },
-      (error) => {
-        console.error('Error fetching books:', error);
-      }
-    );
-  } else {
-    alert('Please enter a search term.');
-  }
-}
-
-
   constructor(private getBookService: GetbooksService, private cardService: CardService) { }
 
   ngOnInit(): void {
@@ -96,7 +72,43 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onSearch() {
+    if (this.searchTerm.trim()) {
+      console.log('Searching for:', this.searchTerm);
 
+      // Fetch books from the service (or use existing data if already fetched)
+      this.getBookService.getBooks().subscribe(
+        (data) => {
+          // Filter the books based on the search term
+          this.books = data.filter(book =>
+            book.bookName.toLowerCase().includes(this.searchTerm.toLowerCase())
+          );
+
+          console.log('Filtered books:', this.books);
+        },
+        (error) => {
+          console.error('Error fetching books:', error);
+        }
+      );
+    } else {
+      alert('Please enter a search term.');
+    }
+  }
+
+  onReset() {
+    this.searchTerm = ''; // clear search input
+    this.getBookService.getBooks().subscribe(
+      (data) => {
+        this.books = data; // show all books again
+        console.log('All books:', this.books);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+  }
+
+  
   //  home to add to cart binding
   // selecteItem(book: any) {
   //   let b = localStorage.getItem('bookitemnew');
