@@ -51,14 +51,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching books:', error);
       }
     );
-
-    // let bookItemsString = localStorage.getItem('bookitem');
-    // const bookItems: BookItem[] = bookItemsString ? JSON.parse(bookItemsString) : [];
-    //const a = localStorage.setItem('bookitem', JSON.stringify(bookItemsString));
-
-
-
-    //console.log(bookItems);
   }
 
   ngAfterViewInit(): void {
@@ -108,33 +100,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
   }
 
-  
-  //  home to add to cart binding
-  // selecteItem(book: any) {
-  //   let b = localStorage.getItem('bookitemnew');
-
-  //   // Step 1: Convert the object to a string
-  //   const itemString = JSON.stringify(b);
-
-  //   // Step 2: Store it in localStorage
-  //   localStorage.setItem('selectedItem', itemString);
-  //   console.log('item', JSON.stringify(b));
-  //   console.log('itemString', b);
-  // }
-
-
-
-  // Retrieve and parse the data
-
-
-
-
-
   addToCart(item: any) {
     this.cardService.addToCart(item);
   }
 
-  goToCart() {
-    // Use routing to go to cart component
-  }
 }

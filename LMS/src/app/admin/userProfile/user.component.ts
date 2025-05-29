@@ -3,10 +3,11 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../../home_/navbar/navbar.component';
 import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -20,7 +21,7 @@ returnedBooks: any[]=[];
 
 bookMap:{[key:string]:string}={};
 
-constructor(private getIssueService: IssuebooksService){}
+constructor(private getIssueService: IssuebooksService,private router: Router){}
 
   ngOnInit(): void{
 
@@ -39,6 +40,12 @@ constructor(private getIssueService: IssuebooksService){}
     this.bookMap[book.bookId] = book.bookTitle;
   })
  }
+
+ logout(): void {
+  localStorage.clear(); // or remove only user-related keys
+  this.router.navigate(['/login']); // redirect to login page
+  alert("you are logout")
+}
 
  
 }

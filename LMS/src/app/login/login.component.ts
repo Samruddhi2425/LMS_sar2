@@ -56,16 +56,12 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.pass;
 
-    if (email === 'admin123@gmail.com' && password === 'admin123') {
-      this.router.navigate(['/admin'])
-    }
-    else {
-      this.authService.login(email, password).subscribe(
-        (res: any) => {
-          if (res.status === 'success') {
-            // Save user info in localStorage
-            localStorage.setItem('userType', res.userType);
-            // localStorage.setItem('token', res.token); // optional, if your API returns a token
+  this.authService.login(email, password).subscribe(
+    (res: any) => {
+      if (res.status === 'success') {
+        // Save user info in localStorage
+        localStorage.setItem('userType', res.userType);
+        // localStorage.setItem('token', res.token); // optional, if your API returns a token
 
             // Redirect based on user type
             if (res.userType === 'manager') {
