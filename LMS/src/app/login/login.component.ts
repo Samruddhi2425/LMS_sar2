@@ -29,29 +29,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // login(): void {
-  //   const email = this.loginForm.value.email;
-  //   const password = this.loginForm.value.pass;
-
-  //   this.authService.login(email, password).subscribe(
-  //     (res: any) => {
-  //       if (res.status === 'success') {
-  //         if (res.userType === 'manager') {
-  //           this.router.navigate(['/manager']);
-  //         } else {
-  //           this.router.navigate(['/userProfile']);
-  //         }
-  //       } else {
-  //         this.error = 'Invalid login attempt';
-  //       }
-  //     },
-  //     (err) => {
-  //       this.error = 'Login failed';
-  //     }
-  //   );
-  // }
-
-
   login(): void {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.pass;
