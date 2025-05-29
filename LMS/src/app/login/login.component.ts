@@ -34,8 +34,10 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.pass;
 
     if (email === 'admin123@gmail.com' && password === 'admin123') {
-      this.router.navigate(['/admin'])
-    }
+  localStorage.setItem('userType', 'admin');
+  localStorage.setItem('isLoggedIn', 'true'); // optional if used
+  this.router.navigate(['/admin']);
+}
     else {
       this.authService.login(email, password).subscribe(
         (res: any) => {
