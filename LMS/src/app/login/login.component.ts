@@ -61,7 +61,6 @@ export class LoginComponent implements OnInit {
       if (res.status === 'success') {
         // Save user info in localStorage
         localStorage.setItem('userType', res.userType);
-        // localStorage.setItem('token', res.token); // optional, if your API returns a token
 
         // Redirect based on user type
         if (res.userType === 'manager') {
