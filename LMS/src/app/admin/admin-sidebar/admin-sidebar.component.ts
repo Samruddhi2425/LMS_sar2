@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
 import { UserComponent } from '../userProfile/user.component';
 import { ViewBookComponent } from '../view-book/view-book.component';
@@ -13,6 +13,7 @@ import { ViewBookComponent } from '../view-book/view-book.component';
   styleUrls: ['./admin-sidebar.component.css']
 })
 export class AdminSidebarComponent {
+  constructor(private router: Router){}
 
 myFunction(): void {
   const x = document.getElementById("myTopnav");
@@ -26,6 +27,10 @@ myFunction(): void {
   }
 }
 
+ logout(): void {
+  localStorage.removeItem('userType');
+  this.router.navigate(['/login']);
+}
 
 // isSidebarVisible: boolean = false;
 
