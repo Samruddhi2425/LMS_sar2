@@ -30,15 +30,15 @@
 
     <!-- Product Column -->
     <div class="row g-4">
-      <div class="col-md-4" *ngFor="let book of book">
+      <div class="col-md-4" *ngFor="let b of book">
         <div class="card h-100">
-          <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top" alt="Book Image">
+          <img [src]="'data:image/png;base64,' + b.base64Image" class="card-img-top" alt="Book Image">
           <div class="card-body">
-            <h5 class="card-title">{{ book.bookName }}</h5>
-            <p class="card-text">by {{ book.authorName }}</p>
-            <p class="card-text">ISBN - {{ book.isbn }}</p>
+            <h5 class="card-title">{{ b.bookName }}</h5>
+            <p class="card-text">by {{ b.authorName }}</p>
+            <p class="card-text">ISBN - {{ b.isbn }}</p>
             <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="h6 mb-0">Quantity - {{ book.quantity }}</span>
+              <span class="h6 mb-0">Quantity - {{ b.quantity }}</span>
             </div>
             <div class="d-grid gap-2">
               <button class="btn btn-primary" type="button" [routerLink]="['/quickView', book.bookId]">Quick
@@ -49,3 +49,5 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
