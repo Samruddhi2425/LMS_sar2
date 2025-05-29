@@ -14,6 +14,8 @@ import { ViewBookComponent } from '../view-book/view-book.component';
 })
 export class AdminSidebarComponent {
 
+  constructor(private router: Router){}
+
 myFunction(): void {
   const x = document.getElementById("myTopnav");
 
@@ -27,9 +29,9 @@ myFunction(): void {
 }
 
 
-// isSidebarVisible: boolean = false;
-
-// toggleSidebar() {
-//   this.isSidebarVisible = !this.isSidebarVisible;
-// }
+ logout(): void {
+    localStorage.removeItem('userType');
+    localStorage.removeItem('isLoggedIn');
+    this.router.navigate(['/login']);
+  }
 }
