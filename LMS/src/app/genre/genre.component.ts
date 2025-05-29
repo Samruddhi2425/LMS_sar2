@@ -24,7 +24,7 @@ interface Books {
 })
 export class GenreComponent implements OnInit {
 book: any[]=[];
- categories: string[] = ['Biography', 'Fiction', 'Horror', 'Adventure', 'Magical Realism', 'Self-Help','Romance'];
+ categories: string[] = ['Biography','Romance','Fiction', 'Horror', 'Adventure', 'Magical Realism', 'Self-Help','Romance'];
   selectedCategory: string = '';
  
 
