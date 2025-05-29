@@ -13,10 +13,25 @@ import { RouterModule } from '@angular/router';
 })
 export class NavbarComponent {
 role: string | null = '';
-
-  constructor(private authService: AuthService) {}
+isLoggedIn: boolean = false;
+userType: string | null = null;
+constructor(private authService: AuthService) {}
 
   // ngOnInit() {
   //   this.role = this.authService.getRole();
   // }
+  ngOnInit(): void {
+    this.checkLoginStatus();
+  }
+
+  checkLoginStatus(): void {
+    this.userType = localStorage.getItem('userType');
+    this.isLoggedIn = !!this.userType;
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.isLoggedIn = false;
+    window.location.href = '/login'; // or use router.navigate
+  }
 }

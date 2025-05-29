@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UserComponent } from '../userProfile/user.component';
 import { IssuebooksService } from '../../service/issuebooks.service';
 
-interface Users {
+export interface Users {
   userId: number;
   firstName: string;
   lastName: string;
@@ -13,9 +13,21 @@ interface Users {
   mobileNo: string;
 }
 
+export interface issueBooks {
+  issueId: number;
+  userId: number;
+  userName: string | null;
+  bookId: number;
+  bookTitle: string;
+  issueDate: string;
+  status: string;
+  returnDate: string | null;
+  finePaid: number;
+}
+
 @Component({
   selector: 'app-view-user',
-  imports: [CommonModule, UserComponent],
+  imports: [CommonModule],
   templateUrl: './view-user.component.html',
   styleUrl: './view-user.component.css'
 })
@@ -23,11 +35,13 @@ export class ViewUserComponent {
   users: any[] = [];
   issueCount!: number;
   userId!: number;
-  issueBooks: any[] = [];
 
   issueBookMap: { [key: string]: string } = {};
 
-  constructor(private getUserService: GetusersService, private issueBooksService: IssuebooksService) { }
+  constructor(private getUserService: GetusersService, private issueBooksService: IssuebooksService) {
+    
+  }
+
 
   ngOnInit(): void {
     this.getUserService.getUsers().subscribe(
@@ -39,8 +53,6 @@ export class ViewUserComponent {
         console.error('Error fetching books:', error);
       }
     );
-
-    
 
     //this.issueCount = this.issueBooksService.issueBookByUser(this.userId);
 

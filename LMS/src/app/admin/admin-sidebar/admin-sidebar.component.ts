@@ -13,6 +13,7 @@ import { ViewBookComponent } from '../view-book/view-book.component';
   styleUrls: ['./admin-sidebar.component.css']
 })
 export class AdminSidebarComponent {
+
   constructor(private router: Router){}
 
 myFunction(): void {
@@ -27,14 +28,10 @@ myFunction(): void {
   }
 }
 
+
  logout(): void {
-  localStorage.removeItem('userType');
-  this.router.navigate(['/login']);
-}
-
-// isSidebarVisible: boolean = false;
-
-// toggleSidebar() {
-//   this.isSidebarVisible = !this.isSidebarVisible;
-// }
+    localStorage.removeItem('userType');
+    localStorage.removeItem('isLoggedIn');
+    this.router.navigate(['/login']);
+  }
 }
