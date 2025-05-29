@@ -39,30 +39,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   books: any[] = [];
   searchTerm: string = '';
 
-  onSearch() {
-  if (this.searchTerm.trim()) {
-    console.log('Searching for:', this.searchTerm);
-
-    // Fetch books from the service (or use existing data if already fetched)
-    this.getBookService.getBooks().subscribe(
-      (data) => {
-        // Filter the books based on the search term
-        this.books = data.filter(book =>
-          book.bookName.toLowerCase().includes(this.searchTerm.toLowerCase())
-        );
-
-        console.log('Filtered books:', this.books);
-      },
-      (error) => {
-        console.error('Error fetching books:', error);
-      }
-    );
-  } else {
-    alert('Please enter a search term.');
-  }
-}
-
-
   constructor(private getBookService: GetbooksService, private cardService: CardService) { }
 
   ngOnInit(): void {
@@ -75,14 +51,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching books:', error);
       }
     );
-
-    // let bookItemsString = localStorage.getItem('bookitem');
-    // const bookItems: BookItem[] = bookItemsString ? JSON.parse(bookItemsString) : [];
-    //const a = localStorage.setItem('bookitem', JSON.stringify(bookItemsString));
-
-
-
-    //console.log(bookItems);
   }
 
   ngAfterViewInit(): void {
@@ -96,33 +64,44 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onSearch() {
+    if (this.searchTerm.trim()) {
+      console.log('Searching for:', this.searchTerm);
 
-  //  home to add to cart binding
-  // selecteItem(book: any) {
-  //   let b = localStorage.getItem('bookitemnew');
+      // Fetch books from the service (or use existing data if already fetched)
+      this.getBookService.getBooks().subscribe(
+        (data) => {
+          // Filter the books based on the search term
+          this.books = data.filter(book =>
+            book.bookName.toLowerCase().includes(this.searchTerm.toLowerCase())
+          );
 
-  //   // Step 1: Convert the object to a string
-  //   const itemString = JSON.stringify(b);
+          console.log('Filtered books:', this.books);
+        },
+        (error) => {
+          console.error('Error fetching books:', error);
+        }
+      );
+    } else {
+      alert('Please enter a search term.');
+    }
+  }
 
-  //   // Step 2: Store it in localStorage
-  //   localStorage.setItem('selectedItem', itemString);
-  //   console.log('item', JSON.stringify(b));
-  //   console.log('itemString', b);
-  // }
-
-
-
-  // Retrieve and parse the data
-
-
-
-
+  onReset() {
+    this.searchTerm = ''; // clear search input
+    this.getBookService.getBooks().subscribe(
+      (data) => {
+        this.books = data; // show all books again
+        console.log('All books:', this.books);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+  }
 
   addToCart(item: any) {
     this.cardService.addToCart(item);
   }
 
-  goToCart() {
-    // Use routing to go to cart component
-  }
 }

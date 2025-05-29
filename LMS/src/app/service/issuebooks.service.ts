@@ -1,6 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
+
+export interface IssueBookData{
+  issueId: number,
+  userId: number,
+  bookId: number,
+  issueDate: Date,
+  dueDate: Date,
+  returnDate: Date,
+  quantity: number,
+  status:string,
+  userName:string,
+  fine: string
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -25,5 +38,7 @@ export class IssuebooksService {
   // issueBookByUser(userId:number):number{
   //   return this.issueBookData.filter(issue => issue.userId === userId).length;
   // }
+
+ 
 
 }

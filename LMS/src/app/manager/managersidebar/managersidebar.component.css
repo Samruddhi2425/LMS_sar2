@@ -1,63 +1,44 @@
+
 .sidebar {
+  margin: 0;
+  padding: 0;
   width: 200px;
-  transition: transform 0.3s ease;
+  background-color: #f1f1f1;
   position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  background-color: #343a40;
+  height: 100%;
+  overflow: auto;
+}
+
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #04AA6D;
   color: white;
-  z-index: 1000;
 }
 
-.sidebar.hide {
-  transform: translateX(-100%);
-}
-
-.sidebar.show {
-  transform: translateX(0);
-}
-
-.toggle-btn {
-  background: none;
-  border: none;
+.sidebar a:hover:not(.active) {
+  background-color: #555;
   color: white;
-  padding: 1rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: -45px;
-  background-color: #343a40;
-  border-radius: 50%;
-  z-index: 1100;
 }
 
-@media (min-width: 768px) {
-  .toggle-btn {
-    right: -20px;
-  }
-}
-
-/* Default: hide sidebar on small screens */
-.sidebar {
-  width: 250px;
-}
-
-@media (max-width: 768px) {
+@media screen and (max-width: 700px) {
   .sidebar {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    height: 100%;
-    width: 250px;
-    background-color: #343a40;
-    transition: left 0.3s ease-in-out;
-    z-index: 1050;
+    width: 100%;
+    height: auto;
+    position: relative;
   }
-
-  .sidebar.sidebar-open {
-    left: 0;
-  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
 }
 
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}

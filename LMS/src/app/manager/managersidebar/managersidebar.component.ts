@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -11,16 +11,26 @@ import { RouterModule } from '@angular/router';
 })
 export class ManagersidebarComponent {
 
+  constructor(private router: Router){}
   isSidebarVisible: boolean = false;
 
-toggleSidebar() {
-  this.isSidebarVisible = !this.isSidebarVisible;
+myFunction(): void {
+  const x = document.getElementById("myTopnav");
+
+  if (x) {
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
 }
 
 
 
-
-
-
+  logout(): void {
+  localStorage.removeItem('userType');
+  this.router.navigate(['/login']);
+}
 
 }

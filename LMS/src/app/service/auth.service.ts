@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
-  constructor(private http: HttpClient) {}
+export class AuthService implements CanActivate{
+  constructor(private http: HttpClient, private router: Router) {}
 
   // login(email: string, pass: string): Observable<any> {
   //   return this.http.post('/api/login', { email, pass });
@@ -24,4 +25,21 @@ export class AuthService {
     password: password
   });
 }
+
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    const expectedRole = route.data['expectedRole'];
+    const userType = localStorage.getItem('userType');
+    
+    if (userType === expectedRole) {
+      return true;
+    } else {
+      // Redirect unauthorized users
+      if (userType) {
+        this.router.navigate([`/${userType}`]); // redirect to their dashboard
+      } else {
+        this.router.navigate(['/login']);
+      }
+      return false;
+    }
+  }
 }
