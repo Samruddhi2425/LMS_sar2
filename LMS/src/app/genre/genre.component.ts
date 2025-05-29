@@ -3,6 +3,7 @@ import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { BookdescriptionComponent } from '../home_/bookdescription/bookdescription.component';
 import { RouterModule } from '@angular/router';
 import { GetbooksService } from '../service/getbooks.service';
+import { CommonModule } from '@angular/common';
 interface Books {
   authorName: string;
   base64Image: string;
@@ -16,7 +17,7 @@ interface Books {
 
 @Component({
   selector: 'app-genre',
-  imports: [NavbarComponent,BookdescriptionComponent,RouterModule,NavbarComponent],
+  imports: [NavbarComponent,BookdescriptionComponent,RouterModule,NavbarComponent, CommonModule, ],
   templateUrl: './genre.component.html',
   providers: [GetbooksService],
   styleUrl: './genre.component.css'
