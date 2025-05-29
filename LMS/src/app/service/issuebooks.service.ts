@@ -39,31 +39,6 @@ export class IssuebooksService {
   //   return this.issueBookData.filter(issue => issue.userId === userId).length;
   // }
 
-  getOrdersOfUser(userId: number) {
-    let params = new HttpParams().append('userId', userId);
-    return this.http
-      .get<any>(this.baseUrl + 'GetOrdersOfUser', {
-        params: params,
-      })
-      .pipe(
-        map((orders) => {
-          let newOrders = orders.map((order: any) => {
-            let newOrder: IssueBookData = {
-              issueId: order.issueId,
-              userId: order.userId,
-              userName: order.user.firstName + ' ' + order.user.lastName,
-              bookId: order.bookId,
-              //bookTitle: order.book.title,
-              issueDate: order.issueDate,
-              status: order.status,
-              returnDate: order.returnDate,
-              fine: order.fine,
-            };
-            return newOrder;
-          });
-          return newOrders;
-        })
-      );
-  }
+ 
 
 }
