@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CardService } from '../../card.service';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
@@ -11,23 +11,30 @@ import { RouterModule } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
 role: string | null = '';
 isLoggedIn: boolean = false;
 userType: string | null = null;
-constructor(private authService: AuthService) {}
+profileLink: string = '';
+// constructor(private authService: AuthService) {}
 
-  // ngOnInit() {
-  //   this.role = this.authService.getRole();
-  // }
   ngOnInit(): void {
-    this.checkLoginStatus();
+    const userType = localStorage.getItem('userType');
+    this.isLoggedIn = !!userType;
+
+    if (userType === 'admin') {
+      this.profileLink = '/admin';
+    } else if (userType === 'manager') {
+      this.profileLink = '/manager';
+    } else {
+      this.profileLink = '/userProfile';
+    }
   }
 
-  checkLoginStatus(): void {
-    this.userType = localStorage.getItem('userType');
-    this.isLoggedIn = !!this.userType;
-  }
+  // checkLoginStatus(): void {
+  //   this.userType = localStorage.getItem('userType');
+  //   this.isLoggedIn = !!this.userType;
+  // }
 
   logout(): void {
     localStorage.clear();
