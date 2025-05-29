@@ -41,12 +41,12 @@ export class UserComponent {
     })
   }
 
-  logout(): void {
-    localStorage.clear(); // or remove only user-related keys
-    this.router.navigate(['/login']); // redirect to login page
-    alert("you are logout")
-  }
+ logout(): void {
+  alert("you are logout")
 
+  localStorage.clear(); // or remove only user-related keys
+  this.router.navigate(['/login']); 
+}
 
 }
 
