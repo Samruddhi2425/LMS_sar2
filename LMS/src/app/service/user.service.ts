@@ -2,17 +2,53 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
+
+export interface User {
+  userId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobileNo: string;
+  pass: string;
+
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   issueBookData: any[] = [];
   private apiUrl = 'https://localhost:7252/api/Users/register';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private jwt: Jwt) { }
 
   registerUser(userData: any): Observable<any> {
     return this.http.post(this.apiUrl, userData);
   }
+
+  isLoggedIn(): boolean {
+    if (
+      localStorage.getItem('access_token') != null &&
+      !this.jwt.isTokenExpired()
+    )
+      return true;
+    return false;
+  }
+
+  getUserInfo(): User | null {
+    if (!this.isLoggedIn()) return null;
+    var decodedToken = this.jwt.decodeToken();
+    var user: User = {
+      userId: decodedToken.id,
+      firstName: decodedToken.firstName,
+      lastName: decodedToken.lastName,
+      email: decodedToken.email,
+      mobileNo: decodedToken.mobileNumber,
+      //createdOn: decodedToken.createdOn,
+      pass: '',
+    };
+    return user;
+  }
+
 
   private managerUrl = 'https://localhost:7252/api/Managers/';
   registerManager(managerData: any): Observable<any> {
@@ -32,8 +68,8 @@ export class UserService {
     return this.http.get<any[]>(this.managerUrl + `getById/${mId}`);
   }
 
-  deleteManager(mId:number):Observable<any>{
-    return this.http.delete(this.managerUrl+`delete/${mId}`);
+  deleteManager(mId: number): Observable<any> {
+    return this.http.delete(this.managerUrl + `delete/${mId}`);
   }
 
 }
