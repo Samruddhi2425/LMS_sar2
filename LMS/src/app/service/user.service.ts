@@ -2,6 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
+
+export interface User {
+  userId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  mobileNo: string;
+  pass: string;
+
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +22,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   registerUser(userData: any): Observable<any> {
-    return this.http.post(this.apiUrl, userData);
+    return this.http.post(this.apiUrl, userData); 
   }
 
   private managerUrl = 'https://localhost:7252/api/Managers/';
@@ -32,8 +43,8 @@ export class UserService {
     return this.http.get<any[]>(this.managerUrl + `getById/${mId}`);
   }
 
-  deleteManager(mId:number):Observable<any>{
-    return this.http.delete(this.managerUrl+`delete/${mId}`);
+  deleteManager(mId: number): Observable<any> {
+    return this.http.delete(this.managerUrl + `delete/${mId}`);
   }
 
 }
