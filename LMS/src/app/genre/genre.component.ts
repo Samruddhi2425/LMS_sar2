@@ -33,7 +33,7 @@ constructor(private getBookService: GetbooksService){}
   ngOnInit(): void {}
     
 
-   OnCategorySelect(category: string): void {
+   onCategorySelect(category: string): void {
     this.selectedCategory = category;
     this.getBookService.ViewBookByGenre(category).subscribe({
       next: (data) => this.book = data,
