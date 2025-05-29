@@ -22,11 +22,27 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
+
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       pass: ['', Validators.required],
     });
+
+    const pending = localStorage.getItem('pendingAction');
+
+    if (pending) {
+      const action = JSON.parse(pending);
+
+      if (action.type === 'issue') {
+        this.router.navigate(['/issue-book', action.bookId]); // or call issueBookToUser(action.bookId)
+      }
+
+      localStorage.removeItem('pendingAction'); // Clear after use
+    } else {
+      // default redirect logic
+      this.router.navigate(['/userProfile']);
+    }
   }
 
   login(): void {
@@ -34,10 +50,10 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.pass;
 
     if (email === 'admin123@gmail.com' && password === 'admin123') {
-  localStorage.setItem('userType', 'admin');
-  localStorage.setItem('isLoggedIn', 'true'); // optional if used
-  this.router.navigate(['/admin']);
-}
+      localStorage.setItem('userType', 'admin');
+      localStorage.setItem('isLoggedIn', 'true'); // optional if used
+      this.router.navigate(['/admin']);
+    }
     else {
       this.authService.login(email, password).subscribe(
         (res: any) => {
