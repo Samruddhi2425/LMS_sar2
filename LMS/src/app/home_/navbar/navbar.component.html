@@ -16,7 +16,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/genre">Category</a>
         </li>
-       
+
         <li class="nav-item">
           <a class="nav-link" href="#aboutus">About us</a>
         </li>
@@ -27,9 +27,16 @@
       </ul>
     </div>
 
-    <button routerLink="/login" class="btn btn-dark">Login</button>
+    <!-- <button routerLink="/login" class="btn btn-dark">Login</button> -->
+    <!-- Show login if not logged in -->
+    <button *ngIf="!isLoggedIn" routerLink="/login" class="btn btn-dark">Login</button>
+
+    <!-- Show profile and logout if logged in -->
+    <a *ngIf="isLoggedIn" routerLink="/userProfile" class="btn btn-info">Profile</a>
+    <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-danger">Logout</button>
+
     <div class=" m-2">
-      
+
       <a href="/cart"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
           class="bi bi-cart" viewBox="0 0 16 16">
           <path
