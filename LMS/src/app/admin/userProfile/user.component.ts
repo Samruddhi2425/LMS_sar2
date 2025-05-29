@@ -5,6 +5,17 @@ import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
 
+export interface issueBooks{
+ issueId: number,
+ userId: number,
+ bookId: number,
+ issueDate: string,
+ dueDate: string,
+ returnDate:string,
+ status: string,
+ fine: number 
+}
+
 @Component({
   selector: 'app-user',
   imports: [CommonModule, RouterModule],
@@ -20,8 +31,21 @@ export class UserComponent {
   returnedBooks: any[] = [];
   userType: string | null = null;
   bookMap: { [key: string]: string } = {};
+  issueBooksService: any;
+  issuePendingReturns!: issueBooks[];
+  issueCompletedReturns!: issueBooks[];
 
-  constructor(private getIssueService: IssuebooksService, private router: Router) { }
+  constructor(private getIssueService: IssuebooksService, private router: Router) { 
+    this.issueBooksService.getOrders().subscribe({
+      next: (res: issueBooks[]) => {
+        this.issuePendingReturns = res.filter((o) => o.status = 'pending');
+        this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
+      },
+      error: () => {
+        //this.showAlert('No Orders Found');
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.userType = localStorage.getItem('userType');
