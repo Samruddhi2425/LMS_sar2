@@ -3,21 +3,30 @@
     <!-- <a class="navbar-brand" href="#">Fixed top</a> -->
      <ul class="navbar-nav m-auto">
         <li class="nav-item">
-          <a class="nav-link" href="admin/viewBooks/#allbooks">Books</a>
+          <!-- <a class="nav-link" href="#allbooks">Books</a> -->
+          <a class="nav-link" [routerLink]="[]" fragment="viewbooks" (click)="scrollTo('viewbooks')">Book</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin/viewBooks/#Pending-Book">Pending Returns</a>
+          <!-- <a class="nav-link" href="admin/viewBooks/#Pending-Book">Pending Returns</a> -->
+         <a class="nav-link" [routerLink]="[]" fragment="Pending-Book" (click)="scrollTo('Pending-Book')" >Pending Returns</a>
+
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="admin/viewBooks/#returnedBook" >Returned Books</a>
+        <!-- <a class="nav-link" href="admin/viewBooks/#returnedBook" >Returned Books</a>  -->
+        <a class="nav-link" [routerLink]="[]" fragment="returnedBook" (click)="scrollTo('returnedBook')" >Returned Books</a>
+
         </li>
       </ul>
   </div>
 </nav>
     
-    <div class="container mt-3" id="allbooks">
-        <!-- Books Card -->
-        <div class="card card-custom mb-3 shadow-sm" >
+    <!-- <div class="container mt-3" id="book">
+       
+        
+    </div> -->
+   <div class="pendingCard container mt-3" >
+     <!-- Books Card -->
+    <div class="card card-custom mb-3 shadow-sm" id="viewbooks">
             <div class="card-header bg-dark text-white fw-bold">Books</div>
             <div class="card-body p-0 table-responsive">
                 <table class="table table-dark table-hover table-bordered m-0">
@@ -56,10 +65,8 @@
                 </table>
             </div>
         </div>
-    </div>
-   <div class="pendingCard container mt-3" id="Pending-Book">
         <!-- Pending Returns -->
-        <div class="card card-custom mb-3 shadow-sm">
+        <div class="card card-custom mb-3 shadow-sm" id="Pending-Book">
             <div class="card-header bg-dark text-white fw-bold">Pending Returns</div>
             <div class="card-body p-0 table-responsive">
                 <table class="table table-dark table-hover table-bordered m-0">

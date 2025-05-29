@@ -62,5 +62,12 @@ export class ViewBookComponent implements OnInit{
 
 // //  this.router.navigate(['/admin/viewBooks/update_book', bookId]);
 // }
-
+scrollTo(id: string) {
+  setTimeout(() => { // Small timeout to ensure fragment is processed
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, 100);
+}
 }
