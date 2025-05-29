@@ -31,5 +31,11 @@ console.log(bookId);
   return this.http.put<any>(`https://localhost:7252/api/Books/${bookData.bookId}`, bookData);
   
    }
+
+   ViewBookByGenre(genre: string):Observable<any[]>{
+    console.log("bookType:",genre );
+    return this.http.get<any[]>(`https://localhost:7252/api/Books/books-by-category/${genre}`);
+
+   }
  
 }
