@@ -16,6 +16,7 @@ import { ManagerComponent } from './manager/manager/manager.component';
 import { ManagerdashboardComponent } from './manager/managerdashboard/managerdashboard.component';
 import { UpdateManagerComponent } from './admin/update-manager/update-manager.component';
 import { AddManagerComponent } from './admin/add-manager/add-manager.component';
+import { AuthService } from './service/auth.service';
 
 
 export const routes: Routes = [
@@ -32,6 +33,8 @@ export const routes: Routes = [
 
     {
         path: "manager", component: ManagerComponent,
+            canActivate: [AuthService],
+            data: { expectedRole: 'manager' },
         children: [
             //{ path: '', redirectTo: 'managerLogin', pathMatch: 'full' },
             // { path: '', component: LoginComponent },
@@ -46,6 +49,8 @@ export const routes: Routes = [
     },
     {
         path: "admin", component: AdminComponent,
+            canActivate: [AuthService],
+           data: { expectedRole: 'admin' },
         children: [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
@@ -59,7 +64,11 @@ export const routes: Routes = [
     },
     { path: "register", component: RegisterComponent },
     { path: "home", component: HomeComponent },
-    { path: "userProfile", component: UserComponent },
-    { path: "addBook", component: AddBookComponent }
+    { path: "userProfile", component: UserComponent, canActivate: [AuthService],
+    data: { expectedRole: 'user' }},
+    
+    { path: "addBook", component: AddBookComponent },
+
+    { path: '', redirectTo: '/login', pathMatch: 'full' }
 
 ];

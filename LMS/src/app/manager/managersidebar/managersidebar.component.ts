@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -11,16 +11,17 @@ import { RouterModule } from '@angular/router';
 })
 export class ManagersidebarComponent {
 
+  constructor(private router: Router){}
   isSidebarVisible: boolean = false;
+  
 
 toggleSidebar() {
   this.isSidebarVisible = !this.isSidebarVisible;
 }
 
-
-
-
-
-
+  logout(): void {
+  localStorage.removeItem('userType');
+  this.router.navigate(['/login']);
+}
 
 }
