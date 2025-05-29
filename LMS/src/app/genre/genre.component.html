@@ -4,46 +4,41 @@
 
     <!-- Category Column -->
     <div class="col-md-3 mb-4 category-column">
-      <div class="card mb-2">
+      <div class="card mb-2" (click)="onCategorySelect('Biography')">
         <h3>Biography</h3>
       </div>
-      <div class="card mb-2">
+      <div class="card mb-2"(click)="onCategorySelect('Biography')">
         <h3>Fiction</h3>
       </div>
-      <div class="card mb-2">
+      <div class="card mb-2" (click)="onCategorySelect('Biography')">
         <h3>Horror</h3>
       </div>
-      <div class="card mb-2">
+      <div class="card mb-2" (click)="onCategorySelect('Biography')">
         <h3>Adventure</h3>
       </div>
-      <div class="card mb-2">
+      <div class="card mb-2" (click)="onCategorySelect('Biography')">
         <h3>Magical Realism</h3>
       </div>
-      <div class="card mb-2">
+      <div class="card mb-2" (click)="onCategorySelect('Biography')">
         <h3>Self-Help</h3>
       </div>
     </div>
 
     <!-- Product Column -->
-    <div class="col-md-9">
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card h-100">
-            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Book Image">
-            <div class="card-body">
-              <h5 class="card-title">Book Title</h5>
-              <p class="card-text">by Author Name</p>
-              <p class="card-text">Short description or tagline.</p>
-              <p class="card-text">ISBN - 123456789</p>
-              <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="h6 mb-0">Quantity - 10</span>
-              </div>
-              <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="button" routerLink="/quickView">Quick View</button>
-                <button class="btn btn-outline-secondary" type="button">Add to Cart</button>
-              </div>
-            </div>
-          </div>
+    <div class="row g-4">
+  <div class="col-md-4" *ngFor="let book of books">
+    <div class="card h-100">
+      <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top" alt="Book Image">
+      <div class="card-body">
+        <h5 class="card-title">{{ book.bookName }}</h5>
+        <p class="card-text">by {{ book.authorName }}</p>
+        <p class="card-text">ISBN - {{ book.isbn }}</p>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <span class="h6 mb-0">Quantity - {{ book.quantity }}</span>
+        </div>
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="button" [routerLink]="['/quickView', book.bookId]">Quick View</button>
+          <button class="btn btn-outline-secondary" type="button">Add to Cart</button>
         </div>
       </div>
     </div>

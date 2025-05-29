@@ -13,11 +13,20 @@ export class ManagersidebarComponent {
 
   constructor(private router: Router){}
   isSidebarVisible: boolean = false;
-  
 
-toggleSidebar() {
-  this.isSidebarVisible = !this.isSidebarVisible;
+myFunction(): void {
+  const x = document.getElementById("myTopnav");
+
+  if (x) {
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
 }
+
+
 
   logout(): void {
   localStorage.removeItem('userType');
