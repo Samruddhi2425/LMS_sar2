@@ -67,7 +67,7 @@ export class UserComponent {
   }
 
   logout(): void {
-    alert("you are logout")
+    alert("you are logout");
 
     localStorage.clear(); // or remove only user-related keys
     this.router.navigate(['/login']);

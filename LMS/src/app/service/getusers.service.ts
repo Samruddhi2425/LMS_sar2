@@ -18,16 +18,6 @@ export class GetusersService {
 
   uploadUser(userData:any):Observable<any[]>{
     return this.http.post<any[]>(this.baseUrl + "/register", userData);
+    
   }
-
-  userBlock(userId:number):Observable<any[]>{
-    return this.http.put<any[]>(`https://localhost:7252/api/Users/block/${userId}`,{});
-  }
-  userUnBlock(userId: number):Observable<any[]>{
-    return this.http.put<any[]>(`https://localhost:7252/api/Users/unblock/${userId}`, {});
-  }
-
-
-
-
 }
