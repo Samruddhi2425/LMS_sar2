@@ -73,6 +73,7 @@ export class ViewUserComponent {
 
     }
     )
+    console.log("User Block")
   }
 
   UnblockUser(userId: number){
@@ -80,9 +81,4 @@ export class ViewUserComponent {
       this.loadUser();
     })
   }
-
-
-
-
-
 }
