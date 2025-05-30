@@ -5,15 +5,15 @@ import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
 
-export interface issueBooks{
- issueId: number,
- userId: number,
- bookId: number,
- issueDate: string,
- dueDate: string,
- returnDate:string,
- status: string,
- fine: number 
+export interface issueBooks {
+  issueId: number,
+  userId: number,
+  bookId: number,
+  issueDate: string,
+  dueDate: string,
+  returnDate: string,
+  status: string,
+  fine: number
 }
 
 @Component({
@@ -36,7 +36,7 @@ export class UserComponent {
   issueCompletedReturns!: issueBooks[];
 
   constructor(private getIssueService: IssuebooksService, private router: Router) { 
-    this.getIssueService.getOrders().subscribe({
+    this.issueBooksService.getOrders().subscribe({
       next: (res: issueBooks[]) => {
         this.issuePendingReturns = res.filter((o) => o.status = 'pending');
         this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
@@ -65,12 +65,12 @@ export class UserComponent {
     })
   }
 
- logout(): void {
-  alert("you are logout")
+  logout(): void {
+    alert("you are logout")
 
-  localStorage.clear(); // or remove only user-related keys
-  this.router.navigate(['/login']); 
-}
+    localStorage.clear(); // or remove only user-related keys
+    this.router.navigate(['/login']);
+  }
 
 }
 
