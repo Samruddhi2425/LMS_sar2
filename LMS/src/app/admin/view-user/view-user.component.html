@@ -28,8 +28,10 @@
                         <td>{{issueCount}}</td>
                         <td></td>
                         <td>
-                            <button (click)="blockUser(user.userId)" [disabled]="user.isBlocked">Block</button>
-                            <button (click)="UnblockUser(user.userId)" [disabled]="!user.isBlocked">Unblock</button>
+                            <button (click)="blockUser(user.userId)" [disabled]="user.isBlocked"
+                                [class.blurred]="user.isBlocked" class="btn btn-danger me-2">>Block</button>
+                            <button (click)="UnblockUser(user.userId)" [disabled]="!user.isBlocked"
+                                [class.blurred]="!user.isBlocked" class="btn btn-success">>Unblock</button>
                         </td>
                     </tr>
                 </tbody>
