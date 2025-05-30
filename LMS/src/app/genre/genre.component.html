@@ -29,23 +29,31 @@
     </div>
 
     <!-- Product Column -->
-    <div class="row g-4">
-      <div class="col-md-4" *ngFor="let book of book">
-        <div class="card h-100">
-          <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top" alt="Book Image">
-          <div class="card-body">
-            <h5 class="card-title">{{ book.bookName }}</h5>
-            <p class="card-text">by {{ book.authorName }}</p>
-            <p class="card-text">ISBN - {{ book.isbn }}</p>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span class="h6 mb-0">Quantity - {{ book.quantity }}</span>
-            </div>
-            <div class="d-grid gap-2">
-              <button class="btn btn-primary" type="button" [routerLink]="['/quickView', book.bookId]">Quick
-                View</button>
-              <button class="btn btn-outline-secondary" type="button">Add to Cart</button>
+    <!-- <div class="row g-4"> -->
+    <div class="col-9">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 mb-4" *ngFor="let b of book">
+            <div class="card h-100">
+              <img [src]="'data:image/png;base64,' + b.base64Image" class="card-img-top" alt="Book Image">
+              <div class="card-body">
+                <h5 class="card-title">{{ b.bookName }}</h5>
+                <p class="card-text">by {{ b.authorName }}</p>
+                <p class="card-text">ISBN - {{ b.isbn }}</p>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="h6 mb-0">Quantity - {{ b.quantity }}</span>
+                </div>
+                <div class="d-grid gap-2">
+                  <button class="btn btn-primary" type="button" [routerLink]="['/quickView', book.bookId]">Quick
+                    View</button>
+                  <button class="btn btn-outline-secondary" type="button">Add to Cart</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- </div> -->
+  </div>
+</div>

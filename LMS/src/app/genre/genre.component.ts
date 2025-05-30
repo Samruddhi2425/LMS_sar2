@@ -24,7 +24,7 @@ interface Books {
 })
 export class GenreComponent implements OnInit {
 book: any[]=[];
- categories: string[] = ['Biography','Romance','Classic','fiction', 'horror', 'Adventure', 'Magical Realism', 'Self-Help','Romance'];
+ categories: string[] = ['Biography','Classic','fiction', 'horror', 'Adventure', 'Magical Realism', 'Self-Help','Romance'];
   selectedCategory: string = '';
  
 
@@ -34,10 +34,14 @@ constructor(private getBookService: GetbooksService){}
   ngOnInit(): void {}
     
 
-   onCategorySelect(category: string): void {
-    this.selectedCategory = category;
-    this.getBookService.ViewBookByGenre(category).subscribe({
-      next: (data) => this.book = data,
+   onCategorySelect(categories: string): void {
+    this.selectedCategory = categories;
+    this.getBookService.ViewBookByGenre(categories).subscribe({
+      next: (data) => {
+         console.log("book:",data);
+        this.book = data
+       
+      },
       
       error: (err) => console.error('Error fetching books', err)
     });

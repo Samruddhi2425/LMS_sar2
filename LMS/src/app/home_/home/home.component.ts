@@ -3,7 +3,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 
 import { GetbooksService } from '../../service/getbooks.service';
 import { BookdescriptionComponent } from '../bookdescription/bookdescription.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, isPlatformServer } from '@angular/common';
@@ -12,6 +12,7 @@ import { UserComponent } from '../../admin/userProfile/user.component';
 import { CartComponent } from '../cart/cart.component';
 import { LoginComponent } from '../../login/login.component';
 import { CardService } from '../../card.service';
+import { IssuebooksService } from '../../service/issuebooks.service';
 
 declare var bootstrap: any; // Required for Bootstrap JS methods
 interface BookItem {
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   books: any[] = [];
   searchTerm: string = '';
 
-  constructor(private getBookService: GetbooksService, private cardService: CardService) { }
+  constructor(private getBookService: GetbooksService, private cardService: CardService,private router: Router) { }
 
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
@@ -100,8 +101,5 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
   }
 
-  addToCart(item: any) {
-    this.cardService.addToCart(item);
-  }
 
 }

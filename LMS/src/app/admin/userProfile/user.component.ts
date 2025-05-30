@@ -4,21 +4,22 @@ import { NavbarComponent } from '../../home_/navbar/navbar.component';
 import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
+import { HomeComponent } from '../../home_/home/home.component';
 
-export interface issueBooks{
- issueId: number,
- userId: number,
- bookId: number,
- issueDate: string,
- dueDate: string,
- returnDate:string,
- status: string,
- fine: number 
+export interface issueBook {
+  issueId: number,
+  userId: number,
+  bookId: number,
+  issueDate: string,
+  dueDate: string,
+  returnDate: string,
+  status: string,
+  fine: number
 }
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, HomeComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -32,12 +33,12 @@ export class UserComponent {
   userType: string | null = null;
   bookMap: { [key: string]: string } = {};
   issueBooksService: any;
-  issuePendingReturns!: issueBooks[];
-  issueCompletedReturns!: issueBooks[];
+  issuePendingReturns!: issueBook[];
+  issueCompletedReturns!: issueBook[];
 
   constructor(private getIssueService: IssuebooksService, private router: Router) { 
-    this.issueBooksService.getOrders().subscribe({
-      next: (res: issueBooks[]) => {
+    this.getIssueService.getOrders().subscribe({
+      next: (res: issueBook[]) => {
         this.issuePendingReturns = res.filter((o) => o.status = 'pending');
         this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
       },
@@ -52,9 +53,9 @@ export class UserComponent {
     this.getIssueService.getIssuBook().subscribe(
       (issData) => {
         this.issueBooks = issData;
-        this.returnedBooks = issData.filter(book => book.status === 'returned');
-        console.log(this.returnedBooks);
-        console.log(issData);
+        this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
+        console.log("ReturnBook"+this.issueCompletedReturns);
+        console.log("IssueBooks"+issData);
       },
       (error) => {
         console.error('Error while feting issue data');
@@ -65,12 +66,12 @@ export class UserComponent {
     })
   }
 
- logout(): void {
-  alert("you are logout")
+  logout(): void {
+    alert("you are logout")
 
-  localStorage.clear(); // or remove only user-related keys
-  this.router.navigate(['/login']); 
-}
+    localStorage.clear(); // or remove only user-related keys
+    this.router.navigate(['/login']);
+  }
 
 }
 

@@ -27,6 +27,7 @@ export class AuthService implements CanActivate{
 }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
+
     const expectedRole = route.data['expectedRole'];
     const userType = localStorage.getItem('userType');
     
@@ -35,6 +36,7 @@ export class AuthService implements CanActivate{
     } else {
       // Redirect unauthorized users
       if (userType) {
+       // console.log(userType);
         this.router.navigate([`/${userType}`]); // redirect to their dashboard
       } else {
         this.router.navigate(['/login']);
