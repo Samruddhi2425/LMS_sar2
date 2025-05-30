@@ -27,5 +27,4 @@ export class GetusersService {
   userUnBlock(userId: number):Observable<any[]>{
     return this.http.put<any[]>(`https://localhost:7252/api/Users/unblock/${userId}`, {});
 
-  }
-} 
+}
