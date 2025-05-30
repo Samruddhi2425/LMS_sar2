@@ -27,7 +27,10 @@
                         <td>{{user.mobileNo}}</td>
                         <td>{{issueCount}}</td>
                         <td></td>
-                        <td><button class="btn btn-outline-danger">Block</button></td>
+                        <td>
+                            <button (click)="blockUser(user.userId)" [disabled]="user.isBlocked">Block</button>
+                            <button (click)="UnblockUser(user.userId)" [disabled]="!user.isBlocked">Unblock</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
