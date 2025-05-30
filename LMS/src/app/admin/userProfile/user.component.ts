@@ -4,6 +4,7 @@ import { NavbarComponent } from '../../home_/navbar/navbar.component';
 import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
+import { HomeComponent } from '../../home_/home/home.component';
 
 export interface issueBooks {
   issueId: number,
@@ -18,7 +19,7 @@ export interface issueBooks {
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, HomeComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
