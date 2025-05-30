@@ -37,7 +37,7 @@ export class UserComponent {
   issueCompletedReturns!: issueBooks[];
 
   constructor(private getIssueService: IssuebooksService, private router: Router) { 
-    this.issueBooksService.getOrders().subscribe({
+    this.getIssueService.getOrders().subscribe({
       next: (res: issueBooks[]) => {
         this.issuePendingReturns = res.filter((o) => o.status = 'pending');
         this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
