@@ -66,23 +66,26 @@ export class ViewUserComponent {
      this.users = data;
   });
   }
-  
+
   blockUser(userId: number){
     this.getUserService.userBlock(userId).subscribe(() =>{
+       alert("User blocked Successfully.");
       this.loadUser();
-
-    }
-    )
+    },
+     error => {
+    alert("Failed to block user.");
+    console.error(error);
+  });    
   }
 
   UnblockUser(userId: number){
     this.getUserService.userUnBlock(userId).subscribe(()=>{
+       alert("User Unblocked Successfully.");
       this.loadUser();
+    },
+       error => {
+    alert("Failed to block user.");
+    console.error(error);
     })
   }
-
-
-
-
-
 }
