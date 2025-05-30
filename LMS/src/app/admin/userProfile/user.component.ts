@@ -37,15 +37,15 @@ export class UserComponent {
   issueCompletedReturns!: issueBook[];
 
   constructor(private getIssueService: IssuebooksService, private router: Router) { 
-    this.getIssueService.getOrders().subscribe({
-      next: (res: issueBook[]) => {
-        this.issuePendingReturns = res.filter((o) => o.status = 'pending');
-        this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
-      },
-      error: () => {
-        //this.showAlert('No Orders Found');
-      },
-    });
+    // this.getIssueService.getOrders().subscribe({
+    //   next: (res: issueBook[]) => {
+    //     this.issuePendingReturns = res.filter((o) => o.status = 'pending');
+    //     this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
+    //   },
+    //   error: () => {
+    //     //this.showAlert('No Orders Found');
+    //   },
+    // });
   }
 
   ngOnInit(): void {
