@@ -53,6 +53,7 @@ export class UserComponent {
     this.getIssueService.getIssuBook().subscribe(
       (issData) => {
         this.issueBooks = issData;
+        this.issuePendingReturns = issData.filter(book => book.status === 'pending');
         this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
         console.log("ReturnBook"+this.issueCompletedReturns);
         console.log("IssueBooks"+issData);
