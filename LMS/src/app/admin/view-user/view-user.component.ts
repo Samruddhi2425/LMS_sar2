@@ -72,8 +72,12 @@ export class ViewUserComponent {
        alert("User blocked Successfully.");
       this.loadUser();
 
-    }
-    )
+    },
+    error => {
+    alert("Failed to block user.");
+    console.error(error);
+    });
+    
   }
 
   UnblockUser(userId: number){
