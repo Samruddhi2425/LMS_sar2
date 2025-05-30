@@ -27,7 +27,7 @@ profileLink: string = '';
     } else if (userType === 'manager') {
       this.profileLink = '/manager';
     } else {
-      this.profileLink = '/userProfile';
+      // this.profileLink = '/userProfile';
     }
   }
 
