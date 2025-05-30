@@ -6,7 +6,7 @@ import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../home_/home/home.component';
 
-export interface issueBooks {
+export interface issueBook {
   issueId: number,
   userId: number,
   bookId: number,
@@ -33,19 +33,19 @@ export class UserComponent {
   userType: string | null = null;
   bookMap: { [key: string]: string } = {};
   issueBooksService: any;
-  issuePendingReturns!: issueBooks[];
-  issueCompletedReturns!: issueBooks[];
+  issuePendingReturns!: issueBook[];
+  issueCompletedReturns!: issueBook[];
 
   constructor(private getIssueService: IssuebooksService, private router: Router) { 
-    this.getIssueService.getOrders().subscribe({
-      next: (res: issueBooks[]) => {
-        this.issuePendingReturns = res.filter((o) => o.status = 'pending');
-        this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
-      },
-      error: () => {
-        //this.showAlert('No Orders Found');
-      },
-    });
+    // this.getIssueService.getOrders().subscribe({
+    //   next: (res: issueBook[]) => {
+    //     this.issuePendingReturns = res.filter((o) => o.status = 'pending');
+    //     this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
+    //   },
+    //   error: () => {
+    //     //this.showAlert('No Orders Found');
+    //   },
+    // });
   }
 
   ngOnInit(): void {
@@ -53,9 +53,10 @@ export class UserComponent {
     this.getIssueService.getIssuBook().subscribe(
       (issData) => {
         this.issueBooks = issData;
-        this.returnedBooks = issData.filter(book => book.status === 'returned');
-        console.log(this.returnedBooks);
-        console.log(issData);
+        this.issuePendingReturns = issData.filter(book => book.status === 'pending');
+        this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
+        console.log("ReturnBook"+this.issueCompletedReturns);
+        console.log("IssueBooks"+issData);
       },
       (error) => {
         console.error('Error while feting issue data');
@@ -67,7 +68,7 @@ export class UserComponent {
   }
 
   logout(): void {
-    alert("you are logout")
+    alert("you are logout");
 
     localStorage.clear(); // or remove only user-related keys
     this.router.navigate(['/login']);

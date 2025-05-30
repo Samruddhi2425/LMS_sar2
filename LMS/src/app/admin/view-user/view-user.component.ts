@@ -60,4 +60,34 @@ export class ViewUserComponent {
       this.issueCount = data.length;
     });
   }
+
+  loadUser(){
+    this.getUserService.getUsers().subscribe((data: any[])=>{
+     this.users = data;
+  });
+  }
+
+  blockUser(userId: number){
+    this.getUserService.userBlock(userId).subscribe(() =>{
+       alert("User blocked Successfully.");
+      this.loadUser();
+
+    },
+    error => {
+    alert("Failed to block user.");
+    console.error(error);
+    });
+    
+  }
+
+  UnblockUser(userId: number){
+    this.getUserService.userUnBlock(userId).subscribe(()=>{
+       alert("User Unblocked Successfully.");
+      this.loadUser();
+    },
+       error => {
+    alert("Failed to block user.");
+    console.error(error);
+    })
+  }
 }
