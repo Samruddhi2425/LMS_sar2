@@ -3,6 +3,7 @@ import { CardService } from '../../card.service';
 import { AuthService } from '../../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { GetusersService } from '../../service/getusers.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,7 +17,8 @@ role: string | null = '';
 isLoggedIn: boolean = false;
 userType: string | null = null;
 profileLink: string = '';
-// constructor(private authService: AuthService) {}
+ userName: string = '';
+constructor() {}
 
   ngOnInit(): void {
     const userType = localStorage.getItem('userType');
@@ -29,6 +31,8 @@ profileLink: string = '';
     } else {
       this.profileLink = '/userProfile';
     }
+
+    
   }
 
   // checkLoginStatus(): void {

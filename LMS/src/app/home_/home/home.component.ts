@@ -13,6 +13,7 @@ import { CartComponent } from '../cart/cart.component';
 import { LoginComponent } from '../../login/login.component';
 import { CardService } from '../../card.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
+import { GetusersService } from '../../service/getusers.service';
 
 declare var bootstrap: any; // Required for Bootstrap JS methods
 interface BookItem {
@@ -52,7 +53,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error fetching books:', error);
       }
     );
+
+    
   }
+  
 
   ngAfterViewInit(): void {
     const carouselElement = document.getElementById('bookCarousel');
