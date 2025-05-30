@@ -60,4 +60,29 @@ export class ViewUserComponent {
       this.issueCount = data.length;
     });
   }
+
+  loadUser(){
+    this.getUserService.getUsers().subscribe((data: any[])=>{
+     this.users = data;
+  });
+  }
+  
+  blockUser(userId: number){
+    this.getUserService.userBlock(userId).subscribe(() =>{
+      this.loadUser();
+
+    }
+    )
+  }
+
+  UnblockUser(userId: number){
+    this.getUserService.userUnBlock(userId).subscribe(()=>{
+      this.loadUser();
+    })
+  }
+
+
+
+
+
 }

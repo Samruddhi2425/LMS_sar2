@@ -20,6 +20,4 @@ export class GetusersService {
     return this.http.post<any[]>(this.baseUrl + "/register", userData);
     
   }
-
-  
 }
