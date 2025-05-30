@@ -23,7 +23,6 @@
                     <tr>
                         <th>Order ID</th>
                         <th>Book Name</th>
-                        <!-- <th>Book Title</th> -->
                         <th>Order Date</th>
                         <th>Fine To Pay</th>
                         <th>Return Book</th>
@@ -34,7 +33,6 @@
                     <tr *ngFor=" let issu of issuePendingReturns">
                         <td>{{issu.issueId}}</td>
                         <td>{{bookMap[issu.bookId] || 'Unknown Title'}}</td>
-                        <!-- <td>{{issu.title}}</td> -->
                         <td>{{issu.issueDate}}</td>
                         <td></td>
                         <td><button class="btn btn-outline-info">Return</button></td>
@@ -54,8 +52,7 @@
                 <thead>
                     <tr >
                         <th>Order ID</th>
-                        <th>Book Title</th>
-                        
+                        <th>Book Title</th>                        
                         <th>Returned Date</th>
                         <th>Fine Paid</th>
                     </tr>
