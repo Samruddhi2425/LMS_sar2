@@ -62,15 +62,15 @@ export const routes: Routes = [
             { path: 'addbook', component: AddBookComponent }
         ]
     },
-    { path: "register", component: RegisterComponent },
-    { path: "home", component: HomeComponent },
+    // { path: "register", component: RegisterComponent },
+    // { path: "home", component: HomeComponent },
     { path: "userProfile", component: UserComponent,
-    //      canActivate: [AuthService],
-    // data: { expectedRole: 'user' }
+         canActivate: [AuthService],
+     data: { expectedRole: 'user' }
     },
     
     { path: "addBook", component: AddBookComponent },
 
-    { path: '', redirectTo: '/login', pathMatch: 'full' }
+    // { path: '', redirectTo: '/login', pathMatch: 'full' }
 
 ];

@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   books: any[] = [];
   searchTerm: string = '';
 
-  constructor(private getBookService: GetbooksService, private cardService: CardService,private addissuebook: IssuebooksService,private router: Router) { }
+  constructor(private getBookService: GetbooksService, private cardService: CardService,private router: Router) { }
 
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
@@ -101,26 +101,5 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
   }
 
-  addToCart(item: any) {
-    this.cardService.addToCart(item);
-    const isLoggedIn = !!localStorage.getItem('userType');
 
-  if (!isLoggedIn) {
-    localStorage.setItem('pendingAction', JSON.stringify({ type: 'issue', item }));
-    this.router.navigate(['/login']);
-  } else {
-    this.issueBookToUser(item);
-  }
-}
-
-issueBookToUser(bookId:any){
-  this.addissuebook.addIssBook(bookId).subscribe(
-      (res) => {
-        alert('Book issued successfully!');
-      },
-      (err) => {
-        alert('Failed to issue book. Please try again.');
-      }
-);
-}
 }
