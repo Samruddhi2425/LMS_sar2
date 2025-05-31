@@ -26,6 +26,9 @@ export interface issueBook {
 
 
 export class UserComponent {
+returnBtn() {
+throw new Error('Method not implemented.');
+}
   //IssueBook
   books: any[] = [];
   issueBooks: any[] = [];

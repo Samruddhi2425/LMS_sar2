@@ -38,6 +38,12 @@ interface BookItem {
 
 
 export class HomeComponent implements OnInit, AfterViewInit {
+selecteItem(_t44: any) {
+throw new Error('Method not implemented.');
+}
+addToCart(_t44: any) {
+throw new Error('Method not implemented.');
+}
   books: any[] = [];
   searchTerm: string = '';
 
