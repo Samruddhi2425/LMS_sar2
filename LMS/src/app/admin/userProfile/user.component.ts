@@ -53,7 +53,7 @@ export class UserComponent {
     this.getIssueService.getIssuBook().subscribe(
       (issData) => {
         this.issueBooks = issData;
-        this.issuePendingReturns = issData.filter(book => book.status === 'pending');
+        this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
         this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
         console.log("ReturnBook"+this.issueCompletedReturns);
         console.log("IssueBooks"+issData);
@@ -66,6 +66,21 @@ export class UserComponent {
       this.bookMap[book.bookId] = book.bookTitle;
     })
   }
+
+  returnBook(issueId: number): void {
+  this.getIssueService.returnBook(issueId).subscribe({
+    next: () => {
+      alert('Book returned successfully!');
+      //this.router.navigate(['/userProfile'])
+      //this.loadIssuedBooks(); // refresh list if needed
+    },
+    error: (err) => {
+      console.error(err);
+      alert('Failed to return book.');
+    }
+  });
+}
+
 
   logout(): void {
     alert("you are logout");
