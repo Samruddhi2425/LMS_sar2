@@ -35,7 +35,7 @@
                         <td>{{bookMap[issu.bookId] || 'Unknown Title'}}</td>
                         <td>{{issu.issueDate}}</td>
                         <td></td>
-                        <td><button class="btn btn-outline-info">Return</button></td>
+                        <td><button class="btn btn-outline-warning" (click)="returnBook(issu.issueId)">Return</button></td>
                     </tr>
                 </tbody>
             </table>

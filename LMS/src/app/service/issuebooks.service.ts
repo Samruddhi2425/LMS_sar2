@@ -23,7 +23,7 @@ export class IssuebooksService {
   private baseUrl = "https://localhost:7252/api/IssueBook";
 
   private apiUrl = 'https://localhost:7252/api/IssueBook/AddIssuBook';
-  
+
   constructor(private http : HttpClient) { }
 
   issueBookData :any[]=[]
@@ -47,6 +47,11 @@ export class IssuebooksService {
   // issueBookByUser(userId:number):number{
   //   return this.issueBookData.filter(issue => issue.userId === userId).length;
   // }
+
+  returnBook(issueId: number) {
+  return this.http.put(this.baseUrl+`/returnBook/${issueId}`,null);
+}
+
 
  
   getOrders() {
