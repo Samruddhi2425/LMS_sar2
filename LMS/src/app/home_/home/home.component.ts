@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   books: any[] = [];
   searchTerm: string = '';
 
-  constructor(private getBookService: GetbooksService, private cardService: CardService,private router: Router) { }
+  constructor(private getBookService: GetbooksService, private cardService: CardService,private router: Router,private issueBookService: IssuebooksService) { }
 
   ngOnInit(): void {
     this.getBookService.getBooks().subscribe(
@@ -106,4 +106,45 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
 
+  /// issue book
+  issueSelectedBook(book: any): void {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const userId = localStorage.getItem('userId');
+    console.log(userId);
+
+    if (!isLoggedIn || !userId) {
+      alert('Please log in to issue books.');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    const issuePayload = {
+      userId: parseInt(userId!, 10),
+      bookId: book.bookId, // adjust field name as per your object
+      issueDate: new Date().toISOString().split('T')[0],
+      dueDate: this.getDueDate(7),
+      bookQty: 1,
+      status: 'Issued'
+    };
+console.log(issuePayload);
+console.log("data");
+    this.issueBookService.issueBook(issuePayload).subscribe({
+      next: () => {
+        alert('Book issued successfully!');
+      },
+      error: (err) => {
+        console.error('Error issuing book:', err);
+        alert('Failed to issue book.');
+      }
+    });
+  }
+
+  getDueDate(daysFromNow: number): string {
+    const date = new Date();
+    date.setDate(date.getDate() + daysFromNow);
+    return date.toISOString().split('T')[0];
+  }
 }
+
+
+
