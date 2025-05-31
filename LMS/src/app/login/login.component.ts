@@ -70,6 +70,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/manager']);
             } else {
               this.router.navigate(['/userProfile']);
+              this.issueBookToUserAfterLogin();
             }
           } else {
             this.error = 'Invalid login attempt';
@@ -83,5 +84,21 @@ export class LoginComponent implements OnInit {
 
 
   }
+
+  issueBookToUserAfterLogin() {
+  //const userId = this.authService.getUserId(); // From token/session
+  ///make 
+  // const issuedBook = {
+  //   userId: userId,
+  //   bookId: this.selectedBook.id,
+  //   issueDate: new Date(),
+  // };
+
+  // this.bookService.issueBook(issuedBook).subscribe((res) => {
+  //   if (res.success) {
+  //     alert('Book issued successfully!');
+  //   }
+  // });
+}
 
 }
