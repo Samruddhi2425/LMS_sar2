@@ -35,9 +35,9 @@
 
     <!-- search section -->
     <div class="row ">
-      <div class="d-flex col-md-5 mx-auto">
+      <div class="d-flex col-md-6 mx-auto">
         <input type="text" [(ngModel)]="searchTerm" placeholder="Search by book name"
-          class="form-control d-none d-sm-block me-2 border border-warning">
+          class="form-control d-sm-block me-2 border border-warning">
 
         <button (click)="onSearch()" class="btn btn-success shadow me-2">Search</button>
         <button (click)="onReset()" class="btn btn-warning shadow ">Reset</button>
@@ -57,7 +57,7 @@
 
 
     <!-- card section -->
-    <div class="col-md-3" *ngFor="let book of books" (click)="selecteItem(book)">
+    <div class="col-md-3 mt-3" *ngFor="let book of books" (click)="selecteItem(book)">
       <div class="card">
         <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image" alt="Book Image">
         <div class="card-body">
