@@ -27,10 +27,7 @@ export const routes: Routes = [
     { path: "genre", component: GenreComponent },
     { path: "cart", component: CartComponent },
     { path: "book", component: BookdescriptionComponent },
-    // app-routing.module.ts (or your routing module)
-
     { path: 'admin/updateBook/:id', component: UpdateBookComponent },
-
     {
         path: "manager", component: ManagerComponent,
             // canActivate: [AuthService],
@@ -62,15 +59,12 @@ export const routes: Routes = [
             { path: 'addbook', component: AddBookComponent }
         ]
     },
-    // { path: "register", component: RegisterComponent },
-    // { path: "home", component: HomeComponent },
     { path: "userProfile", component: UserComponent,
          canActivate: [AuthService],
      data: { expectedRole: 'user' }
     },
     
-    { path: "addBook", component: AddBookComponent },
+    // { path: "addBook", component: AddBookComponent },
 
-    // { path: '', redirectTo: '/login', pathMatch: 'full' }
 
 ];
