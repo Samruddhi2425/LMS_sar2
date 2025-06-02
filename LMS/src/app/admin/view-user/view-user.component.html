@@ -18,6 +18,7 @@
                         <th>Block User</th>
                     </tr>
                 </thead>
+                
                 <tbody>
                     <tr *ngFor="let user of users">
                         <td>{{user.userId}}</td>
@@ -29,9 +30,9 @@
                         <td></td>
                         <td>
                             <button (click)="blockUser(user.userId)" [disabled]="user.isBlocked"
-                                [class.blurred]="user.isBlocked" class="btn btn-danger me-2">>Block</button>
+                                [class.blurred]="user.isBlocked" class="btn btn-danger me-2">Block</button>
                             <button (click)="UnblockUser(user.userId)" [disabled]="!user.isBlocked"
-                                [class.blurred]="!user.isBlocked" class="btn btn-success">>Unblock</button>
+                                [class.blurred]="!user.isBlocked" class="btn btn-success">Unblock</button>
                         </td>
                     </tr>
                 </tbody>

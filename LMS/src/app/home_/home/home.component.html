@@ -34,36 +34,30 @@
     </div>
 
     <!-- search section -->
-<div class="row text-center">
-  <!-- Search Input and Button -->
-   <div class="col-2 p-1">
-   </div>
-   <div class="col-6 p-1">
-<input type="text" [(ngModel)]="searchTerm" placeholder="Search by book name" class="form-control">
-  
-   </div>
-   <div class="col-3 my-2">
-    <button (click)="onSearch()" class="btn btn-success shadow me-2">Search</button>
-<button (click)="onReset()" class="btn btn-warning shadow ">Reset</button>
-   </div>
-   <div class="col-1 p-1">  
-   </div>
-  </div>
+    <div class="row ">
+      <div class="d-flex col-md-6 mx-auto">
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Search by book name"
+          class="form-control d-sm-block me-2 border border-warning">
 
-<div *ngIf="books.length === 0 && searchTerm.trim()">
-  <p>No books found for "{{ searchTerm }}".</p>
-</div>
+        <button (click)="onSearch()" class="btn btn-success shadow me-2">Search</button>
+        <button (click)="onReset()" class="btn btn-warning shadow ">Reset</button>
+      </div>
+    </div>
 
-<div *ngIf="books.length > 0">
-  <!-- <div *ngFor="let book of books">
+    <div *ngIf="books.length === 0 && searchTerm.trim()">
+      <p>No books found for "{{ searchTerm }}".</p>
+    </div>
+
+    <div *ngIf="books.length > 0">
+      <!-- <div *ngFor="let book of books">
     <h3>{{ book.bookName }}</h3>
     <p>{{ book.authorName }}</p>
   </div> -->
-</div>
+    </div>
 
 
     <!-- card section -->
-    <div class="col-md-3" *ngFor="let book of books" (click)="selecteItem(book)">
+    <div class="col-md-3 mt-3" *ngFor="let book of books" (click)="selecteItem(book)">
       <div class="card">
         <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image" alt="Book Image">
         <div class="card-body">
@@ -79,7 +73,7 @@
           </div>
           <div class="d-grid gap-2">
             <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#productModal"
-              routerLink="/login">Issue</button>
+              routerLink="/login" (click)="issueSelectedBook(book)">Issue</button>
             <button class="btn btn-outline-secondary" type="button" id="addToCartBtn" (click)="addToCart(book)">Add to
               Cart</button>
           </div>
@@ -263,7 +257,8 @@
             <div class="social-links">
               <a href="https://www.facebook.com/login.php/" class="social-icon"><i class="fab fa-facebook-f"></i></a>
               <a href="https://x.com/i/flow/login" class="social-icon"><i class="fab fa-twitter"></i></a>
-              <a href="https://www.instagram.com/accounts/login/" class="social-icon"><i class="fab fa-instagram"></i></a>
+              <a href="https://www.instagram.com/accounts/login/" class="social-icon"><i
+                  class="fab fa-instagram"></i></a>
               <a href="https://www.linkedin.com/login" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
             </div>
           </div>

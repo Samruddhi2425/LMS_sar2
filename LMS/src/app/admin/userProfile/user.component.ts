@@ -28,6 +28,9 @@ export interface issueBook {
 
 
 export class UserComponent {
+returnBtn() {
+throw new Error('Method not implemented.');
+}
   //IssueBook
   books: any[] = [];
   issueBooks: any[] = [];
@@ -55,9 +58,11 @@ export class UserComponent {
 
   ngOnInit(): void {
     this.userType = localStorage.getItem('userType');
+const logInUserId = localStorage.getItem('userId');
     this.getIssueService.getIssuBook().subscribe(
       (issData) => {
-        this.issueBooks = issData;
+        this.issueBooks = issData.filter(book=>book.userId == logInUserId);
+        this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
         this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
         console.log("ReturnBook" + this.issueCompletedReturns);
         console.log("IssueBooks" + issData);
@@ -69,43 +74,8 @@ export class UserComponent {
     this.books.forEach(book => {
       this.bookMap[book.bookId] = book.bookTitle;
     })
-
-
-
-    const userId = localStorage.getItem('userId');
-
-    if (userId) {
-      this.getUserService.getUserById(+userId).subscribe({
-        next: (res) => {
-          this.currentUser = res;
-        },
-        error: (err) => {
-          console.error("Error fetching user:", err);
-        }
-      });
-
-    }
   }
-  
-  enableEdit(): void {
-    this.isEditing = true;
 
-  }
-  cancelEdit(): void {
-    this.isEditing = false;
-    this.ngOnInit(); //for reset current data
-  }
-  updateUser(): void {
-    this.getUserService.updateUser(this.currentUser).subscribe({
-      next: () => {
-        alert("Profile updated successfully!");
-        this.isEditing = false;
-      },
-      error: () => {
-        alert("Failed to update profile.");
-      }
-    });
-  }
   logout(): void {
     alert("you are logout");
 

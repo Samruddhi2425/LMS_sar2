@@ -60,13 +60,17 @@ export class LoginComponent implements OnInit {
           if (res.status === 'success') {
             // Save user info in localStorage
             localStorage.setItem('userType', res.userType);
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userId', res.userId);
+            console.log(res);
             // localStorage.setItem('token', res.token); // optional, if your API returns a token
 
             // Redirect based on user type
             if (res.userType === 'manager') {
               this.router.navigate(['/manager']);
             } else {
-              this.router.navigate(['/userProfile']);
+              this.router.navigate(['/home']);
+              this.issueBookToUserAfterLogin();
             }
           } else {
             this.error = 'Invalid login attempt';
@@ -80,5 +84,21 @@ export class LoginComponent implements OnInit {
 
 
   }
+
+  issueBookToUserAfterLogin() {
+  //const userId = this.authService.getUserId(); // From token/session
+  ///make 
+  // const issuedBook = {
+  //   userId: userId,
+  //   bookId: this.selectedBook.id,
+  //   issueDate: new Date(),
+  // };
+
+  // this.bookService.issueBook(issuedBook).subscribe((res) => {
+  //   if (res.success) {
+  //     alert('Book issued successfully!');
+  //   }
+  // });
+}
 
 }
