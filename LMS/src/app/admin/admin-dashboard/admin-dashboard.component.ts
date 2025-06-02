@@ -3,6 +3,7 @@ import { GetbooksService } from '../../service/getbooks.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { GetusersService } from '../../service/getusers.service';
 import { UserService } from '../../service/user.service';
+import { issueBook } from '../userProfile/user.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,7 +16,12 @@ export class AdminDashboardComponent implements OnInit{
   totalBooks!: number;
   totalUser!: number;
   totalManagers!:number;
-  totalIssueBooks: any[]=[];
+  IssueBooks: any[]=[];
+  totalIssueBooks!:number;
+  totalReturnBooks!:number;
+  issuePendingReturns!: issueBook[];
+    issueCompletedReturns!: issueBook[];
+  
   constructor(
     private getBooksService: GetbooksService, 
     private issueBooksService: IssuebooksService,
@@ -36,9 +42,11 @@ export class AdminDashboardComponent implements OnInit{
 
     issueBooksService.getIssuBook().subscribe({
       next: (res:any)  =>{
-        this.totalIssueBooks = res.length;
+        
+        this.IssueBooks = res.length;
       }
     });
+
 
     userService.getManagers().subscribe({
       next: (res:any)  =>{
@@ -48,18 +56,20 @@ export class AdminDashboardComponent implements OnInit{
     
   }
   ngOnInit(): void {
-    // this.issueBooksService.getIssuBook().subscribe(
-    //   (issData) => {
-    //     this.issueBooks = issData;
-    //     this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
-    //     this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
-    //     console.log("ReturnBook"+this.issueCompletedReturns);
-    //     console.log("IssueBooks"+issData);
-    //   },
-    //   (error) => {
-    //     console.error('Error while feting issue data');
-    //   }
-    // );
+    this.issueBooksService.getIssuBook().subscribe(
+      (issData) => {
+        this.IssueBooks = issData;
+        this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
+        this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
+        this.totalIssueBooks = this.issuePendingReturns.length;
+        this.totalReturnBooks = this.issueCompletedReturns.length;
+        console.log("ReturnBooks"+this.issueCompletedReturns);
+        console.log("IssueBooks"+this.issuePendingReturns);
+      },
+      (error) => {
+        console.error('Error while feting issue data');
+      }
+    );
   }
 
 }
