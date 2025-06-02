@@ -16,7 +16,7 @@ import { IssuebooksService } from '../../service/issuebooks.service';
 import { GetusersService } from '../../service/getusers.service';
 
 declare var bootstrap: any; // Required for Bootstrap JS methods
-interface BookItem {
+export interface BookItem {
   authorName: string;
   base64Image: string;
   bookId: string;
@@ -126,6 +126,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   addToCart(item:any)
   {
+    alert("bookAdded successfully")
     this.cardService.addToCart(item);
   }
 

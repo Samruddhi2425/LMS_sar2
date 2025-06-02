@@ -21,7 +21,7 @@ export interface issueBooks {
   bookTitle: string;
   issueDate: string;
   status: string;
-  returnDate: string | null;
+  returnDate: string;
   finePaid: number;
 }
 

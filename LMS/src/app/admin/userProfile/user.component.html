@@ -35,7 +35,7 @@
                         <td>{{bookMap[issu.bookId] || 'Unknown Title'}}</td>
                         <td>{{issu.issueDate}}</td>
                         <td></td>
-                        <td><button class="btn btn-outline-info">Return</button></td>
+                        <td><button class="btn btn-outline-info" (click)="returnBook(issu.issueId)">Return</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -60,7 +60,7 @@
                 <tbody>
                     <tr *ngFor=" let issue of issueCompletedReturns">
                         <td>{{issue.issueId}}</td>
-                        <td>{{bookMap[issue.bookId] || 'Unknown Title'}}</td>
+                        <td>{{ bookMap[issue.bookId] || 'Unknown Title' }}</td>
                         <!-- <td></td> -->
                         <td>{{issue.returnDate}}</td>
                         <td></td>

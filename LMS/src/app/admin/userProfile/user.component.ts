@@ -5,6 +5,8 @@ import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../home_/home/home.component';
+import { BookItem } from '../../card.service';
+import { GetbooksService } from '../../service/getbooks.service';
 
 export interface issueBook {
   issueId: number,
@@ -30,7 +32,7 @@ returnBtn() {
 throw new Error('Method not implemented.');
 }
   //IssueBook
-  books: any[] = [];
+  books: BookItem[] = [];
   issueBooks: any[] = [];
   returnedBooks: any[] = [];
   userType: string | null = null;
@@ -39,16 +41,8 @@ throw new Error('Method not implemented.');
   issuePendingReturns!: issueBook[];
   issueCompletedReturns!: issueBook[];
 
-  constructor(private getIssueService: IssuebooksService, private router: Router) { 
-    // this.getIssueService.getOrders().subscribe({
-    //   next: (res: issueBook[]) => {
-    //     this.issuePendingReturns = res.filter((o) => o.status = 'pending');
-    //     this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
-    //   },
-    //   error: () => {
-    //     //this.showAlert('No Orders Found');
-    //   },
-    // });
+  constructor(private getIssueService: IssuebooksService, private router: Router, private GetbooksService: GetbooksService) { 
+    
   }
 
   ngOnInit(): void {
@@ -59,23 +53,31 @@ throw new Error('Method not implemented.');
         this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
         this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
         console.log("ReturnBook"+this.issueCompletedReturns);
-        console.log("IssueBooks"+issData);
+        console.log("IssueBooks"+JSON.stringify( issData));
       },
       (error) => {
         console.error('Error while feting issue data');
       }
     );
+    
+    this.GetbooksService.getBooks().subscribe(
+      (issData) => {
+        this.books=issData;
     this.books.forEach(book => {
-      this.bookMap[book.bookId] = book.bookTitle;
-    })
+      this.bookMap[book.bookId] = book.bookName;
+      
+    });
+  })
   }
 
   returnBook(issueId: number): void {
   this.getIssueService.returnBook(issueId).subscribe({
     next: () => {
+      this.router.navigate([this.router.url])
+      .then(()=>{window.location.reload();});
       alert('Book returned successfully!');
-      //this.router.navigate(['/userProfile'])
-      //this.loadIssuedBooks(); // refresh list if needed
+      
+      // this.loadIssuedBooks(); // refresh list if needed
     },
     error: (err) => {
       console.error(err);
