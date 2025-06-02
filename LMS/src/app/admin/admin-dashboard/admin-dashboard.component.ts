@@ -48,18 +48,18 @@ export class AdminDashboardComponent implements OnInit{
     
   }
   ngOnInit(): void {
-    this.issueBooksService.getIssuBook().subscribe(
-      (issData) => {
-        this.issueBooks = issData;
-        this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
-        this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
-        console.log("ReturnBook"+this.issueCompletedReturns);
-        console.log("IssueBooks"+issData);
-      },
-      (error) => {
-        console.error('Error while feting issue data');
-      }
-    );
+    // this.issueBooksService.getIssuBook().subscribe(
+    //   (issData) => {
+    //     this.issueBooks = issData;
+    //     this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
+    //     this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
+    //     console.log("ReturnBook"+this.issueCompletedReturns);
+    //     console.log("IssueBooks"+issData);
+    //   },
+    //   (error) => {
+    //     console.error('Error while feting issue data');
+    //   }
+    // );
   }
 
 }
