@@ -1,49 +1,54 @@
 <!-- login page -->
 <app-navbar></app-navbar>
-  <div class="container mt-5">
-        <div class="row justify-content-center">
-           
+<div class="container mt-5">
+    <div class="row justify-content-center">
 
-            <div class="col-md-6 col-lg-4">
-                <form [formGroup]="loginForm" (ngSubmit)="login()">
-                    <fieldset class="border p-3 rounded">
-                        <legend class="float-none w-auto px-2">Login</legend>
-                        
-                        <!-- Email Field -->
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email address</label>
-                            <input type="email" formControlName="email" [(ngModel)]="email" class="form-control" id="email" aria-describedby="emailHelp" required>
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                        </div>
-                        
-                        <!-- Password Field -->
-                        <div class="mb-3">
-                            <label for="pass" class="form-label">Password</label>
-                            <input type="pass" formControlName="pass" [(ngModel)]="pass" class="form-control" id="pass" required>
-                        </div>
-                        
-                        <!-- Login Button -->
-                        <button type="submit" class="btn btn-primary w-100">Login</button>
-                        
-                        <!-- Forgot Password Link -->
-                        <div class="mt-3 text-center">
+
+        <div class="col-md-6 col-lg-4">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+                <fieldset class="border p-3 rounded">
+                    <legend class="float-none w-auto px-2">Login</legend>
+
+                    <!-- Email Field -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" formControlName="email" [(ngModel)]="email" class="form-control" id="email"
+                            aria-describedby="emailHelp" required>
+                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="mb-3">
+                        <label for="pass" class="form-label">Password</label>
+                        <input type="pass" formControlName="pass" [(ngModel)]="pass" class="form-control" id="pass"
+                            required>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+
+                    <!-- Forgot Password Link -->
+                    <!-- <div class="mt-3 text-center">
                             <a href="#" class="text-decoration-none">Forgot password?</a>
-                        </div>
-                        <!-- Remember Me Checkbox -->
-                        <div class="m-3 form-check">
-                            <label class="form-check-label form-text" for="remember">By signing up or logging in, you consent to Netra Consciousness Library <a>Terms of Use</a> and <a>Privacy Policy.</a></label>
-                        </div>
+                        </div> -->
+                    <!-- Remember Me Checkbox -->
+                    <div class="m-3 form-check">
+                        <label class="form-check-label form-text" for="remember">By signing up or logging in, you
+                            consent to Netra Consciousness Library <a>Terms of Use</a> and <a>Privacy
+                                Policy.</a></label>
+                    </div>
 
-                        <div class="mt-3 ">
-                            <h5>New to library ? 
-                            <span><a href="/register" class="text-decoration-none text-center">Sign Up now.</a></span></h5>
-                        </div>
-                        <div *ngIf="error" class="alert alert-danger">
-  {{ error }}
-</div>
+                    <div class="mt-3 ">
+                        <h5>New to library ?
+                            <span><a href="/register" class="text-decoration-none text-center">Sign Up now.</a></span>
+                        </h5>
+                    </div>
+                    <div *ngIf="error" class="alert alert-danger">
+                        {{ error }}
+                    </div>
 
-                    </fieldset>
-                </form>
-            </div>
+                </fieldset>
+            </form>
         </div>
     </div>
+</div>

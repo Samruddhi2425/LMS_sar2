@@ -30,8 +30,8 @@ export const routes: Routes = [
     { path: 'admin/updateBook/:id', component: UpdateBookComponent },
     {
         path: "manager", component: ManagerComponent,
-            // canActivate: [AuthService],
-            // data: { expectedRole: 'manager' },
+            canActivate: [AuthService],
+            data: { expectedRole: 'manager' },
         children: [
             //{ path: '', redirectTo: 'managerLogin', pathMatch: 'full' },
             // { path: '', component: LoginComponent },

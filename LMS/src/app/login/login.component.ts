@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
             if (res.userType === 'manager') {
               this.router.navigate(['/manager']);
             } else {
-              this.router.navigate(['/userProfile']);
+              this.router.navigate(['/home']);
               this.issueBookToUserAfterLogin();
             }
           } else {
