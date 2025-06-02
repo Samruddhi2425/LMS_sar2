@@ -38,6 +38,12 @@ interface BookItem {
 
 
 export class HomeComponent implements OnInit, AfterViewInit {
+// selecteItem(book: any) {
+// throw new Error('Method not implemented.');
+// }
+// addToCart(book: any) {
+// throw new Error('Method not implemented.');
+// }
   books: any[] = [];
   searchTerm: string = '';
 
@@ -105,6 +111,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
   }
 
+ selecteItem(book: any) {
+    let b = localStorage.getItem('bookitemnew');
+
+    // Step 1: Convert the object to a string
+    const itemString = JSON.stringify(b);
+
+    // Step 2: Store it in localStorage
+    localStorage.setItem('selectedItem', itemString);
+    console.log('item', JSON.stringify(b));
+    console.log('itemString', b);
+  }
+
+
+  addToCart(item:any)
+  {
+    this.cardService.addToCart(item);
+  }
+
 
   /// issue book
   issueSelectedBook(book: any): void {
@@ -126,8 +150,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       bookQty: 1,
       status: 'Issued'
     };
-console.log(issuePayload);
-console.log("data");
+    console.log(issuePayload);
+    console.log("data");
     this.issueBookService.issueBook(issuePayload).subscribe({
       next: () => {
         alert('Book issued successfully!');
