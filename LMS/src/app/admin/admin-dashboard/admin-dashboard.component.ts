@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GetbooksService } from '../../service/getbooks.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { GetusersService } from '../../service/getusers.service';
@@ -10,7 +10,7 @@ import { UserService } from '../../service/user.service';
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })
-export class AdminDashboardComponent {
+export class AdminDashboardComponent implements OnInit{
 
   totalBooks!: number;
   totalUser!: number;
@@ -46,6 +46,20 @@ export class AdminDashboardComponent {
       }
     })
     
+  }
+  ngOnInit(): void {
+    this.issueBooksService.getIssuBook().subscribe(
+      (issData) => {
+        this.issueBooks = issData;
+        this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
+        this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
+        console.log("ReturnBook"+this.issueCompletedReturns);
+        console.log("IssueBooks"+issData);
+      },
+      (error) => {
+        console.error('Error while feting issue data');
+      }
+    );
   }
 
 }
