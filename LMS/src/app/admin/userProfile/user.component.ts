@@ -28,9 +28,9 @@ export interface issueBook {
 
 
 export class UserComponent {
-returnBtn() {
-throw new Error('Method not implemented.');
-}
+  returnBtn() {
+    throw new Error('Method not implemented.');
+  }
   //IssueBook
   books: any[] = [];
   issueBooks: any[] = [];
@@ -58,10 +58,10 @@ throw new Error('Method not implemented.');
 
   ngOnInit(): void {
     this.userType = localStorage.getItem('userType');
-const logInUserId = localStorage.getItem('userId');
+    const logInUserId = localStorage.getItem('userId');
     this.getIssueService.getIssuBook().subscribe(
       (issData) => {
-        this.issueBooks = issData.filter(book=>book.userId == logInUserId);
+        this.issueBooks = issData.filter(book => book.userId == logInUserId);
         this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
         this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
         console.log("ReturnBook" + this.issueCompletedReturns);
@@ -74,6 +74,55 @@ const logInUserId = localStorage.getItem('userId');
     this.books.forEach(book => {
       this.bookMap[book.bookId] = book.bookTitle;
     })
+
+
+    const userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.getUserService.getUserById(+userId).subscribe({
+        next: (res) => {
+          this.currentUser = res;
+        },
+        error: (err) => {
+          console.error("Error fetching user:", err);
+        }
+      });
+
+    }
+  }
+
+
+  enableEdit(): void {
+    this.isEditing = true;
+
+  }
+  cancelEdit(): void {
+    this.isEditing = false;
+    this.ngOnInit(); //for reset current data
+  }
+  updateUser(): void {
+    this.getUserService.updateUser(this.currentUser).subscribe({
+      next: () => {
+        alert("Profile updated successfully!");
+        this.isEditing = false;
+      },
+      error: () => {
+        alert("Failed to update profile.");
+      }
+    });
+  }
+  returnBook(issueId: number): void {
+    this.getIssueService.returnBook(issueId).subscribe({
+      next: () => {
+        alert('Book returned successfully!');
+        //this.router.navigate(['/userProfile'])
+        //this.loadIssuedBooks(); // refresh list if needed
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Failed to return book.');
+      }
+    });
   }
 
   logout(): void {
@@ -83,5 +132,25 @@ const logInUserId = localStorage.getItem('userId');
     this.router.navigate(['/login']);
   }
 
-
 }
+// function enableEdit() {
+//   throw new Error('Function not implemented.');
+// }
+
+// function cancelEdit() {
+//   throw new Error('Function not implemented.');
+// }
+
+// function updateUser() {
+//   throw new Error('Function not implemented.');
+// }
+
+// function returnBook(issueId: any, number: any) {
+//   throw new Error('Function not implemented.');
+// }
+
+// function logout() {
+//   throw new Error('Function not implemented.');
+// }
+
+
