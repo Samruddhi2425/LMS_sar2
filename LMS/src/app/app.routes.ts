@@ -17,6 +17,7 @@ import { ManagerdashboardComponent } from './manager/managerdashboard/managerdas
 import { UpdateManagerComponent } from './admin/update-manager/update-manager.component';
 import { AddManagerComponent } from './admin/add-manager/add-manager.component';
 import { AuthService } from './service/auth.service';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 
 
 export const routes: Routes = [
@@ -27,11 +28,12 @@ export const routes: Routes = [
     { path: "genre", component: GenreComponent },
     { path: "cart", component: CartComponent },
     { path: "book", component: BookdescriptionComponent },
+    { path: 'forgot', component: ForgotPasswordComponent },
     { path: 'admin/updateBook/:id', component: UpdateBookComponent },
     {
         path: "manager", component: ManagerComponent,
-            // canActivate: [AuthService],
-            // data: { expectedRole: 'manager' },
+        // canActivate: [AuthService],
+        // data: { expectedRole: 'manager' },
         children: [
             //{ path: '', redirectTo: 'managerLogin', pathMatch: 'full' },
             // { path: '', component: LoginComponent },
@@ -59,11 +61,12 @@ export const routes: Routes = [
             { path: 'addbook', component: AddBookComponent }
         ]
     },
-    { path: "userProfile", component: UserComponent,
-         canActivate: [AuthService],
-     data: { expectedRole: 'user' }
+    {
+        path: "userProfile", component: UserComponent,
+        canActivate: [AuthService],
+        data: { expectedRole: 'user' }
     },
-    
+
     // { path: "addBook", component: AddBookComponent },
 
 
