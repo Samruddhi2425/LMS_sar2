@@ -5,6 +5,7 @@ import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../home_/home/home.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 export interface issueBook {
   issueId: number,
@@ -19,9 +20,10 @@ export interface issueBook {
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, RouterModule, HomeComponent],
+  imports: [CommonModule, RouterModule, HomeComponent, FormGroup, FormBuilder],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+  styleUrl: './user.component.css',
+  providers: [GetusersService, IssuebooksService]
 })
 
 
@@ -35,8 +37,11 @@ export class UserComponent {
   issueBooksService: any;
   issuePendingReturns!: issueBook[];
   issueCompletedReturns!: issueBook[];
+  userForm!: FormGroup;
+  isEditing = false;
+  currentUser: any = {};
 
-  constructor(private getIssueService: IssuebooksService, private router: Router) { 
+  constructor(private getIssueService: IssuebooksService, private getUserService: GetusersService, private router: Router) {
     // this.getIssueService.getOrders().subscribe({
     //   next: (res: issueBook[]) => {
     //     this.issuePendingReturns = res.filter((o) => o.status = 'pending');
@@ -54,8 +59,8 @@ export class UserComponent {
       (issData) => {
         this.issueBooks = issData;
         this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
-        console.log("ReturnBook"+this.issueCompletedReturns);
-        console.log("IssueBooks"+issData);
+        console.log("ReturnBook" + this.issueCompletedReturns);
+        console.log("IssueBooks" + issData);
       },
       (error) => {
         console.error('Error while feting issue data');
@@ -64,8 +69,43 @@ export class UserComponent {
     this.books.forEach(book => {
       this.bookMap[book.bookId] = book.bookTitle;
     })
-  }
 
+
+
+    const userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.getUserService.getUserById(+userId).subscribe({
+        next: (res) => {
+          this.currentUser = res;
+        },
+        error: (err) => {
+          console.error("Error fetching user:", err);
+        }
+      });
+
+    }
+  }
+  
+  enableEdit(): void {
+    this.isEditing = true;
+
+  }
+  cancelEdit(): void {
+    this.isEditing = false;
+    this.ngOnInit(); //for reset current data
+  }
+  updateUser(): void {
+    this.getUserService.updateUser(this.currentUser).subscribe({
+      next: () => {
+        alert("Profile updated successfully!");
+        this.isEditing = false;
+      },
+      error: () => {
+        alert("Failed to update profile.");
+      }
+    });
+  }
   logout(): void {
     alert("you are logout");
 
@@ -73,9 +113,5 @@ export class UserComponent {
     this.router.navigate(['/login']);
   }
 
+
 }
-
-
-
-
-
