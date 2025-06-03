@@ -23,25 +23,24 @@
 
     <div class="form-group">
   <label for="genre">Genre</label>
-  <input
-    type="text"
+  <select
+    class="form-control"
     [(ngModel)]="book.genre"
     name="genre"
     id="genre"
-    list="genreList"
-    placeholder="e.g. Fiction"
     required
-  />
-  <datalist id="genreList">
-    <option value="Biography"></option>
-    <option value="Romance"></option>
-    <option value="Fiction"></option>
-    <option value="Horror"></option>
-    <option value="Adventure"></option>
-    <option value="Magical Realism"></option>
-    <option value="Self Help"></option>
-  </datalist>
+  >
+    <option value="" disabled selected>Select a genre</option>
+    <option value="Biography">Biography</option>
+    <option value="Romance">Romance</option>
+    <option value="Fiction">Fiction</option>
+    <option value="Horror">Horror</option>
+    <option value="Adventure">Adventure</option>
+    <option value="Magical Realism">Magical Realism</option>
+    <option value="Self Help">Self Help</option>
+  </select>
 </div>
+
 
       <div class="form-group">
         <label for="quantity">Quantity</label>
