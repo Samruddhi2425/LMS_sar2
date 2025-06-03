@@ -47,6 +47,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   books: any[] = [];
   searchTerm: string = '';
 
+  book: any[]=[];
+ categories: string[] = ['Biography','Classic','fiction', 'horror', 'Adventure', 'Magical Realism', 'Self-Help','Romance'];
+  selectedCategory: string = '';
+
   constructor(private getBookService: GetbooksService, private cardService: CardService,private router: Router,private issueBookService: IssuebooksService) { }
 
   ngOnInit(): void {
@@ -60,6 +64,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     );
 
+  }
+
+
+  onCategorySelect(categories: string): void {
+    this.selectedCategory = categories;
+    this.getBookService.ViewBookByGenre(categories).subscribe({
+      next: (data) => {
+        // this.router.navigate();
+         console.log("book:",data);
+        this.book = data       
+      },      
+      error: (err) => console.error('Error fetching books', err)
+    });
   }
   
 
