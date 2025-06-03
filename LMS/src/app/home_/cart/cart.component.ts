@@ -24,8 +24,7 @@ export class CartComponent implements OnInit {
     else {
       const finalData: BookItem[] = JSON.parse(storedData) as BookItem[];
       this.cartItems = finalData;
-    localStorage.setItem('cartcount',this.cartItems.length.toString());
-
+    
     }
 
   }

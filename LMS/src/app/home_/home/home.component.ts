@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     );
 
-    
   }
   
 
@@ -111,17 +110,32 @@ export class HomeComponent implements OnInit, AfterViewInit {
     );
   }
 
- selecteItem(book: any) {
-    let b = localStorage.getItem('bookitemnew');
+ selecteItem(book: any): void {
+  const b = localStorage.getItem('bookitemnew');
+  let bookItems: any[] = [];
 
-    // Step 1: Convert the object to a string
-    const itemString = JSON.stringify(b);
-
-    // Step 2: Store it in localStorage
-    localStorage.setItem('selectedItem', itemString);
-    console.log('item', JSON.stringify(b));
-    console.log('itemString', b);
+  if (b) {
+    try {
+      bookItems = JSON.parse(b);
+    } catch (error) {
+      console.error('Failed to parse bookitemnew from localStorage:', error);
+    }
   }
+
+  // Add the new book to the array
+  bookItems.push(book);
+
+  // Save updated array back to localStorage
+  localStorage.setItem('bookitemnew', JSON.stringify(bookItems));
+
+  // Update count in localStorage
+  const count = bookItems.length;
+  localStorage.setItem('count', count.toString());
+
+  // For debugging or UI update
+  console.log("Updated count: " + count);
+}
+
 
 
   addToCart(item:any)
