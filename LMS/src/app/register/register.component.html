@@ -13,7 +13,7 @@
           <div class="mb-3">
             <label class="form-label">First Name</label>
             <input type="firstName" class="form-control" id="firstName" formControlName="firstName"
-              aria-describedby="fnameHelp" pattern="^[a-zA-Z\s\'\-]+$">
+              aria-describedby="fnameHelp" pattern="^[a-zA-Z]+$">
             <div *ngIf="regForm.get('firstName')?.invalid && regForm.get('firstName')?.touched" class="text-danger">
               Required or Invalid Firstname. Please check.
             </div>
@@ -22,7 +22,7 @@
           <div class="mb-3">
             <label for="lastName" class="form-label">Last Name</label>
             <input type="lastName" class="form-control" formControlName="lastName" id="lastName"
-              aria-describedby="lnameHelp" pattern="^[a-zA-Z\s\'\-]+$">
+              aria-describedby="lnameHelp" pattern="^[a-zA-Z]+$">
             <div *ngIf="regForm.get('lastName')?.invalid && regForm.get('lastName')?.touched" class="text-danger">
               Required or Invalid Lastname. Please check.
             </div>
