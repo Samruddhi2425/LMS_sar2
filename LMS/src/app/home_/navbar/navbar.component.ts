@@ -18,6 +18,7 @@ isLoggedIn: boolean = false;
 userType: string | null = null;
 profileLink: string = '';
  userName: string = '';
+  cartCount: any;
 constructor() {}
 
   ngOnInit(): void {
@@ -32,6 +33,14 @@ constructor() {}
       this.profileLink = '/userProfile';
     }
 
+    const cartCount: number = 0;
+
+    const stored = localStorage.getItem('selectedBookIds');
+    if (stored) {
+      const bookIds = JSON.parse(stored); // Assuming it's an array
+      this.cartCount = bookIds.length;
+    }
+  
     
   }
 
