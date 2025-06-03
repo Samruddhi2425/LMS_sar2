@@ -5,6 +5,7 @@ import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../home_/home/home.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 export interface issueBook {
   issueId: number,
@@ -19,16 +20,17 @@ export interface issueBook {
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, RouterModule, HomeComponent],
+  imports: [CommonModule, RouterModule, HomeComponent, FormGroup, FormBuilder],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+  styleUrl: './user.component.css',
+  providers: [GetusersService, IssuebooksService]
 })
 
 
 export class UserComponent {
-returnBtn() {
-throw new Error('Method not implemented.');
-}
+  returnBtn() {
+    throw new Error('Method not implemented.');
+  }
   //IssueBook
   books: any[] = [];
   issueBooks: any[] = [];
@@ -38,8 +40,11 @@ throw new Error('Method not implemented.');
   issueBooksService: any;
   issuePendingReturns!: issueBook[];
   issueCompletedReturns!: issueBook[];
+  userForm!: FormGroup;
+  isEditing = false;
+  currentUser: any = {};
 
-  constructor(private getIssueService: IssuebooksService, private router: Router) { 
+  constructor(private getIssueService: IssuebooksService, private getUserService: GetusersService, private router: Router) {
     // this.getIssueService.getOrders().subscribe({
     //   next: (res: issueBook[]) => {
     //     this.issuePendingReturns = res.filter((o) => o.status = 'pending');
@@ -53,13 +58,14 @@ throw new Error('Method not implemented.');
 
   ngOnInit(): void {
     this.userType = localStorage.getItem('userType');
+    const logInUserId = localStorage.getItem('userId');
     this.getIssueService.getIssuBook().subscribe(
       (issData) => {
-        this.issueBooks = issData;
+        this.issueBooks = issData.filter(book => book.userId == logInUserId);
         this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
         this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
-        console.log("ReturnBook"+this.issueCompletedReturns);
-        console.log("IssueBooks"+issData);
+        console.log("ReturnBook" + this.issueCompletedReturns);
+        console.log("IssueBooks" + issData);
       },
       (error) => {
         console.error('Error while feting issue data');
@@ -68,22 +74,56 @@ throw new Error('Method not implemented.');
     this.books.forEach(book => {
       this.bookMap[book.bookId] = book.bookTitle;
     })
+
+
+    const userId = localStorage.getItem('userId');
+
+    if (userId) {
+      this.getUserService.getUserById(+userId).subscribe({
+        next: (res) => {
+          this.currentUser = res;
+        },
+        error: (err) => {
+          console.error("Error fetching user:", err);
+        }
+      });
+
+    }
   }
 
-  returnBook(issueId: number): void {
-  this.getIssueService.returnBook(issueId).subscribe({
-    next: () => {
-      alert('Book returned successfully!');
-      //this.router.navigate(['/userProfile'])
-      //this.loadIssuedBooks(); // refresh list if needed
-    },
-    error: (err) => {
-      console.error(err);
-      alert('Failed to return book.');
-    }
-  });
-}
 
+  enableEdit(): void {
+    this.isEditing = true;
+
+  }
+  cancelEdit(): void {
+    this.isEditing = false;
+    this.ngOnInit(); //for reset current data
+  }
+  updateUser(): void {
+    this.getUserService.updateUser(this.currentUser).subscribe({
+      next: () => {
+        alert("Profile updated successfully!");
+        this.isEditing = false;
+      },
+      error: () => {
+        alert("Failed to update profile.");
+      }
+    });
+  }
+  returnBook(issueId: number): void {
+    this.getIssueService.returnBook(issueId).subscribe({
+      next: () => {
+        alert('Book returned successfully!');
+        //this.router.navigate(['/userProfile'])
+        //this.loadIssuedBooks(); // refresh list if needed
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Failed to return book.');
+      }
+    });
+  }
 
   logout(): void {
     alert("you are logout");
@@ -93,8 +133,24 @@ throw new Error('Method not implemented.');
   }
 
 }
+// function enableEdit() {
+//   throw new Error('Function not implemented.');
+// }
 
+// function cancelEdit() {
+//   throw new Error('Function not implemented.');
+// }
 
+// function updateUser() {
+//   throw new Error('Function not implemented.');
+// }
 
+// function returnBook(issueId: any, number: any) {
+//   throw new Error('Function not implemented.');
+// }
+
+// function logout() {
+//   throw new Error('Function not implemented.');
+// }
 
 

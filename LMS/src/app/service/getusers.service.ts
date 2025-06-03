@@ -27,5 +27,11 @@ export class GetusersService {
   userUnBlock(userId: number):Observable<any[]>{
     return this.http.put<any[]>(`https://localhost:7252/api/Users/unblock/${userId}`, {});
 
-}
+  }
+  getUserById(userId: number): Observable<any> {
+    return this.http.get<any>(`https://localhost:7252/api/Users/ViewbyId/${userId}`);
+  }
+  updateUser(userData: any):Observable<any>{
+    return this.http.put<any>(`https://localhost:7252/api/Users/update`, userData);
+  }
 }

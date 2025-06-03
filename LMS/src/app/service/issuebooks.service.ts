@@ -64,7 +64,7 @@ export class IssuebooksService {
             userName: order.user.firstName + ' ' + order.user.lastName,
             bookId: order.bookId,
             issueDate: order.orderDate,
-            //returned: order.returned,
+            // returned: order.returned,
             returnDate: order.returnDate,
             finePaid: order.finePaid,
             bookTitle: '',
