@@ -13,6 +13,7 @@ import { IssuebooksService } from '../../service/issuebooks.service';
 })
 export class CartComponent implements OnInit {
   cartItems: BookItem[] = [];
+  cartCount!: number;
 
   constructor(private cartService: CardService, private issueBookService: IssuebooksService) {
     const storedData = localStorage.getItem('bookitem');
@@ -23,6 +24,7 @@ export class CartComponent implements OnInit {
     else {
       const finalData: BookItem[] = JSON.parse(storedData) as BookItem[];
       this.cartItems = finalData;
+    localStorage.setItem('cartcount',this.cartItems.length.toString());
 
     }
 
@@ -31,6 +33,8 @@ export class CartComponent implements OnInit {
   ngOnInit() {
     // this.cartItems = this.cartService.getCartItems();
     // 1. Get the item from localStorage (returns string | null)
+
+    
 
   }
 

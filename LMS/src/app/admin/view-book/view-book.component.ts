@@ -6,6 +6,7 @@ import { Route,RouterModule, RouterOutlet } from '@angular/router';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { UserComponent } from '../userProfile/user.component';
 import { UpdateBookComponent } from '../update-book/update-book.component';
+import { FormsModule } from '@angular/forms';
 
 
 interface Books {
@@ -20,7 +21,7 @@ interface Books {
 
 @Component({
   selector: 'app-view-book',
-  imports: [CommonModule,RouterModule,UserComponent,UpdateBookComponent], 
+  imports: [CommonModule,RouterModule,UserComponent,UpdateBookComponent, FormsModule], 
   templateUrl: './view-book.component.html',
   
   providers:[GetbooksService],
@@ -97,4 +98,5 @@ clearSearch(): void {
 
 
 
+}
 }
