@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,7 +20,7 @@ export class ForgotPasswordComponent implements OnInit {
   errorMsg: string = '';
   successMsg: string = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,private http:HttpClient) { }
 
   ngOnInit(): void {
     this.emailForm = this.fb.group({
@@ -37,11 +38,29 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   sendOtp(): void {
+
     if (this.emailForm.valid) {
       this.generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      const email = this.emailForm.value.email;
       console.log('Generated OTP:', this.generatedOtp);
-      this.step = 'otp';
-      this.errorMsg = '';
+      const payload = {
+        email: email,
+        otp: this.generatedOtp
+      };
+      this.http.post('https://your-backend-url/api/auth/send-otp', payload).subscribe({
+      next: () => {
+        console.log('OTP sent to email');
+        this.step = 'otp';
+        this.errorMsg = '';
+      },
+      error: (err) => {
+        console.error('Error sending OTP email:', err);
+        this.errorMsg = 'Failed to send OTP email. Please try again.';
+      }
+    });
+
+      // this.step = 'otp';
+      // this.errorMsg = '';
     } else {
       this.emailForm.markAllAsTouched();
     }
