@@ -31,7 +31,17 @@ book: any[]=[];
 
 constructor(private getBookService: GetbooksService){}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getBookService.getBooks().subscribe(
+      (data) => {
+        this.book = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+  }
     
 
    onCategorySelect(categories: string): void {

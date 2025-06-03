@@ -5,7 +5,8 @@ import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { Router, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../home_/home/home.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { Users } from '../view-user/view-user.component';
 
 export interface issueBook {
   issueId: number,
@@ -20,7 +21,7 @@ export interface issueBook {
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, RouterModule, HomeComponent, FormGroup, FormBuilder],
+  imports: [CommonModule, RouterModule, HomeComponent, FormsModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
   providers: [GetusersService, IssuebooksService]
@@ -33,6 +34,7 @@ export class UserComponent {
   }
   //IssueBook
   books: any[] = [];
+  user: any[] = [];
   issueBooks: any[] = [];
   returnedBooks: any[] = [];
   userType: string | null = null;
@@ -40,9 +42,10 @@ export class UserComponent {
   issueBooksService: any;
   issuePendingReturns!: issueBook[];
   issueCompletedReturns!: issueBook[];
-  userForm!: FormGroup;
+  // userForm!: FormGroup;
   isEditing = false;
-  currentUser: any = {};
+  currentUser: any={};
+  errorMessage: string = '';
 
   constructor(private getIssueService: IssuebooksService, private getUserService: GetusersService, private router: Router) {
     // this.getIssueService.getOrders().subscribe({
@@ -59,35 +62,62 @@ export class UserComponent {
   ngOnInit(): void {
     this.userType = localStorage.getItem('userType');
     const logInUserId = localStorage.getItem('userId');
+
+    if (!logInUserId) {
+      console.error('No userId found in localStorage');
+      return;
+    }
+
+
     this.getIssueService.getIssuBook().subscribe(
       (issData) => {
-        this.issueBooks = issData.filter(book => book.userId == logInUserId);
-        this.issuePendingReturns = issData.filter(book => book.status === 'Issued');
-        this.issueCompletedReturns = issData.filter(book => book.status === 'returned');
-        console.log("ReturnBook" + this.issueCompletedReturns);
-        console.log("IssueBooks" + issData);
+        if (!Array.isArray(issData)) {
+          console.error('Invalid data received:', issData);
+          return;
+        }
+
+        // Filter books for this user
+        const userBooks = issData.filter(book => book.userId == logInUserId);
+
+        this.issueBooks = userBooks;
+        this.issuePendingReturns = userBooks.filter(book => book.status === 'Issued');
+        this.issueCompletedReturns = userBooks.filter(book => book.status === 'returned');
+
+        console.log("Returned Books:", this.issueCompletedReturns);
+        console.log("All User Issue Books:", this.issueBooks);
       },
       (error) => {
-        console.error('Error while feting issue data');
+        console.error('Error while fetching issue data:', error);
       }
     );
-    this.books.forEach(book => {
-      this.bookMap[book.bookId] = book.bookTitle;
-    })
+
+
+    // Only map books if they're already loaded
+    if (this.books && Array.isArray(this.books)) {
+      this.books.forEach(book => {
+        this.bookMap[book.bookId] = book.bookTitle;
+      });
+    } else {
+      console.warn('Books not loaded at ngOnInit');
+    }
 
 
     const userId = localStorage.getItem('userId');
 
-    if (userId) {
-      this.getUserService.getUserById(+userId).subscribe({
+    if (logInUserId) {
+      this.getUserService.getUserById(+logInUserId).subscribe({
         next: (res) => {
           this.currentUser = res;
+          console.log('User loaded:', this.currentUser);
         },
         error: (err) => {
-          console.error("Error fetching user:", err);
+          if (err.status === 404) {
+            console.error('User not found');
+          } else {
+            console.error('Error fetching user:', err);
+          }
         }
       });
-
     }
   }
 
