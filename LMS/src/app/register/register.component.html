@@ -2,129 +2,68 @@
 <!-- Registration page -->
 <app-navbar></app-navbar>
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-4">
-<!-- Registration page -->
-<app-navbar></app-navbar>
-<div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">
+      <!-- Registration page -->
       <fieldset class="border p-3 rounded">
         <legend class="float-none w-auto px-2">Registration</legend>
 
+        <!-- Name Field -->
         <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
-          <!-- First Name -->
           <div class="mb-3">
             <label class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstName" formControlName="firstName" />
-            <div class="text-danger" *ngIf="regForm.get('firstName')?.touched && regForm.get('firstName')?.invalid">
-              First name is required.
+            <input type="firstName" class="form-control" id="firstName" formControlName="firstName"
+              aria-describedby="fnameHelp" pattern="^[a-zA-Z\s\'\-]+$">
+            <div *ngIf="regForm.get('firstName')?.invalid && regForm.get('firstName')?.touched" class="text-danger">
+              Required or Invalid Firstname. Please check.
             </div>
           </div>
 
-          <!-- Last Name -->
           <div class="mb-3">
-            <label class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastName" formControlName="lastName" />
-            <div class="text-danger" *ngIf="regForm.get('lastName')?.touched && regForm.get('lastName')?.invalid">
-              Last name is required.
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="lastName" class="form-control" formControlName="lastName" id="lastName"
+              aria-describedby="lnameHelp" pattern="^[a-zA-Z\s\'\-]+$">
+            <div *ngIf="regForm.get('lastName')?.invalid && regForm.get('lastName')?.touched" class="text-danger">
+              Required or Invalid Lastname. Please check.
             </div>
           </div>
 
-          <!-- Email -->
+          <!-- Email Field -->
           <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" formControlName="email" />
-            <div class="text-danger" *ngIf="regForm.get('email')?.touched && regForm.get('email')?.invalid">
-              <div *ngIf="regForm.get('email')?.errors?.['required']">Email is required.</div>
-              <div *ngIf="regForm.get('email')?.errors?.['email']">Enter a valid email.</div>
+            <label for="email" class="form-label">Email
+              address</label>
+            <input type="email" class="form-control" formControlName="email" id="email" aria-describedby="emailHelp">
+            <div *ngIf="regForm.get('email')?.invalid && regForm.get('email')?.touched" class="text-danger">
+              Required or Invalid Email. Please check.
             </div>
           </div>
 
-          <!-- Password -->
+          <!-- Password Field -->
           <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" class="form-control" id="pass" formControlName="pass" />
-            <div class="text-danger" *ngIf="regForm.get('pass')?.touched && regForm.get('pass')?.invalid">
-              <div *ngIf="regForm.get('pass')?.errors?.['required']">Password is required.</div>
-              <div *ngIf="regForm.get('pass')?.errors?.['minlength']">Password must be at least 6 characters long.</div>
+            <div class="mb-3">
+              <label for="pass" class="form-label">Password</label>
+              <input type="pass" class="form-control" formControlName="pass" id="pass">
+              <div *ngIf="regForm.get('pass')?.invalid && regForm.get('pass')?.touched" class="text-danger">
+              Required Password
             </div>
+            </div>
+
           </div>
 
-          <!-- Mobile -->
           <div class="mb-3">
-            <label class="form-label">Mobile</label>
-            <input type="text" class="form-control" id="mobileNo" formControlName="mobileNo" />
-            <div class="text-danger" *ngIf="regForm.get('mobileNo')?.touched && regForm.get('mobileNo')?.invalid">
-              <div *ngIf="regForm.get('mobileNo')?.errors?.['required']">Mobile number is required.</div>
-              <div *ngIf="regForm.get('mobileNo')?.errors?.['pattern']">Enter a valid 10-digit mobile number.</div>
+            <label for="mobileNo" class="form-label">Mobile</label>
+            <input type="mobileNo" class="form-control" id="mobileNo" pattern='^[0-9]{10}$' aria-describedby="mobileNo"
+              formControlName="mobileNo">
+             <div *ngIf="regForm.get('mobileNo')?.invalid && regForm.get('mobileNo')?.touched" class="text-danger">
+              Required or Invalid Mobile number. Please check.
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100 my-2" [disabled]="regForm.invalid">Register</button>
-          <button class="btn btn-secondary w-100" routerLink="/login">Login</button>
+          <!-- Login Button -->
+          <button class="btn btn-primary w-100 my-2" type="submit" [disabled]="regForm.invalid">Register</button>
+          <button class="btn btn-primary w-100" routerLink="/login">Login</button>
         </form>
       </fieldset>
     </div>
   </div>
-</div>
-
-            <fieldset class="border p-3 rounded">
-                <legend class="float-none w-auto px-2">Registration</legend>
-
-                <!-- Name Field -->
-                <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
-                    <div class="mb-3">
-                        <label class="form-label">First Name</label>
-                        <input type="firstName" class="form-control" id="firstName" formControlName="firstName"
-                            aria-describedby="fnameHelp">
-                        <div *ngIf="regForm.get('firstName')?.invalid && regForm.get('firstName')?.touched">
-                            Firstname is required.
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="lastName" class="form-control" formControlName="lastName" id="lastName"
-                            aria-describedby="lnameHelp">
-                        <div *ngIf="regForm.get('lastName')?.invalid && regForm.get('lastName')?.touched">
-                            Lastname is required.
-                        </div>
-                    </div>
-
-                    <!-- Email Field -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email
-                            address</label>
-                        <input type="email" class="form-control" formControlName="email" id="email"
-                            aria-describedby="emailHelp">
-                        <div *ngIf="regForm.get('email')?.invalid && regForm.get('email')?.touched">
-                            email is required.
-                        </div>
-                    </div>
-
-                    <!-- Password Field -->
-                    <div class="mb-3">
-                        <div class="mb-3">
-  <label for="pass" class="form-label">Password</label>
-  <input type="pass" class="form-control" formControlName="pass" id="pass">
-</div>
-
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="mobileNo"
-                            class="form-label">Mobile</label>
-                        <input type="mobileNo" class="form-control"
-                            id="mobileNo" aria-describedby="mobileNo" formControlName="mobileNo">
-                    </div>
-
-                    <!-- Login Button -->
-                    <button class="btn btn-primary w-100 my-2" type="submit" [disabled]="regForm.invalid">Register</button>
-                    <button class="btn btn-primary w-100"
-                        routerLink="/login">Login</button>
-                </form>
-            </fieldset>
-        </div>
-    </div>
 </div>
