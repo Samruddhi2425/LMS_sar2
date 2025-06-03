@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { NavbarComponent } from '../../home_/navbar/navbar.component';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,NavbarComponent],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
@@ -19,7 +22,7 @@ export class ForgotPasswordComponent implements OnInit {
   errorMsg: string = '';
   successMsg: string = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,private http:HttpClient,private userService:UserService) { }
 
   ngOnInit(): void {
     this.emailForm = this.fb.group({
@@ -36,16 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
 
-  sendOtp(): void {
-    if (this.emailForm.valid) {
-      this.generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-      console.log('Generated OTP:', this.generatedOtp);
-      this.step = 'otp';
-      this.errorMsg = '';
-    } else {
-      this.emailForm.markAllAsTouched();
-    }
-  }
+  
 
   verifyOtp(): void {
     const enteredOtp = this.otpForm.value.otp?.trim();
@@ -72,4 +66,32 @@ export class ForgotPasswordComponent implements OnInit {
     this.otpForm.reset();
     this.resetForm.reset();
   }
+
+
+  emailExists: boolean | null = null;
+
+checkEmail() {
+  const email = this.emailForm.get('email')?.value;
+
+  if (!email) {
+    alert('Please enter an email first.');
+    return;
+  }
+
+  this.userService.checkEmailExistsfor(email).subscribe(
+    exists => {
+      this.emailExists = exists;
+      if (exists) {
+        
+        alert('Email already exists in the system.');
+      } else {
+        alert('Email is available.');
+      }
+    },
+    error => {
+      console.error('Error checking email:', error);
+      alert('Failed to check email.');
+    }
+  );
+}
 }

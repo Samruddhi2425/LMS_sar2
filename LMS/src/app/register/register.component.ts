@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
       email: [
         '',
         [Validators.required, Validators.email],
-        [this.emailExistsValidator(this.userService)] // ✅ async validator
+        [this.emailExistsValidator(this.userService)] 
       ],
       pass: ['', [Validators.required, Validators.minLength(6)]],
       mobileNo: ['', [
@@ -53,14 +53,14 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  // ✅ Proper async validator to check if email exists
+ 
   emailExistsValidator(service: UserService): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
       if (!control.value) return of(null);
 
       return service.checkEmailExists(control.value).pipe(
         map((exists: boolean) => (exists ? { emailTaken: true } : null)),
-        catchError(() => of(null)) // treat errors as valid
+        catchError(() => of(null)) 
       );
     };
   }
