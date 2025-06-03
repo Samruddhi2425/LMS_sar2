@@ -1,119 +1,135 @@
-<nav class="navbar navbar-expand-sm bg-light text-dark navbar-light fixed-top" style="position: sticky; top: 0; z-index: 1000; ">
-  <div class="container-fluid">
-    <!-- <a class="navbar-brand" href="#">Fixed top</a> -->
-     <ul class="navbar-nav m-auto">
-        <li class="nav-item">
-          <!-- <a class="nav-link" href="#allbooks">Books</a> -->
-          <a class="nav-link" [routerLink]="[]" fragment="viewbooks" (click)="scrollTo('viewbooks')">Book</a>
-        </li>
-        <li class="nav-item">
-          <!-- <a class="nav-link" href="admin/viewBooks/#Pending-Book">Pending Returns</a> -->
-         <a class="nav-link" [routerLink]="[]" fragment="Pending-Book" (click)="scrollTo('Pending-Book')" >Pending Returns</a>
+<nav class="navbar navbar-expand-sm bg-light text-dark navbar-light fixed-top"
+    style="position: sticky; top: 0; z-index: 1000; ">
+    <div class="container-fluid">
+        <!-- <a class="navbar-brand" href="#">Fixed top</a> -->
+        <ul class="navbar-nav m-auto">
+            <li class="nav-item">
+                <!-- <a class="nav-link" href="#allbooks">Books</a> -->
+                <a class="nav-link" [routerLink]="[]" fragment="viewbooks" (click)="scrollTo('viewbooks')">Book</a>
+            </li>
+            <li class="nav-item">
+                <!-- <a class="nav-link" href="admin/viewBooks/#Pending-Book">Pending Returns</a> -->
+                <a class="nav-link" [routerLink]="[]" fragment="Pending-Book" (click)="scrollTo('Pending-Book')">Pending
+                    Returns</a>
 
-        </li>
-        <li class="nav-item">
-        <!-- <a class="nav-link" href="admin/viewBooks/#returnedBook" >Returned Books</a>  -->
-        <a class="nav-link" [routerLink]="[]" fragment="returnedBook" (click)="scrollTo('returnedBook')" >Returned Books</a>
+            </li>
+            <li class="nav-item">
+                <!-- <a class="nav-link" href="admin/viewBooks/#returnedBook" >Returned Books</a>  -->
+                <a class="nav-link" [routerLink]="[]" fragment="returnedBook"
+                    (click)="scrollTo('returnedBook')">Returned Books</a>
 
-        </li>
-      </ul>
-  </div>
+            </li>
+
+            <form class="d-flex position-relative w-100" (submit)="onSearch($event)">
+                <input class="form-control me-2 pe-5" type="search" [(ngModel)]="searchTerm" name="searchTerm"
+                    placeholder="Search" aria-label="Search" (ngModelChange)="onSearchInputChange()">
+
+                <!-- Clear (×) icon -->
+                <span *ngIf="searchTerm" class="position-absolute top-50 end-0 translate-middle-y me-3 text-muted"
+                    style="cursor: pointer; font-size: 1.3rem;" (click)="clearSearch()">&times;</span>
+
+                <button class="btn btn-outline-success ms-2" type="submit">Search</button>
+            </form>
+
+
+        </ul>
+    </div>
 </nav>
-    
-    <!-- <div class="container mt-3" id="book">
+
+<!-- <div class="container mt-3" id="book">
        
         
     </div> -->
-   <div class="pendingCard container mt-3" >
-     <!-- Books Card -->
+<div class="pendingCard container mt-3">
+    <!-- Books Card -->
     <div class="card card-custom mb-3 shadow-sm" id="viewbooks">
-            <div class="card-header bg-dark text-white fw-bold">Books</div>
-            <div class="card-body p-0 table-responsive">
-                <table class="table table-dark table-hover table-bordered m-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Book Img</th>
-                            <th>Book ID</th>
-                            <th>Book Title</th>
-                            <th>Author Name</th>
-                            <th>ISBN</th>
-                            <th>Genre</th>
-                            <th>Quantity</th>
-                            <th>Edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let book of books">
-                            <td><img [src]="'data:image/png;base64,' + book.base64Image" class="img-thumbnail book-img"
-                                    class="card-img-top fixed-image" alt="Book Image"></td>
-                            <td>{{book.bookId}}</td>
-                            <td>{{book.bookName}}</td>
-                            <td>{{book.authorName}}</td>
-                            <td>{{book.isbn}}</td>
-                            <td>{{book.genre}}</td>
-                            <td>{{book.quantity}}</td>
-                            <!-- <td><a [routerLink]="['/admin/viewBooks/update_Book', book.bookId]" class="btn btn-sm btn-outline-light">Edit</a></td> -->
-                            <!-- <td><a href="'/admin/viewBooks/update_book', book.bookId" class="btn btn-sm btn-outline-light">Edit</a></td> -->
-                            <td>
-                                <a [routerLink]="['/admin/update_book', book.bookId]"
-                                    class="btn btn-sm btn-outline-light">Edit</a>
-                            </td>
+        <div class="card-header bg-dark text-white fw-bold">Books</div>
+        <div class="card-body p-0 table-responsive">
+            <table class="table table-dark table-hover table-bordered m-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Book Img</th>
+                        <th>Book ID</th>
+                        <th>Book Title</th>
+                        <th>Author Name</th>
+                        <th>ISBN</th>
+                        <th>Genre</th>
+                        <th>Quantity</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of books">
+                        <td><img [src]="'data:image/png;base64,' + book.base64Image" class="img-thumbnail book-img"
+                                class="card-img-top fixed-image" alt="Book Image"></td>
+                        <td>{{book.bookId}}</td>
+                        <td>{{book.bookName}}</td>
+                        <td>{{book.authorName}}</td>
+                        <td>{{book.isbn}}</td>
+                        <td>{{book.genre}}</td>
+                        <td>{{book.quantity}}</td>
+                        <!-- <td><a [routerLink]="['/admin/viewBooks/update_Book', book.bookId]" class="btn btn-sm btn-outline-light">Edit</a></td> -->
+                        <!-- <td><a href="'/admin/viewBooks/update_book', book.bookId" class="btn btn-sm btn-outline-light">Edit</a></td> -->
+                        <td>
+                            <a [routerLink]="['/admin/update_book', book.bookId]"
+                                class="btn btn-sm btn-outline-light">Edit</a>
+                        </td>
 
 
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!-- Pending Returns -->
-        <div class="card card-custom mb-3 shadow-sm" id="Pending-Book">
-            <div class="card-header bg-dark text-white fw-bold">Pending Returns</div>
-            <div class="card-body p-0 table-responsive">
-                <table class="table table-dark table-hover table-bordered m-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Book ID</th>
-                            <th>Order Date</th>
-                            <th>Fine To Pay</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor=" let issu of issueBooks">
-                            <td>{{issu.issueId}}</td>
-                            <td>{{issu.bookId}}</td>
-                            <td>{{issu.issueDate}}</td>
-                            <td><!-- Calculate or display fine here --></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Returned Books -->
-        <div class="card card-custom mb-3 shadow-sm" id="returnedBook">
-            <div class="card-header bg-dark text-white fw-bold">Returned Books</div>
-            <div class="card-body p-0 table-responsive">
-                <table class="table table-dark table-hover table-bordered m-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Book ID</th>
-                            <th>Returned Date</th>
-                            <th>Fine Paid</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor=" let issue of returnedBooks">
-                            <td>{{issue.issueId}}</td>
-                            <td>{{issue.bookId}}</td>
-                            <td>{{issue.returnDate}}</td>
-                            <td><!-- Fine amount if available --></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+    <!-- Pending Returns -->
+    <div class="card card-custom mb-3 shadow-sm" id="Pending-Book">
+        <div class="card-header bg-dark text-white fw-bold">Pending Returns</div>
+        <div class="card-body p-0 table-responsive">
+            <table class="table table-dark table-hover table-bordered m-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Book ID</th>
+                        <th>Order Date</th>
+                        <th>Fine To Pay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let issu of issueBooks">
+                        <td>{{issu.issueId}}</td>
+                        <td>{{issu.bookId}}</td>
+                        <td>{{issu.issueDate}}</td>
+                        <td><!-- Calculate or display fine here --></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Returned Books -->
+    <div class="card card-custom mb-3 shadow-sm" id="returnedBook">
+        <div class="card-header bg-dark text-white fw-bold">Returned Books</div>
+        <div class="card-body p-0 table-responsive">
+            <table class="table table-dark table-hover table-bordered m-0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Book ID</th>
+                        <th>Returned Date</th>
+                        <th>Fine Paid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let issue of returnedBooks">
+                        <td>{{issue.issueId}}</td>
+                        <td>{{issue.bookId}}</td>
+                        <td>{{issue.returnDate}}</td>
+                        <td><!-- Fine amount if available --></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 <router-outlet />
