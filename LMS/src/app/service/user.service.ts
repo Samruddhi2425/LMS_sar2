@@ -47,4 +47,8 @@ export class UserService {
     return this.http.delete(this.managerUrl + `delete/${mId}`);
   }
 
+
+  checkEmailExists(email: string): Observable<boolean> {
+  return this.http.get<boolean>(`https://localhost:7252/api/Users/email-exists?email=${email}`);
+}
 }

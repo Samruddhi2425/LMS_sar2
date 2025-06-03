@@ -1,34 +1,75 @@
-import { Component } from '@angular/core';
-import { RegisterComponent } from '../../register/register.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../service/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-forgot-password',
-  imports: [RegisterComponent],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+  styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent {
-forgotPasswordForm: FormGroup;
+export class ForgotPasswordComponent implements OnInit {
+  emailForm!: FormGroup;
+  otpForm!: FormGroup;
+  resetForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
-    this.forgotPasswordForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+  step: 'email' | 'otp' | 'reset' = 'email';
+  generatedOtp: string = '';
+  errorMsg: string = '';
+  successMsg: string = '';
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.emailForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
+
+    this.otpForm = this.fb.group({
+      otp: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
+    });
+
+    this.resetForm = this.fb.group({
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]]
     });
   }
 
-  onSubmit() {
-    if (this.forgotPasswordForm.valid) {
-      const email = this.forgotPasswordForm.value.email;
-      this.authService.forgotPassword(email).subscribe(
-        (res) => {
-          alert('Password reset link sent to your email.');
-        },
-        (err) => {
-          alert('Error: ' + err.error.message);
-        }
-      );
+  sendOtp(): void {
+    if (this.emailForm.valid) {
+      this.generatedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      console.log('Generated OTP:', this.generatedOtp);
+      this.step = 'otp';
+      this.errorMsg = '';
+    } else {
+      this.emailForm.markAllAsTouched();
     }
+  }
+
+  verifyOtp(): void {
+    const enteredOtp = this.otpForm.value.otp?.trim();
+    if (enteredOtp === this.generatedOtp) {
+      this.step = 'reset';
+      this.errorMsg = '';
+    } else {
+      this.errorMsg = 'Invalid OTP. Please try again.';
+    }
+  }
+
+  resetPassword(): void {
+    const { newPassword, confirmPassword } = this.resetForm.value;
+
+    if (newPassword !== confirmPassword) {
+      this.errorMsg = 'Passwords do not match.';
+      return;
+    }
+
+    this.successMsg = 'Password reset successful (simulated).';
+    this.errorMsg = '';
+    this.step = 'email'; // Reset to step 1
+    this.emailForm.reset();
+    this.otpForm.reset();
+    this.resetForm.reset();
   }
 }
