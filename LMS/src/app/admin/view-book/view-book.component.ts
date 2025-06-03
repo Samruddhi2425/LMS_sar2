@@ -30,6 +30,8 @@ export class ViewBookComponent implements OnInit{
   books:any[]=[];
   issueBooks:any[]=[];
   returnedBooks: any[] = [];
+  searchTerm: string = '';
+allBooks: any[] = [];
 
   constructor(private getBookService: GetbooksService, 
             private getIssueService: IssuebooksService,
@@ -39,6 +41,7 @@ export class ViewBookComponent implements OnInit{
     this.getBookService.getBooks().subscribe(
       (data) => {
         this.books = data;
+         this.allBooks = data; 
         console.log(data);
       },
       (error) => {
@@ -70,4 +73,28 @@ scrollTo(id: string) {
     }
   }, 100);
 }
+
+onSearch(event: Event): void {
+  event.preventDefault(); // Prevent form reload
+  const term = this.searchTerm.toLowerCase();
+  this.books = this.allBooks.filter(book =>
+    book.bookName.toLowerCase().includes(term) ||
+    book.authorName.toLowerCase().includes(term) ||
+    book.isbn.toLowerCase().includes(term) ||
+    book.genre.toLowerCase().includes(term)
+  );
+}
+onSearchInputChange(): void {
+  if (this.searchTerm.trim() === '') {
+    this.books = [...this.allBooks]; // Reset the full book list
+  }
+}
+clearSearch(): void {
+  this.searchTerm = '';
+  this.books = [...this.allBooks]; // Reset book list
+
+
+
+
+
 }
