@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
-  imports: [NavbarComponent, RouterModule, ReactiveFormsModule, CommonModule, RegisterComponent],
+  imports: [NavbarComponent, RouterModule, ReactiveFormsModule, CommonModule, RegisterComponent,ForgotPasswordComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
