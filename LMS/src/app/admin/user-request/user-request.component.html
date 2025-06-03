@@ -13,26 +13,19 @@
                         <th>Lastname</th>
                         <th>Email</th>
                         <th>Phone No.</th>
-                        <th>Issue books</th>
-                        <!-- <th>Fine</th> -->
-                        <th>Block User</th>
+                        <th>Requests</th>
                     </tr>
                 </thead>
                 
                 <tbody>
                     <tr *ngFor="let user of users">
-                        <td>{{user.userId}}</td>
                         <td>{{user.firstName}}</td>
                         <td>{{user.lastName}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.mobileNo}}</td>
-                        <td>{{issueCount}}</td>
-                        <!-- <td></td> -->
                         <td>
-                            <button (click)="blockUser(user.userId)" [disabled]="user.isBlocked"
-                                [class.blurred]="user.isBlocked" class="btn btn-danger me-2">Block</button>
-                            <button (click)="UnblockUser(user.userId)" [disabled]="!user.isBlocked"
-                                [class.blurred]="!user.isBlocked" class="btn btn-success">Unblock</button>
+                            <button (click)="AcceptUser(user.userId)" class="btn btn-success me-2">Accept</button>
+                            <button (click)="DeleteUser(user.userId)" class="btn btn-danger">Delete</button>
                         </td>
                     </tr>
                 </tbody>
