@@ -7,6 +7,7 @@ import { Router, RouterModule } from '@angular/router';
 import { HomeComponent } from '../../home_/home/home.component';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { Users } from '../view-user/view-user.component';
+import { GetbooksService } from '../../service/getbooks.service';
 
 export interface issueBook {
   issueId: number,
@@ -42,27 +43,19 @@ export class UserComponent {
   issueBooksService: any;
   issuePendingReturns!: issueBook[];
   issueCompletedReturns!: issueBook[];
-  // userForm!: FormGroup;
+   userForm!: FormGroup;
   isEditing = false;
   currentUser: any={};
   errorMessage: string = '';
 
-  constructor(private getIssueService: IssuebooksService, private getUserService: GetusersService, private router: Router) {
-    // this.getIssueService.getOrders().subscribe({
-    //   next: (res: issueBook[]) => {
-    //     this.issuePendingReturns = res.filter((o) => o.status = 'pending');
-    //     this.issueCompletedReturns = res.filter((o) => o.status = 'returned');
-    //   },
-    //   error: () => {
-    //     //this.showAlert('No Orders Found');
-    //   },
-    // });
+  constructor(private getIssueService: IssuebooksService, private getUserService: GetusersService, private router: Router, private GetbooksService:GetbooksService) {
+    
   }
 
   ngOnInit(): void {
     this.userType = localStorage.getItem('userType');
     const logInUserId = localStorage.getItem('userId');
-
+console.log("logInUserId:"+logInUserId)
     if (!logInUserId) {
       console.error('No userId found in localStorage');
       return;
@@ -93,32 +86,49 @@ export class UserComponent {
 
 
     // Only map books if they're already loaded
+    this.GetbooksService.getBooks().subscribe(
+      (issData) => {
+        this.books=issData;
+    this.books.forEach(book => {
+      this.bookMap[book.bookId] = book.bookName;
+      
+    });
+  })
+
+
+
     if (this.books && Array.isArray(this.books)) {
+      
       this.books.forEach(book => {
         this.bookMap[book.bookId] = book.bookTitle;
+        
       });
     } else {
       console.warn('Books not loaded at ngOnInit');
     }
 
 
-    const userId = localStorage.getItem('userId');
+    
+    //  const userId = localStorage.getItem('userId');
 
     if (logInUserId) {
-      this.getUserService.getUserById(+logInUserId).subscribe({
-        next: (res) => {
-          this.currentUser = res;
-          console.log('User loaded:', this.currentUser);
-        },
-        error: (err) => {
-          if (err.status === 404) {
-            console.error('User not found');
-          } else {
-            console.error('Error fetching user:', err);
-          }
-        }
-      });
+  const userId = Number(logInUserId);  // Convert to number
+
+  this.getUserService.getUserById(userId).subscribe(
+    (user) => {
+      this.currentUser = user;
+      console.log('User loaded:', user);
+    },
+    (error) => {
+      if (error.status === 404) {
+        console.error('User not found');
+      } else {
+        console.error('Error fetching user:', error);
+      }
     }
+  );
+}
+
   }
 
 
