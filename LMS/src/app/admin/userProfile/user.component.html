@@ -46,17 +46,28 @@
         [readonly]="!isEditing"
       />
     </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input
+        type="text"
+        [(ngModel)]="currentUser.pass"
+        name="pass"
+        class="form-control"
+        [readonly]="!isEditing"
+      />
+    </div>
 
     <div class="mb-3">
       <label>Phone Number</label>
       <input
         type="text"
-        [(ngModel)]="currentUser.phoneNumber"
-        name="phoneNumber"
+        [(ngModel)]="currentUser.mobileNo"
+        name="mobileNo"
         class="form-control"
         [readonly]="!isEditing"
       />
     </div>
+    
 
     <!-- Action buttons -->
     <div class="mt-3">

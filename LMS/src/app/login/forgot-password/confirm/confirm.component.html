@@ -10,32 +10,30 @@
                     <legend class="float-none w-auto px-2">Forgot Your Password?</legend>
                     <p class="text-center">No worries! Enter your email and we'll send you a reset link</p>
 
-                    <!-- Email Field -->
+                    <!-- password Field -->
                     <div class="mb-4">
-                        <label for="email" class="form-label">Email address</label>
-                        <input type="email" formControlName="email" [(ngModel)]="email" class="form-control"
-                            placeholder="your@email.com" id="email" aria-describedby="emailHelp" required>
-                        <div *ngIf="forgotPasswordForm.get('email')?.touched && forgotPasswordForm.get('email')?.invalid"
-                            class="invalid-feedback animate__animated animate__shakeX">
-                            Please enter a valid email address
+                        
+
+                        <div class="mb-3">
+                            <label for="pass" class="form-label">New Password</label>
+                            <input type="pass" formControlName="pass" [(ngModel)]="pass" class="form-control" id="pass"
+                                required>
                         </div>
 
                         <!-- Password Field -->
-                        <!-- <div class="mb-3">
-                            <label for="pass" class="form-label">Password</label>
+                        <div class="mb-3">
+                            <label for="pass" class="form-label">Confirm Password</label>
                             <input type="pass" formControlName="pass" [(ngModel)]="pass" class="form-control" id="pass"
                                 required>
-                        </div> -->
+                        </div>
 
                         <!-- Login Button -->
                         <div>
-                            <button type="submit" class="btn btn-primary w-30 m-2"> Send Reset Link</button>
-                             <span>
-                            <button type="submit" class="btn btn-warning w-30 m-2" routerLink="/login"> Back to Login</button>
-                             </span>
+                            <button type="submit" class="btn btn-info w-30 m-2"> Reset </button>
+                           
                         </div>
 
-                       
+
                         <!-- Forgot Password Link -->
                         <div class="text-center">
                             <p>Don't have an account? <a href="/register" class="text-primary">Sign up</a></p>

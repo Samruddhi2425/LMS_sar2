@@ -33,6 +33,9 @@
     <button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-danger">Logout</button>
 
     <div class=" m-2">
+      <span *ngIf="cartCount > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        {{ cartCount }}
+      </span>
       <a href="/cart"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black"
           class="bi bi-cart" viewBox="0 0 16 16" tyle="color: inherit; text-decoration: none;">
           <path

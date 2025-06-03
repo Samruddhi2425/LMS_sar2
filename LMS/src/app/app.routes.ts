@@ -18,6 +18,8 @@ import { UpdateManagerComponent } from './admin/update-manager/update-manager.co
 import { AddManagerComponent } from './admin/add-manager/add-manager.component';
 import { AuthService } from './service/auth.service';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { ConfirmComponent } from './login/forgot-password/confirm/confirm.component';
+import { UserRequestComponent } from './admin/user-request/user-request.component';
 
 
 export const routes: Routes = [
@@ -29,6 +31,7 @@ export const routes: Routes = [
     { path: "cart", component: CartComponent },
     { path: "book", component: BookdescriptionComponent },
     { path: 'forgot', component: ForgotPasswordComponent },
+    { path: 'confirm', component: ConfirmComponent },
     { path: 'admin/updateBook/:id', component: UpdateBookComponent },
     {
         path: "manager", component: ManagerComponent,
@@ -58,7 +61,8 @@ export const routes: Routes = [
             { path: 'addManager', component: AddManagerComponent },
             { path: 'updateManager', component: UpdateManagerComponent },
             { path: 'update_book/:id', component: UpdateBookComponent },
-            { path: 'addbook', component: AddBookComponent }
+            { path: 'addbook', component: AddBookComponent },
+            { path: 'userRequest', component:UserRequestComponent}
         ]
     },
     {
