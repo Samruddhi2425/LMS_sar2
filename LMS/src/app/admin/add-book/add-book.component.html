@@ -5,63 +5,48 @@
 
       <div class="form-group">
         <label for="bookName">Book Name</label>
-        <input
-          type="text"
-          [(ngModel)]="book.bookName"
-          name="bookName"
-          id="bookName"
-          placeholder="e.g. The Alchemist"
-          required
-        />
+        <input type="text" [(ngModel)]="book.bookName" name="bookName" id="bookName" placeholder="e.g. The Alchemist"
+          required />
       </div>
 
       <div class="form-group">
         <label for="authorName">Author</label>
-        <input
-          type="text"
-          [(ngModel)]="book.authorName"
-          name="authorName"
-          id="authorName"
-          placeholder="e.g. Paulo Coelho"
-          required
-        />
+        <input type="text" [(ngModel)]="book.authorName" name="authorName" id="authorName"
+          placeholder="e.g. Paulo Coelho" required />
       </div>
 
       <div class="form-group">
         <label for="isbn">ISBN</label>
-        <input
-          type="text"
-          [(ngModel)]="book.isbn"
-          name="isbn"
-          id="isbn"
-          placeholder="e.g. 978-3-16-148410-0"
-          required
-        />
+        <input type="text" [(ngModel)]="book.isbn" name="isbn" id="isbn" placeholder="e.g. 978-3-16-148410-0"
+          required />
       </div>
 
-      <div class="form-group">
-        <label for="genre">Genre</label>
-        <input
-          type="text"
-          [(ngModel)]="book.genre"
-          name="genre"
-          id="genre"
-          placeholder="e.g. Fiction"
-          required
-        />
-      </div>
+    <div class="form-group">
+  <label for="genre">Genre</label>
+  <input
+    type="text"
+    [(ngModel)]="book.genre"
+    name="genre"
+    id="genre"
+    list="genreList"
+    placeholder="e.g. Fiction"
+    required
+  />
+  <datalist id="genreList">
+    <option value="Biography"></option>
+    <option value="Romance"></option>
+    <option value="Fiction"></option>
+    <option value="Horror"></option>
+    <option value="Adventure"></option>
+    <option value="Magical Realism"></option>
+    <option value="Self Help"></option>
+  </datalist>
+</div>
 
       <div class="form-group">
         <label for="quantity">Quantity</label>
-        <input
-          type="number"
-          [(ngModel)]="book.quantity"
-          name="quantity"
-          id="quantity"
-          min="1"
-          placeholder="e.g. 10"
-          required
-        />
+        <input type="number" [(ngModel)]="book.quantity" name="quantity" id="quantity" min="1" placeholder="e.g. 10"
+          required />
       </div>
 
       <div class="form-group">
