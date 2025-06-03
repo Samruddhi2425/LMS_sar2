@@ -35,10 +35,11 @@ constructor() {}
 
     const cartCount: number = 0;
 
-    const stored = localStorage.getItem('selectedBookIds');
+    const stored = localStorage.getItem('selectedBookId');
     if (stored) {
       const bookIds = JSON.parse(stored); // Assuming it's an array
       this.cartCount = bookIds.length;
+      console.log("cartcount:"+cartCount);
     }
   
     
