@@ -1,47 +1,33 @@
 import { Injectable } from '@angular/core';
-import { concatWith } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { BookItem } from './home_/home/home.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardService {
-  private cartItems: any[] = [];
+  private cartItems: BookItem[] = [];
+  private cartCount = new BehaviorSubject<number>(0);
+
+  // Observable to track cart count changes
+  cartCount$ = this.cartCount.asObservable();
 
   addToCart(item: BookItem) {
-   // console.log(item);
-   
-     if(this.cartItems.length == 0)
-      {
-       this.cartItems.push(item);
-       console.log('empty');
-       const bookData = JSON.stringify(this.cartItems);
-       localStorage.setItem('bookitem',bookData);
-
-     }else{
-   console.log(item.bookId);
-   const data =  this.cartItems.find(itm=>itm.bookId === item.bookId);
-     if(data === undefined && this.cartItems.length <3){
+    if (this.cartItems.length === 0) {
       this.cartItems.push(item);
-      console.log('pushed');
-      console.log(item);
-      console.log(this.cartItems.length);
-
-      const bookD = JSON.stringify(this.cartItems);
-       localStorage.setItem('bookitem',bookD);
-     }
-   
-     }
-     
-     
-
-    // if (!this.cartItems.find(cartItem => cartItem.id === item.id)) {
-    //   this.cartItems.push(item);
-    //   //console.log(item);
-    // }
-
-    // this.cartItems.forEach(res=>{
-    //    console.log(res);
-    // })
+    } else {
+      const data = this.cartItems.find(itm => itm.bookId === item.bookId);
+      if (data === undefined && this.cartItems.length < 3) {
+        this.cartItems.push(item);
+      }
+    }
+    
+    // Update localStorage
+    const bookData = JSON.stringify(this.cartItems);
+    localStorage.setItem('bookitem', bookData);
+    
+    // Update the cart count
+    this.cartCount.next(this.cartItems.length);
   }
 
   getCartItems() {
@@ -50,16 +36,16 @@ export class CardService {
 
   clearCart() {
     this.cartItems = [];
+    localStorage.removeItem('bookitem');
+    this.cartCount.next(0);
+  }
+
+  // Add this method to initialize cart from localStorage
+  initializeCart() {
+    const storedItems = localStorage.getItem('bookitem');
+    if (storedItems) {
+      this.cartItems = JSON.parse(storedItems);
+      this.cartCount.next(this.cartItems.length);
+    }
   }
 }
-
-export interface BookItem {
-  authorName: string;
-  base64Image: string;
-  bookId: string;
-  bookName: string;
-  genre: string;
-  isbn: string;
-  quantity: string;
-};
-

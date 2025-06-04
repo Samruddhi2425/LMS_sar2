@@ -18,10 +18,20 @@ isLoggedIn: boolean = false;
 userType: string | null = null;
 profileLink: string = '';
  userName: string = '';
-  cartCount: any;
-constructor() {}
+  // cartCount: any;
+cartCount = 0;
+
+  constructor(private cardService: CardService) {}
 
   ngOnInit(): void {
+    // Initialize cart from storage
+    this.cardService.initializeCart();
+    
+    // Subscribe to cart count changes
+    this.cardService.cartCount$.subscribe(count => {
+      this.cartCount = count;
+    });
+
     const userType = localStorage.getItem('userType');
     this.isLoggedIn = !!userType;
 

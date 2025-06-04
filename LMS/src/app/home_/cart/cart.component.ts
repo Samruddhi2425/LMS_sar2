@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { BookItem, CardService } from '../../card.service';
-import { HomeComponent } from '../home/home.component';
+import {  CardService } from '../../card.service';
+import { BookItem, HomeComponent } from '../home/home.component';
 import { CommonModule } from '@angular/common';
 import { IssuebooksService } from '../../service/issuebooks.service';
 
