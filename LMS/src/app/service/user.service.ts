@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 
 export interface User {
@@ -50,5 +50,10 @@ export class UserService {
 
   checkEmailExists(email: string): Observable<boolean> {
   return this.http.get<boolean>(`https://localhost:7252/api/Users/email-exists?email=${email}`);
+}
+
+checkEmailExistsfor(email: string): Observable<boolean> {
+  return this.http.get<{ exists: boolean }>(`https://localhost:7252/api/Users/check-email?email=${email}`)
+    .pipe(map(res => res.exists));
 }
 }
