@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GetusersService } from '../../service/getusers.service';
 import { CommonModule } from '@angular/common';
-import { UserComponent } from '../userProfile/user.component';
+import { issueBook, UserComponent } from '../userProfile/user.component';
 import { IssuebooksService } from '../../service/issuebooks.service';
 
 export interface Users {
@@ -33,12 +33,16 @@ export interface issueBooks {
 })
 export class ViewUserComponent {
   users: any[] = [];
+  issueBooks: any[] = [];
   issueCount!: number;
   userId!: number;
+  issueBooksService: any;
+  issuePendingReturns!: issueBook[];
+  issueCompletedReturns!: issueBook[];
 
   issueBookMap: { [key: string]: string } = {};
 
-  constructor(private getUserService: GetusersService, private issueBooksService: IssuebooksService) {
+  constructor(private getUserService: GetusersService, private issuebooksService: IssuebooksService) {
     
   }
 
@@ -54,11 +58,33 @@ export class ViewUserComponent {
       }
     );
 
+    this.issuebooksService.getIssuBook().subscribe(
+      (issData) => {
+        if (!Array.isArray(issData)) {
+          console.error('Invalid data received:', issData);
+          return;
+        }
+
+        // Filter books for this user
+        const userBooks = issData.filter(book => book.userId == this.userId);
+
+        this.issueBooks = userBooks;
+        this.issuePendingReturns = userBooks.filter(book => book.status === 'Issued');
+        this.issueCompletedReturns = userBooks.filter(book => book.status === 'returned');
+        this.issueCount= this.issuePendingReturns.length;
+        console.log("Returned Books:", this.issueCompletedReturns);
+        console.log("All User Issue Books:", this.issueBooks);
+      },
+      (error) => {
+        console.error('Error while fetching issue data:', error);
+      }
+    );
+
     //this.issueCount = this.issueBooksService.issueBookByUser(this.userId);
 
-    this.issueBooksService.issueBookByUser(this.userId).subscribe(data => {
-      this.issueCount = data.length;
-    });
+    // this.issueBooksService.issueBookByUser(this.userId).subscribe(data => {
+    //   this.issueCount = data.length;
+    // });
   }
 
   loadUser(){
