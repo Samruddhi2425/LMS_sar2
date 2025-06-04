@@ -3,6 +3,9 @@
   justify-content: center;
   margin: 30px;
 }
+.book-card{
+  height: 100%;
+}
 
 .card {
   display: flex;
@@ -106,3 +109,9 @@ body {
     .category-column .card:hover {
       background-color: #ddd;
     }
+
+    .fixed-image {
+  width: 100%;
+  height: 200px; 
+  object-fit: cover; 
+}

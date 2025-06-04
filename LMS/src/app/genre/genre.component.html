@@ -4,6 +4,9 @@
 
     <!-- Category Column -->
     <div class="col-md-3 mb-4 category-column">
+      <div class="card mb-2" (click)="showAllBooks()">
+        <h3>All Books</h3>
+      </div>
       <div class="card mb-2" (click)="onCategorySelect('Biography')">
         <h3>Biography</h3>
       </div>
@@ -34,8 +37,10 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-4 mb-4" *ngFor="let b of book">
-            <div class="card h-100">
-              <img [src]="'data:image/png;base64,' + b.base64Image" class="card-img-top" alt="Book Image">
+            <div class="card book-card">
+              <div class="card-header">
+                <img [src]="'data:image/png;base64,' + b.base64Image" class="card-img-top fixed-image" alt="Book Image">
+              </div>
               <div class="card-body">
                 <h5 class="card-title">{{ b.bookName }}</h5>
                 <p class="card-text">by {{ b.authorName }}</p>
@@ -43,10 +48,14 @@
                 <div class="d-flex justify-content-between align-items-center mb-2">
                   <span class="h6 mb-0">Quantity - {{ b.quantity }}</span>
                 </div>
-                <div class="d-grid gap-2">
-                  <button class="btn btn-primary" type="button" [routerLink]="['/quickView', book.bookId]">Quick
-                    View</button>
-                  <button class="btn btn-outline-secondary" type="button">Add to Cart</button>
+                <div class="card-footer d-grid gap-2">
+                  <div class="d-grid gap-2">
+                    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#productModal"
+                      routerLink="/login" (click)="issueSelectedBook(book)">Issue</button>
+                    <button class="btn btn-outline-secondary" type="button" id="addToCartBtn"
+                      (click)="addToCart(book)">Add to
+                      Cart</button>
+                  </div>
                 </div>
               </div>
             </div>
