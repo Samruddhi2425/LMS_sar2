@@ -34,7 +34,7 @@ export class UserService {
     return this.http.get<any[]>(this.managerUrl + "get");
   }
 
-  updateManager(manager: any): Observable<any[]> {
+  updateManager(manager: any, value: any): Observable<any[]> {
     return this.http.put<any>(this.managerUrl + `update/${manager.mId}`, manager);
   }
 

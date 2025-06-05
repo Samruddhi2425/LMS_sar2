@@ -1,4 +1,4 @@
-import { Component,NgModule, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { GetbooksService } from '../../service/getbooks.service';
 import { FormsModule } from '@angular/forms';
@@ -6,17 +6,17 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-book',
-  imports: [RouterModule,FormsModule ,CommonModule],
+  imports: [RouterModule, FormsModule, CommonModule],
   templateUrl: './update-book.component.html',
   styleUrl: './update-book.component.css'
 })
 export class UpdateBookComponent implements OnInit {
- bookId!: number;
+  bookId!: number;
   // book: any = {
   //   base64Image: '',
   // imageName: '' // Stores the filename
   // };
-   book : any = {
+  book: any = {
     bookName: '',
     authorName: '',
     isbn: '',
@@ -25,11 +25,11 @@ export class UpdateBookComponent implements OnInit {
     base64Image: ''
   };
 
-   constructor(
+  constructor(
     private route: ActivatedRoute,
     private bookService: GetbooksService,
     private router: Router
-  ) {}
+  ) { }
 
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -51,31 +51,31 @@ export class UpdateBookComponent implements OnInit {
   loadBook() {
 
     this.bookService.getBookById(this.bookId).subscribe(
-      next => {  this.book = next;console.log("data:",next)},
-    
-      error => { console.error('Error loading book:', error)}
+      next => { this.book = next; console.log("data:", next) },
+
+      error => { console.error('Error loading book:', error) }
     );
-      //console.log(this.book.bookIamage);
+    //console.log(this.book.bookIamage);
 
   }
 
   // onFileChange(event: any) {
   // const file = event.target.files[0];
   // if (!file) return;
-  
+
   // }
 
   updateBook() {
-     console.log("Submitting book to backend:", this.book); // Add this line
+    console.log("Submitting book to backend:", this.book); // Add this line
     this.bookService.updateBookData(this.book).subscribe({
       next: res => {
-        console.log("res"+res);
+        console.log("res" + res);
         alert('Book updated successfully!');
         this.router.navigate(['/admin/viewBooks']); // Navigate back after update
-      
+
       },
       error: err => console.error('Error updating book:', err)
-      
+
     });
   }
 }
