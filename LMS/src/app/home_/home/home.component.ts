@@ -201,6 +201,3 @@ export class HomeComponent implements OnInit, AfterViewInit {
     return date.toISOString().split('T')[0];
   }
 }
-
-
-
