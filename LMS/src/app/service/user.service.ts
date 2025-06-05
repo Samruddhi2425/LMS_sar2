@@ -10,7 +10,6 @@ export interface User {
   email: string;
   mobileNo: string;
   pass: string;
-
 }
 
 @Injectable({
@@ -19,10 +18,11 @@ export interface User {
 export class UserService {
   issueBookData: any[] = [];
   private apiUrl = 'https://localhost:7252/api/Users/register';
+  private baseUrl = 'https://localhost:7252/api/Users/';
   constructor(private http: HttpClient) { }
 
   registerUser(userData: any): Observable<any> {
-    return this.http.post(this.apiUrl, userData); 
+    return this.http.post(this.apiUrl, userData);
   }
 
   private managerUrl = 'https://localhost:7252/api/Managers/';
@@ -47,13 +47,25 @@ export class UserService {
     return this.http.delete(this.managerUrl + `delete/${mId}`);
   }
 
-
   checkEmailExists(email: string): Observable<boolean> {
-  return this.http.get<boolean>(`https://localhost:7252/api/Users/email-exists?email=${email}`);
+    return this.http.get<boolean>(`https://localhost:7252/api/Users/email-exists?email=${email}`);
+  }
+
+  checkEmailExistsfor(email: string): Observable<boolean> {
+    return this.http.get<{ exists: boolean }>(`https://localhost:7252/api/Users/check-email?email=${email}`)
+      .pipe(map(res => res.exists));
+  }
+
+  getAuthorizedUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl+"getUnauthorized");
+  }
+
+  updateAuthorizationStatus(userId: number): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}authorized/${userId}`, {});
+  }
+
+  deleteRequestedUser(userId: number) {
+  return this.http.delete(`${this.baseUrl}deleteRequestedUser/${userId}`);
 }
 
-checkEmailExistsfor(email: string): Observable<boolean> {
-  return this.http.get<{ exists: boolean }>(`https://localhost:7252/api/Users/check-email?email=${email}`)
-    .pipe(map(res => res.exists));
-}
 }

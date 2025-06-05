@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { issueBooks } from '../admin/view-user/view-user.component';
 
-export interface IssueBookData{
+export interface IssueBookData {
   issueId: number,
   userId: number,
   bookId: number,
@@ -11,8 +11,8 @@ export interface IssueBookData{
   dueDate: Date,
   returnDate: Date,
   quantity: number,
-  status:string,
-  userName:string,
+  status: string,
+  userName: string,
   fine: string
 }
 
@@ -24,19 +24,19 @@ export class IssuebooksService {
 
   private apiUrl = 'https://localhost:7252/api/IssueBook/AddIssuBook';
 
-  constructor(private http : HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  issueBookData :any[]=[]
+  issueBookData: any[] = []
 
-  getIssuBook(): Observable<any[]>{
-    return this.http.get<any[]>(this.baseUrl+"/ViewAllIssueBook");
+  getIssuBook(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseUrl + "/ViewAllIssueBook");
   }
 
-  addIssBook(IssueData:any): Observable<any[]>{
-    return this.http.post<any[]>(this.baseUrl+"/AddIssuBook", IssueData);
+  addIssBook(IssueData: any): Observable<any[]> {
+    return this.http.post<any[]>(this.baseUrl + "/AddIssuBook", IssueData);
   }
 
-  issueBookByUser(userId:number):Observable<any[]>{
+  issueBookByUser(userId: number): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl + `/IssueBookById/${userId}`)
   }
 
@@ -49,11 +49,11 @@ export class IssuebooksService {
   // }
 
   returnBook(issueId: number) {
-  return this.http.put(this.baseUrl+`/returnBook/${issueId}`,null);
-}
+    return this.http.put(this.baseUrl + `/returnBook/${issueId}`, null);
+  }
 
 
- 
+
   getOrders() {
     return this.http.get<any>(this.baseUrl + `/getIssueBooks/userId`).pipe(
       map((orders) => {
