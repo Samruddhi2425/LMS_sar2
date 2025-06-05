@@ -62,7 +62,8 @@ export const routes: Routes = [
             { path: 'updateManager', component: UpdateManagerComponent },
             { path: 'update_book/:id', component: UpdateBookComponent },
             { path: 'addbook', component: AddBookComponent },
-            { path: 'userRequest', component:UserRequestComponent}
+            { path: 'userRequest', component:UserRequestComponent},
+            { path: 'admin/updateManager/:id', component: UpdateManagerComponent }
         ]
     },
     {
