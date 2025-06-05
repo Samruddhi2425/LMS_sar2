@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../home_/navbar/navbar.component';
 import { BookdescriptionComponent } from '../home_/bookdescription/bookdescription.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { GetbooksService } from '../service/getbooks.service';
 import { CommonModule } from '@angular/common';
 interface Books {
@@ -29,9 +29,21 @@ book: any[]=[];
  
 
 
-constructor(private getBookService: GetbooksService){}
+constructor(private getBookService: GetbooksService,private router: Router){}
 
   ngOnInit(): void {
+    this.getBookService.getBooks().subscribe(
+      (data) => {
+        this.book = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+  }
+
+  showAllBooks(){
     this.getBookService.getBooks().subscribe(
       (data) => {
         this.book = data;

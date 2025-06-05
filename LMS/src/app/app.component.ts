@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CardService } from './card.service';
 // import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -15,4 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class AppComponent {
   title = 'LMS';
+  constructor(private cardService: CardService) {}
+
+  ngOnInit() {
+    this.cardService.initializeCart();
+  }
 }
