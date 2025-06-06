@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
             alert('Your registration request is still pending approval. Please wait.');
             return;
           }else{
-            this.router.navigate(['/userProfile']);
+            this.router.navigate(['/home']);
             this.issueBookToUserAfterLogin();
             }
           }
