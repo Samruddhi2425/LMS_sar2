@@ -35,8 +35,8 @@ export const routes: Routes = [
     { path: 'admin/updateBook/:id', component: UpdateBookComponent },
     {
         path: "manager", component: ManagerComponent,
-            // canActivate: [AuthService],
-            // data: { expectedRole: 'manager' },
+            canActivate: [AuthService],
+            data: { expectedRole: 'manager' },
         children: [
             //{ path: '', redirectTo: 'managerLogin', pathMatch: 'full' },
             // { path: '', component: LoginComponent },
@@ -45,25 +45,26 @@ export const routes: Routes = [
             { path: 'viewBook', component: ViewBookComponent },
             { path: 'addbook', component: AddBookComponent },
             { path: 'viewUser', component: ViewUserComponent },
-            { path: 'update-book/:id', component: UpdateBookComponent }
+            // { path: 'update-book/:id', component: UpdateBookComponent }
 
         ]
     },
     {
         path: "admin", component: AdminComponent,
-        //     canActivate: [AuthService],
-        //    data: { expectedRole: 'admin' },
+            canActivate: [AuthService],
+           data: { expectedRole: 'admin' },
         children: [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
             { path: "viewBooks", component: ViewBookComponent },
             { path: "admin-users", component: ViewUserComponent },
             { path: 'addManager', component: AddManagerComponent },
-            { path: 'updateManager', component: UpdateManagerComponent },
+            // { path: 'updateManager', component: UpdateManagerComponent },
             { path: 'update_book/:id', component: UpdateBookComponent },
             { path: 'addbook', component: AddBookComponent },
             { path: 'userRequest', component:UserRequestComponent},
-            { path: 'admin/updateManager/:id', component: UpdateManagerComponent }
+            { path: 'admin/updateManager/:id', component: UpdateManagerComponent },
+            { path: 'updateManager/:id', component: UpdateManagerComponent } 
         ]
     },
     {

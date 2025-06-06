@@ -14,9 +14,9 @@
                         <th>Lastname</th>
                         <th>Email</th>
                         <th>Phone No.</th>
-                        <th>Issue books</th>
+                        <!-- <th>Issue books</th> -->
                         <!-- <th>Fine</th> -->
-                        <th>Block User</th>
+                        <!-- <th>Block User</th> -->
                     </tr>
                 </thead>
                 
@@ -27,14 +27,14 @@
                         <td>{{user.lastName}}</td>
                         <td>{{user.email}}</td>
                         <td>{{user.mobileNo}}</td>
-                        <td>{{issueCount}}</td>
+                        <!-- <td>{{issueCount}}</td> -->
                         <!-- <td></td> -->
-                        <td>
+                        <!-- <td>
                             <button (click)="blockUser(user.userId)" [disabled]="user.isBlocked"
                                 [class.blurred]="user.isBlocked" class="btn btn-danger me-2">Block</button>
                             <button (click)="UnblockUser(user.userId)" [disabled]="!user.isBlocked"
                                 [class.blurred]="!user.isBlocked" class="btn btn-success">Unblock</button>
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>

@@ -5,7 +5,7 @@
 
  <div class="mb-3">
   <label>First Name</label>
-  <input type="text" class="form-control" formControlName="mfirstName" />
+  <input type="text" class="form-control" formControlName="mfirstName"/>
   <div *ngIf="managerForm.get('mfirstName')?.invalid && managerForm.get('mfirstName')?.touched" class="text-danger">
     First name is required.
   </div>
@@ -13,7 +13,7 @@
 
 <div class="mb-3">
   <label>Last Name</label>
-  <input type="text" class="form-control" formControlName="mlastName" />
+  <input type="text" class="form-control" formControlName="mlastName"/>
   <div *ngIf="managerForm.get('mlastName')?.invalid && managerForm.get('mlastName')?.touched" class="text-danger">
     Last name is required.
   </div>
@@ -21,7 +21,7 @@
 
   <div class="mb-3">
     <label>Email</label>
-    <input type="email" class="form-control" formControlName="email" />
+    <input type="email" class="form-control" formControlName="email"/>
     <div *ngIf="managerForm.get('email')?.invalid && managerForm.get('email')?.touched" class="text-danger">
       Valid email is required.
     </div>
@@ -29,13 +29,21 @@
 
   <div class="mb-3">
     <label>Phone</label>
-    <input type="text" class="form-control" formControlName="mobileNo" />
+    <input type="text" class="form-control" formControlName="mobileNo"/>
     <div *ngIf="managerForm.get('mobileNo')?.invalid && managerForm.get('mobileNo')?.touched" class="text-danger">
       Phone number is required.
     </div>
   </div>
 
-  <div class="mb-3">
+  <!-- <div class="mb-3">
+    <label>Pass</label>
+    <input type="text" class="form-control" formControlName="pass"/>
+    <div *ngIf="managerForm.get('pass')?.invalid && managerForm.get('pass')?.touched" class="text-danger">
+      Phone number is required.
+    </div>
+  </div> -->
+
+  <!-- <div class="mb-3">
     <label>Role</label>
     <select class="form-select" formControlName="role">
       <option value="">Select Role</option>
@@ -44,7 +52,7 @@
     <div *ngIf="managerForm.get('role')?.invalid && managerForm.get('role')?.touched" class="text-danger">
       Role selection is required.
     </div>
-  </div>
+  </div> -->
 
   <button type="submit" class="btn btn-primary">Update</button>
 </form>

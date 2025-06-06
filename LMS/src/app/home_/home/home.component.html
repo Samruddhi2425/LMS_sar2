@@ -227,17 +227,17 @@
             <span>123 Library Lane, Book City, India</span>
           </div>
 
-          <form>
+          <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
-              <input type="text" class="form-control" placeholder="Your Name" required>
+              <input type="text" class="form-control" placeholder="Your Name" formControlName="CName" id="CName" required>
             </div>
             <div class="mb-3">
-              <input type="email" class="form-control" placeholder="Your Email" required>
+              <input type="email" class="form-control" placeholder="Your Email" formControlName="CEmail" id="CEmail" required>
             </div>
             <div class="mb-3">
-              <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+              <textarea class="form-control" rows="4" placeholder="Your Message" formControlName="CMessage" id="CMessage" required></textarea>
             </div>
-            <button type="submit" class="btn btn-send">Send Message</button>
+            <button class="btn btn-send" >Send Message</button>
           </form>
         </div>
       </div>

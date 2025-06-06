@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../service/user.service';
 import { CommonModule } from '@angular/common';
+import { UpdateManagerComponent } from '../update-manager/update-manager.component';
 
 interface Managers {
   mId: number;
@@ -17,7 +18,7 @@ interface Managers {
   selector: 'app-add-manager',
   templateUrl: './add-manager.component.html',
   styleUrls: ['./add-manager.component.css'],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,UpdateManagerComponent, RouterModule],
   providers: [UserService]
 })
 export class AddManagerComponent implements OnInit {

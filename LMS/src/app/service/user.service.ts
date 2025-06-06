@@ -21,6 +21,11 @@ export class UserService {
   private baseUrl = 'https://localhost:7252/api/Users/';
   constructor(private http: HttpClient) { }
 
+  private feedbackUrl = 'https://localhost:7252/api/Users/';
+  feedback(feedbackData: any): Observable<any> {
+    return this.http.post<any>(this.feedbackUrl + "addFeedback", feedbackData);
+  }
+
   registerUser(userData: any): Observable<any> {
     return this.http.post(this.apiUrl, userData);
   }
@@ -34,13 +39,19 @@ export class UserService {
     return this.http.get<any[]>(this.managerUrl + "get");
   }
 
-  updateManager(manager: any, value: any): Observable<any[]> {
-    return this.http.put<any>(this.managerUrl + `update/${manager.mId}`, manager);
-  }
+  // updateManager(managerData: any): Observable<any[]> {
+  //   return this.http.put<any>(this.managerUrl + `update/${managerData.mId}`, managerData);
+  // }
 
-  getManagerById(mId: any): Observable<any[]> {
+updateManager(manager: any): Observable<any> {
+  return this.http.put<any>(`${this.managerUrl}update/${manager.mId}`, manager);
+}
+
+
+  getManagerById(mId: any): Observable<any> {
     console.log(mId);
-    return this.http.get<any[]>(this.managerUrl + `getById/${mId}`);
+    
+    return this.http.get<any>(this.managerUrl + `getById/${mId}`);
   }
 
   deleteManager(mId: number): Observable<any> {
