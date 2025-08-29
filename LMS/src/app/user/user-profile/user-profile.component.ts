@@ -1,12 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { NavbarComponent } from '../../home_/navbar/navbar.component';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule, FormGroup } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
+import { HomeComponent } from '../../home_/home/home.component';
 import { GetusersService } from '../../service/getusers.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
-import { Router, RouterModule } from '@angular/router';
-import { HomeComponent } from '../../home_/home/home.component';
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { Users } from '../view-user/view-user.component';
 import { GetbooksService } from '../../service/getbooks.service';
 
 export interface issueBook {
@@ -21,15 +19,12 @@ export interface issueBook {
 }
 
 @Component({
-  selector: 'app-user',
+  selector: 'app-user-profile',
   imports: [CommonModule, RouterModule, HomeComponent, FormsModule],
-  templateUrl: './user.component.html',
-  styleUrl: './user.component.css',
-  providers: [GetusersService, IssuebooksService]
+  templateUrl: './user-profile.component.html',
+  styleUrl: './user-profile.component.css'
 })
-
-
-export class UserComponent {
+export class UserProfileComponent implements OnInit {
   returnBtn() {
     throw new Error('Method not implemented.');
   }
@@ -43,19 +38,21 @@ export class UserComponent {
   issueBooksService: any;
   issuePendingReturns!: issueBook[];
   issueCompletedReturns!: issueBook[];
-   userForm!: FormGroup;
+  userForm!: FormGroup;
   isEditing = false;
-  currentUser: any={};
+  currentUser: any = {};
   errorMessage: string = '';
 
-  constructor(private getIssueService: IssuebooksService, private getUserService: GetusersService, private router: Router, private GetbooksService:GetbooksService) {
-    
-  }
+  constructor(
+    private getIssueService: IssuebooksService, 
+    private getUserService: GetusersService, 
+    private router: Router, 
+    private GetbooksService: GetbooksService) {}
 
   ngOnInit(): void {
     this.userType = localStorage.getItem('userType');
     const logInUserId = localStorage.getItem('userId');
-console.log("logInUserId:"+logInUserId)
+    console.log("logInUserId:" + logInUserId)
     if (!logInUserId) {
       console.error('No userId found in localStorage');
       return;
@@ -88,34 +85,44 @@ console.log("logInUserId:"+logInUserId)
     // Only map books if they're already loaded
     this.GetbooksService.getBooks().subscribe(
       (issData) => {
-        this.books=issData;
-    this.books.forEach(book => {
-      this.bookMap[book.bookId] = book.bookName;
-      
-    });
-  })
+        this.books = issData;
+        this.books.forEach(book => {
+          this.bookMap[book.bookId] = book.bookName;
+
+        });
+      })
 
 
 
     if (this.books && Array.isArray(this.books)) {
-      
+
       this.books.forEach(book => {
         this.bookMap[book.bookId] = book.bookTitle;
-        
+
       });
     } else {
       console.warn('Books not loaded at ngOnInit');
     }
 
 
-    
+
     //  const userId = localStorage.getItem('userId');
 
-    if (logInUserId) {
-  const userId = Number(logInUserId);  // Convert to number
+if (logInUserId) {
+  const userId = Number(logInUserId);
 
   this.getUserService.getUserById(userId).subscribe(
     (user) => {
+      // ✅ Fix date without timezone shift
+      if (user.ubirthDate) {
+        const raw = user.ubirthDate.toString();
+        if (raw.includes('T')) {
+          user.ubirthDate = raw.split('T')[0]; // "yyyy-MM-dd"
+        } else {
+          user.ubirthDate = raw;
+        }
+      }
+
       this.currentUser = user;
       console.log('User loaded:', user);
     },
@@ -129,7 +136,11 @@ console.log("logInUserId:"+logInUserId)
   );
 }
 
+
+
   }
+
+  
 
 
   enableEdit(): void {
@@ -140,6 +151,7 @@ console.log("logInUserId:"+logInUserId)
     this.isEditing = false;
     this.ngOnInit(); //for reset current data
   }
+  
   updateUser(): void {
     this.getUserService.updateUser(this.currentUser).subscribe({
       next: () => {
@@ -171,26 +183,4 @@ console.log("logInUserId:"+logInUserId)
     localStorage.clear(); // or remove only user-related keys
     this.router.navigate(['/login']);
   }
-
 }
-// function enableEdit() {
-//   throw new Error('Function not implemented.');
-// }
-
-// function cancelEdit() {
-//   throw new Error('Function not implemented.');
-// }
-
-// function updateUser() {
-//   throw new Error('Function not implemented.');
-// }
-
-// function returnBook(issueId: any, number: any) {
-//   throw new Error('Function not implemented.');
-// }
-
-// function logout() {
-//   throw new Error('Function not implemented.');
-// }
-
-

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { GetbooksService } from '../../service/getbooks.service';
 
 @Component({
   selector: 'app-add-book',
@@ -9,17 +10,30 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './add-book.component.html',
   styleUrl: './add-book.component.css'
 })
-export class AddBookComponent {
+export class AddBookComponent implements OnInit{
   book = {
     bookName: '',
     authorName: '',
     isbn: '',
     genre: '',
+    genreId:'',
     quantity: '',
     base64Image: ''
   };
+  category: any[]=[];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private getBookService: GetbooksService) {}
+  ngOnInit(): void {
+    this.getBookService.getGenre().subscribe(
+      (data) => {
+        this.category = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+  }
 
   onFileChange(event: any) {
     const file = event.target.files[0];
@@ -33,6 +47,7 @@ export class AddBookComponent {
   }
 
   uploadBook() {
+    console.log(this.book)
     this.http.post('https://localhost:7252/api/Books/AddBook', this.book)
       .subscribe(() => alert('Book Uploaded'));
       alert("data is successfully added");
@@ -43,10 +58,13 @@ export class AddBookComponent {
       bookName: '',
       authorName: '',
       isbn: '',
+      genreId: '',
       genre: '',
       quantity: '',
       base64Image: ''
     };
   }
+
+  
 
 }

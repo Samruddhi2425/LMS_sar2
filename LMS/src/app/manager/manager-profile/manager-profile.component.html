@@ -1,0 +1,73 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-6">
+      <h4>Manager Profile</h4>
+
+      <form *ngIf="currentUser">
+        <div class="mb-3">
+          <label>First Name</label>
+          <input
+            type="text"
+            [(ngModel)]="currentUser.mfirstName"
+            name="firstName"
+            class="form-control"
+            [readonly]="!isEditing" />
+        </div>
+
+        <div class="mb-3">
+          <label>Last Name</label>
+          <input
+            type="text"
+            [(ngModel)]="currentUser.mlastName"
+            name="lastName"
+            class="form-control"
+            [readonly]="!isEditing" />
+        </div>
+
+        <div class="mb-3">
+          <label>Email</label>
+          <input
+            type="email"
+            [(ngModel)]="currentUser.email"
+            name="email"
+            class="form-control"
+            readonly />
+        </div>
+
+        <!-- <div class="mb-3">
+          <label>Password</label>
+          <input
+            type="text"
+            [(ngModel)]="currentUser.pass"
+            name="pass"
+            class="form-control"
+            [readonly]="!isEditing" />
+        </div> -->
+
+        <div class="mb-3">
+          <label>Phone Number</label>
+          <input
+            type="text"
+            [(ngModel)]="currentUser.mobileNo"
+            name="mobileNo"
+            class="form-control"
+            [readonly]="!isEditing" />
+        </div>
+
+        <!-- Action buttons -->
+        <div class="mt-3">
+          <button *ngIf="!isEditing" type="button" class="btn btn-primary"
+            (click)="enableEdit()">Edit</button>
+          <!-- <button type="button" class="btn btn-success ms-3"
+            routerLink="/changePass">Change password</button> -->
+          <div *ngIf="isEditing">
+            <button type="button" class="btn btn-success me-2"
+              (click)="updateUser()">Update Info</button>
+            <button type="button" class="btn btn-secondary"
+              (click)="cancelEdit()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>    
+  </div>
+</div>

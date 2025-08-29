@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { GetusersService } from '../../service/getusers.service';
 import { CommonModule } from '@angular/common';
-import { issueBook, UserComponent } from '../userProfile/user.component';
 import { IssuebooksService } from '../../service/issuebooks.service';
+import { issueBook } from '../../user/user/user.component';
+
 
 export interface Users {
   userId: number;

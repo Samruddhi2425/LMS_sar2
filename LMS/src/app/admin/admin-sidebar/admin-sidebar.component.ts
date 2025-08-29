@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AdminDashboardComponent } from '../admin-dashboard/admin-dashboard.component';
-import { UserComponent } from '../userProfile/user.component';
+
 import { ViewBookComponent } from '../view-book/view-book.component';
+import { UserComponent } from '../../user/user/user.component';
+import { IssuebookReportComponent } from '../issuebook-report/issuebook-report.component';
+
 
 
 @Component({
   selector: 'app-admin-sidebar',
  // Only include this if you're using standalone components
-  imports: [RouterModule, AdminDashboardComponent,UserComponent,ViewBookComponent],
+  imports: [RouterModule, AdminDashboardComponent,UserComponent,ViewBookComponent,IssuebookReportComponent],
   templateUrl: './admin-sidebar.component.html',
   styleUrls: ['./admin-sidebar.component.css']
 })

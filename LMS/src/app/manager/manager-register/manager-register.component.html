@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+<!-- Spinner overlay -->
+<div *ngIf="loading" class="loading-overlay">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div class="container mt-5">
+  <div class="row justify-content-center"  style="margin-top: 7%;">
+    <div class="col-md-6 col-lg-5">
+      <fieldset class="border p-4 rounded shadow">
+        <legend class="float-none w-auto px-3 fw-bold">Add Manager</legend>
+
+        <form [formGroup]="registerManagerForm" (ngSubmit)="onSubmit()">
+          <!-- First Name -->
+          <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-control" formControlName="mfirstName" minlength="2" maxlength="50"/>
+            <div class="text-danger" *ngIf="registerManagerForm.get('mfirstName')?.touched">
+              <div *ngIf="registerManagerForm.get('mfirstName')?.errors?.['required']">
+                First name is required.
+              </div>
+              <div *ngIf="registerManagerForm.get('mfirstName')?.errors?.['pattern']">
+                Only letters allowed (2-30 characters).
+              </div>
+            </div>
+          </div>
+
+          <!-- Last Name -->
+          <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-control" formControlName="mlastName" />
+            <div class="text-danger" *ngIf="registerManagerForm.get('mlastName')?.touched">
+              <div *ngIf="registerManagerForm.get('mlastName')?.errors?.['required']">
+                Last name is required.
+              </div>
+              <div *ngIf="registerManagerForm.get('mlastName')?.errors?.['pattern']">
+                Only letters allowed (2-30 characters).
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <input type="email" class="form-control" formControlName="email" />
+            <div class="text-danger" *ngIf="registerManagerForm.get('email')?.touched">
+              <div *ngIf="registerManagerForm.get('email')?.errors?.['required']">
+                Email is required.
+              </div>
+              <div *ngIf="registerManagerForm.get('email')?.errors?.['email']">
+                Enter a valid email address.
+              </div>
+               <div *ngIf="registerManagerForm.get('email')?.hasError('emailTaken')" class="text-danger">
+              This email is already taken.
+            </div>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" formControlName="pass" />
+            <div class="text-danger" *ngIf="registerManagerForm.get('pass')?.touched">
+              <div *ngIf="registerManagerForm.get('pass')?.errors?.['required']">
+                Password is required.
+              </div>
+              <div *ngIf="registerManagerForm.get('pass')?.errors?.['minlength']">
+                Minimum 6 characters required.
+              </div>
+              <div *ngIf="registerManagerForm.get('pass')?.errors?.['pattern']">
+                Must include uppercase, lowercase, number, and special character.
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile Number -->
+          <div class="mb-3">
+            <label class="form-label">Mobile Number</label>
+            <input type="text" class="form-control" formControlName="mobileNo" maxlength="10" />
+            <div class="text-danger" *ngIf="registerManagerForm.get('mobileNo')?.touched">
+              <div *ngIf="registerManagerForm.get('mobileNo')?.errors?.['required']">
+                Mobile number is required.
+              </div>
+              <div *ngIf="registerManagerForm.get('mobileNo')?.errors?.['pattern']">
+                Enter a valid 10-digit Indian mobile number.
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button class="btn btn-primary w-100" type="submit" [disabled]="registerManagerForm.invalid">
+            Register
+          </button>
+        </form>
+      </fieldset>
+    </div>
+  </div>
+</div>

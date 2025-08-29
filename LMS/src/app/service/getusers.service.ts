@@ -9,10 +9,17 @@ export class GetusersService {
 
   private baseUrl="https://localhost:7252/api/Users";
 
+ private issuebookreportUrl="https://localhost:7252/api/IssueBook";
+
   constructor(private http : HttpClient) { }
 
   getUsers(): Observable<any[]> {
     return this.http.get<any[]>(this.baseUrl+"/allusers");
+  }
+
+
+  issuebookreport(): Observable<any[]> {
+    return this.http.get<any[]>(this.issuebookreportUrl+"/issue-book-report");
   }
 
 
@@ -34,4 +41,5 @@ export class GetusersService {
   updateUser(userData: any):Observable<any>{
     return this.http.put<any>(`https://localhost:7252/api/Users/update`, userData);
   }
+  
 }

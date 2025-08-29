@@ -2,32 +2,37 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <div class="stat-card bg-light">
-                <div class="d-flex align-items-center">
-                    <div class="mr-3">
-                        <i class="fas fa-users stat-icon"></i>
-                    </div>
-                    <div>
-                        <div class="stat-value">{{totalUser}}</div>
-                        <div class="text-muted">Users</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mt-4 mt-md-0">
-            <div class="stat-card bg-light">
-                <div class="d-flex align-items-center">
-                    <div class="mr-3">
-                        <i class="fas fa-shopping-cart stat-icon"></i>
-                    </div>
-                    <div>
-                        <div class="stat-value">{{totalBooks}}</div>
-                        <div class="text-muted">Books</div>
+            <a href="/manager/viewUser" style=" text-decoration: none;">
+                <div class="stat-card bg-light">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-3">
+                            <i class="fas fa-users stat-icon"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">{{totalUser}}</div>
+                            <div class="text-muted">Users</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-md-4 mt-4 mt-md-0">
+            <a href="/manager/viewBook" style=" text-decoration: none;">
+                <div class="stat-card bg-light">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-3">
+                            <i class="fas fa-shopping-cart stat-icon"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">{{totalBooks}}</div>
+                            <div class="text-muted">Books</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4 mt-4 mt-md-0">
+            <a href="/manager/viewBook" fragments="Pending-Book" style=" text-decoration: none;">
             <div class="stat-card bg-light">
                 <div class="d-flex align-items-center">
                     <div class="mr-3">
@@ -39,6 +44,7 @@
                     </div>
                 </div>
             </div>
+            </a>
         </div>
     </div>
 </div>

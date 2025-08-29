@@ -51,4 +51,24 @@ export class AuthService implements CanActivate{
   forgotPassword(email: string) {
     return this.http.post(`${this.baseUrl}/forgot-password`, { email });
   }
+
+
+   getUserRole(): string | null {
+    const token = localStorage.getItem('userType');
+    if (!token) return null;
+
+    try {
+      const [, payload] = token.split('.');
+      const decoded = JSON.parse(atob(payload));
+      return decoded.role || null;
+    } catch {
+      console.error('Invalid JWT token');
+      return null;
+    }
+  }
+
+  // Example helper to check if user is admin
+  isAdmin(): boolean {
+    return this.getUserRole() === 'admin';
+  }
 }

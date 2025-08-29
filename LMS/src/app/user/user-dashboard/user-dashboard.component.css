@@ -1,0 +1,18 @@
+.stat-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-left:50px;
+    margin-top: 50px;
+}
+
+.stat-icon {
+    font-size: 40px;
+    color: #007bff;
+    /* Example color - change as needed */
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+}

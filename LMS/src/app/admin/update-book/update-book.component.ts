@@ -16,14 +16,28 @@ export class UpdateBookComponent implements OnInit {
   //   base64Image: '',
   // imageName: '' // Stores the filename
   // };
-  book: any = {
+  books: any = {
     bookName: '',
     authorName: '',
     isbn: '',
-    genre: '',
+    genre:'',
+    genreId: '',
     quantity: '',
     base64Image: ''
   };
+
+  //   book: any = {
+  //   bookName: '',
+  //   authorName: '',
+  //   isbn: '',
+  //   genreId: '',
+  //   quantity: '',
+  //   base64Image: ''
+  // };
+  
+
+
+  category: any[]=[];
 
   constructor(
     private route: ActivatedRoute,
@@ -36,7 +50,7 @@ export class UpdateBookComponent implements OnInit {
     const reader = new FileReader();
 
     reader.onload = () => {
-      this.book.base64Image = (reader.result as string).split(',')[1];
+      this.books.base64Image = (reader.result as string).split(',')[1];
     };
 
     reader.readAsDataURL(file);
@@ -47,16 +61,28 @@ export class UpdateBookComponent implements OnInit {
     this.bookId = +this.route.snapshot.paramMap.get('id')!;
     this.loadBook();
 
+    this.bookService.getGenre().subscribe(
+      (data) => {
+        this.category = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching books:', error);
+      }
+    );
+
+   
+
   }
   loadBook() {
 
     this.bookService.getBookById(this.bookId).subscribe(
-      next => { this.book = next; console.log("data:", next) },
+      next => { this.books = next; console.log("data:", next) },
 
       error => { console.error('Error loading book:', error) }
     );
     //console.log(this.book.bookIamage);
-
+    
   }
 
   // onFileChange(event: any) {
@@ -66,9 +92,12 @@ export class UpdateBookComponent implements OnInit {
   // }
 
   updateBook() {
-    console.log("Submitting book to backend:", this.book); // Add this line
-    this.bookService.updateBookData(this.book).subscribe({
+    const selectedGenre = this.category.find(c => c.genreId === this.books.genreId);
+    this.books.genre = selectedGenre ? selectedGenre.genre : '';
+    console.log("Submitting book to backend:", this.books); // Add this line
+    this.bookService.updateBookData(this.books).subscribe({
       next: res => {
+        
         console.log("res" + res);
         alert('Book updated successfully!');
         this.router.navigate(['/admin/viewBooks']); // Navigate back after update

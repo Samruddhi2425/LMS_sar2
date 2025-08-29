@@ -5,7 +5,7 @@ import { CartComponent } from './home_/cart/cart.component';
 import { BookdescriptionComponent } from './home_/bookdescription/bookdescription.component';
 import { AdminComponent } from './admin/admin/admin.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { UserComponent } from './admin/userProfile/user.component';
+import { UserComponent } from './user/user/user.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ViewBookComponent } from './admin/view-book/view-book.component';
@@ -20,6 +20,17 @@ import { AuthService } from './service/auth.service';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { ConfirmComponent } from './login/forgot-password/confirm/confirm.component';
 import { UserRequestComponent } from './admin/user-request/user-request.component';
+import { UserLayoutComponent } from './admin/user-layout/user-layout.component';
+import { CategoryComponent } from './admin/category/category.component';
+import { ManagerRegisterComponent } from './manager/manager-register/manager-register.component';
+import { ManagerViewBookComponent } from './manager/manager-view-book/manager-view-book.component';
+import { ManagerProfileComponent } from './manager/manager-profile/manager-profile.component';
+import { ManagerChangePassComponent } from './manager/manager-change-pass/manager-change-pass.component';
+import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { PendingBooksComponent } from './user/pending-books/pending-books.component';
+import { UserChangePassComponent } from './user/user-change-pass/user-change-pass.component';
+import { IssuebookReportComponent } from './admin/issuebook-report/issuebook-report.component';
 
 
 export const routes: Routes = [
@@ -32,27 +43,44 @@ export const routes: Routes = [
     { path: "book", component: BookdescriptionComponent },
     { path: 'forgot', component: ForgotPasswordComponent },
     { path: 'confirm', component: ConfirmComponent },
-    { path: 'admin/updateBook/:id', component: UpdateBookComponent },
+    // { path: 'admin/updateBook/:id', component: UpdateBookComponent },
+    // { path: 'manager/updateBook/:id', component: UpdateBookComponent },
+    { path: 'managerRegister', component: ManagerRegisterComponent },
+
+    {
+        path: "user", component: UserComponent,
+        canActivate: [AuthService],
+        data: { expectedRole: 'user' },
+        children: [
+            { path: "userProfile", component: UserProfileComponent },
+            { path: "userDashboard", component: UserDashboardComponent },
+            { path: "pendingBooks", component: PendingBooksComponent},
+            { path: "changePassword", component: UserChangePassComponent}
+        ]
+    },
+
     {
         path: "manager", component: ManagerComponent,
-            canActivate: [AuthService],
-            data: { expectedRole: 'manager' },
+        canActivate: [AuthService],
+        data: { expectedRole: 'manager' },
         children: [
             //{ path: '', redirectTo: 'managerLogin', pathMatch: 'full' },
             // { path: '', component: LoginComponent },
             { path: '', component: ManagerdashboardComponent },
             { path: 'managerdashboard', component: ManagerdashboardComponent },
-            { path: 'viewBook', component: ViewBookComponent },
+            { path: 'viewBook', component: ManagerViewBookComponent },
+            { path: 'managerProfile', component: ManagerProfileComponent },
+            { path: 'changePassword', component: ManagerChangePassComponent },
             { path: 'addbook', component: AddBookComponent },
             { path: 'viewUser', component: ViewUserComponent },
-            // { path: 'update-book/:id', component: UpdateBookComponent }
+            { path: 'updatebook/:id', component: UpdateBookComponent }
 
         ]
     },
     {
         path: "admin", component: AdminComponent,
-            canActivate: [AuthService],
-           data: { expectedRole: 'admin' },
+        canActivate: [AuthService],
+        data: { expectedRole: 'admin' },
         children: [
             { path: '', redirectTo: 'admindashboard', pathMatch: 'full' },
             { path: 'admindashboard', component: AdminDashboardComponent },
@@ -62,16 +90,14 @@ export const routes: Routes = [
             // { path: 'updateManager', component: UpdateManagerComponent },
             { path: 'update_book/:id', component: UpdateBookComponent },
             { path: 'addbook', component: AddBookComponent },
-            { path: 'userRequest', component:UserRequestComponent},
+            { path: 'userRequest', component: UserRequestComponent },
             { path: 'admin/updateManager/:id', component: UpdateManagerComponent },
-            { path: 'updateManager/:id', component: UpdateManagerComponent } 
+            { path: 'updateManager/:id', component: UpdateManagerComponent },
+            { path: 'category', component: CategoryComponent },
+            {path: 'issueBookReport', component:IssuebookReportComponent}
         ]
     },
-    {
-        path: "userProfile", component: UserComponent,
-        canActivate: [AuthService],
-        data: { expectedRole: 'user' }
-    },
+    
 
     // { path: "addBook", component: AddBookComponent },
 

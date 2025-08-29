@@ -1,0 +1,50 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 mt-4 col-lg-4">
+            <!-- Registration page -->
+            <fieldset class="border p-3 rounded">
+                <legend class="float-none w-auto px-2">Change Password</legend>
+                <form *ngIf="!passCheck" [formGroup]="oldPassCheckForm" (ngSubmit)="checkOldPass()">
+                    <div class="mb-3">
+                        <label class="form-label">Enter your old password</label>
+                        <input type="text" class="form-control" id="oldPass" formControlName="oldPass">
+                        
+                        <div *ngIf="oldPassCheckForm.get('oldPass')?.invalid && oldPassCheckForm.get('oldPass')?.touched"
+                            class="text-danger">
+                            Required or Invalid old password. Please check.
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3"
+                        [disabled]="oldPassCheckForm.invalid">Check</button>
+                    </div>
+                </form>
+                <form *ngIf="passCheck" [formGroup]="passChangeForm" (ngSubmit)="onSubmit()">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Enter new password</label>
+                        <input type="password" class="form-control" id="pass" formControlName="pass"
+                            aria-describedby="passHelp">
+                        <div *ngIf="passChangeForm.get('pass')?.invalid && passChangeForm.get('pass')?.touched"
+                            class="text-danger">
+                            Required or Invalid password. Please check.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirmPass" class="form-label">Confirm_password</label>
+                        <input type="password" class="form-control" formControlName="confirmPass" id="confirmPass"
+                            aria-describedby="conPassHelp">
+                        <div *ngIf="passChangeForm.get('confirmPass')?.invalid && passChangeForm.get('confirmPass')?.touched"
+                            class="text-danger">
+                            Required or confirm password doesn't match with new
+                            password. Please check.
+                        </div>
+                        <div>
+                            <button class="btn btn-success w-100 my-2" type="submit"
+                                [disabled]="passChangeForm.invalid">Change</button>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+</div>

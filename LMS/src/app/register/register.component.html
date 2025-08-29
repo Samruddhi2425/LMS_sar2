@@ -1,8 +1,9 @@
 <!-- <p>register works!</p> -->
 <!-- Registration page -->
+
 <app-navbar></app-navbar>
 <div class="container mt-5">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center" style="margin-top: 7%; ">
     <div class="col-md-6 col-lg-4">
       <!-- Registration page -->
       <fieldset class="border p-3 rounded">
@@ -12,56 +13,174 @@
         <form [formGroup]="regForm" (ngSubmit)="onSubmit()">
           <div class="mb-3">
             <label class="form-label">First Name</label>
-            <input type="firstName" class="form-control" id="firstName" formControlName="firstName"
-              aria-describedby="fnameHelp" pattern="^[a-zA-Z]+$">
-            <div *ngIf="regForm.get('firstName')?.invalid && regForm.get('firstName')?.touched" class="text-danger">
-              Required or Invalid Firstname. Please check.
+            <input type="text" class="form-control" id="firstName" formControlName="firstName"
+              aria-describedby="fnameHelp" />
+
+            <!-- Required Error -->
+            <div *ngIf="regForm.get('firstName')?.errors?.['required'] && regForm.get('firstName')?.touched"
+              class="text-danger">
+              First name is required.
+            </div>
+
+            <!-- Pattern Error -->
+            <div *ngIf="regForm.get('firstName')?.errors?.['pattern'] && regForm.get('firstName')?.touched"
+              class="text-danger">
+              First name can only contain letters (A-Z, a-z).
+            </div>
+
+            <!-- Min Length -->
+            <div *ngIf="regForm.get('firstName')?.hasError('minlength') && regForm.get('firstName')?.touched"
+              class="text-danger">
+              First name must be at least 2 characters.
+            </div>
+
+            <!-- Max Length -->
+            <div *ngIf="regForm.get('firstName')?.hasError('maxlength') && regForm.get('firstName')?.touched"
+              class="text-danger">
+              First name cannot be more than 20 characters.
             </div>
           </div>
+
 
           <div class="mb-3">
             <label for="lastName" class="form-label">Last Name</label>
-            <input type="lastName" class="form-control" formControlName="lastName" id="lastName"
-              aria-describedby="lnameHelp" pattern="^[a-zA-Z]+$">
-            <div *ngIf="regForm.get('lastName')?.invalid && regForm.get('lastName')?.touched" class="text-danger">
-              Required or Invalid Lastname. Please check.
+            <input type="text" class="form-control" formControlName="lastName" id="lastName"
+              aria-describedby="lnameHelp" />
+
+            <!-- Required -->
+            <div *ngIf="regForm.get('lastName')?.hasError('required') && regForm.get('lastName')?.touched"
+              class="text-danger">
+              Last name is required.
+            </div>
+
+            <!-- Pattern -->
+            <div *ngIf="regForm.get('lastName')?.hasError('pattern') && regForm.get('lastName')?.touched"
+              class="text-danger">
+              Only alphabets are allowed in the last name.
+            </div>
+
+            <!-- Min Length -->
+            <div *ngIf="regForm.get('lastName')?.hasError('minlength') && regForm.get('lastName')?.touched"
+              class="text-danger">
+              Last name must be at least 2 characters.
+            </div>
+
+            <!-- Max Length -->
+            <div *ngIf="regForm.get('lastName')?.hasError('maxlength') && regForm.get('lastName')?.touched"
+              class="text-danger">
+              Last name cannot be more than 20 characters.
             </div>
           </div>
+
 
           <!-- Email Field -->
           <div class="mb-3">
-            <label for="email" class="form-label">Email
-              address</label>
-            <input type="email" class="form-control" formControlName="email" id="email" aria-describedby="emailHelp">
-            <div *ngIf="regForm.get('email')?.invalid && regForm.get('email')?.touched" class="text-danger">
-              Required or Invalid Email. Please check.
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" formControlName="email" id="email" aria-describedby="emailHelp" />
+
+            <!-- Required Error -->
+            <div *ngIf="regForm.get('email')?.hasError('required') && regForm.get('email')?.touched"
+              class="text-danger">
+              Email is required.
+            </div>
+
+            <!-- Invalid Email Format Error -->
+            <div *ngIf="regForm.get('email')?.hasError('email') && regForm.get('email')?.touched" class="text-danger">
+              Please enter a valid email address.
+            </div>
+
+            <!-- Max Length Error -->
+            <div *ngIf="regForm.get('email')?.hasError('maxlength') && regForm.get('email')?.touched"
+              class="text-danger">
+              Email must not exceed 50 characters.
+            </div>
+
+            <div *ngIf="regForm.get('email')?.hasError('emailTaken')" class="text-danger">
+              This email is already taken.
             </div>
           </div>
+
 
           <!-- Password Field -->
           <div class="mb-3">
-            <div class="mb-3">
-              <label for="pass" class="form-label">Password</label>
-              <input type="pass" class="form-control" formControlName="pass" id="pass">
-              <div *ngIf="regForm.get('pass')?.invalid && regForm.get('pass')?.touched" class="text-danger">
-              Required Password
-            </div>
+            <label for="pass" class="form-label">Password</label>
+            <div class="input-group">
+              <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="pass"
+                id="pass" />
+              <!-- <button type="button" class="btn btn-outline-secondary" (click)="showPassword = !showPassword">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+              </button> -->
             </div>
 
+            <!-- Required Error -->
+            <div *ngIf="regForm.get('pass')?.hasError('required') && regForm.get('pass')?.touched" class="text-danger">
+              Password is required.
+            </div>
+
+            <!-- Min Length Error -->
+            <div *ngIf="regForm.get('pass')?.hasError('minlength') && regForm.get('pass')?.touched" class="text-danger">
+              Password must be at least 8 characters long.
+            </div>
+
+            <!-- Pattern Error -->
+            <div *ngIf="regForm.get('pass')?.hasError('pattern') && regForm.get('pass')?.touched" class="text-danger">
+              Password must contain at least one uppercase letter, one lowercase letter, one number, and one special
+              character.
+            </div>
           </div>
+
+
+          <div class="mb-3">
+            <label for="ubirthDate" class="form-label">Birth Date</label>
+            <input type="date" class="form-control" formControlName="ubirthDate" id="ubirthDate"
+              aria-describedby="birthDateHelp" />
+
+            <!-- Required -->
+            <div *ngIf="regForm.get('ubirthDate')?.hasError('required') && regForm.get('ubirthDate')?.touched"
+              class="text-danger">
+              Birth date is required.
+            </div>
+
+            <!-- Future Date Validation (Custom Validator) -->
+            <div *ngIf="regForm.get('ubirthDate')?.hasError('futureDate') && regForm.get('ubirthDate')?.touched"
+              class="text-danger">
+              Birth date cannot be in the future.
+            </div>
+          </div>
+
 
           <div class="mb-3">
             <label for="mobileNo" class="form-label">Mobile</label>
-            <input type="mobileNo" class="form-control" id="mobileNo" pattern='^[0-9]{10}$' aria-describedby="mobileNo"
-              formControlName="mobileNo">
-             <div *ngIf="regForm.get('mobileNo')?.invalid && regForm.get('mobileNo')?.touched" class="text-danger">
-              Required or Invalid Mobile number. Please check.
+            <input type="tel" class="form-control" id="mobileNo" aria-describedby="mobileNo" formControlName="mobileNo"
+              maxlength="10" />
+
+            <!-- Required Error -->
+            <div *ngIf="regForm.get('mobileNo')?.hasError('required') && regForm.get('mobileNo')?.touched"
+              class="text-danger">
+              Mobile number is required.
             </div>
+
+            <!-- Pattern Error -->
+            <div *ngIf="regForm.get('mobileNo')?.hasError('pattern') && regForm.get('mobileNo')?.touched"
+              class="text-danger">
+              Mobile number must be exactly 10 digits and contain only numbers.
+            </div>
+
+
           </div>
+
 
           <!-- Login Button -->
           <button class="btn btn-primary w-100 my-2" type="submit" [disabled]="regForm.invalid">Register</button>
-          <button class="btn btn-primary w-100" routerLink="/login">Login</button>
+          <!-- <button class="btn btn-primary w-100" routerLink="/login">Login</button> -->
+          <div class="mt-3 ">
+            <h5>Already User?
+              <span><a href="/login" class="text-decoration-none text-center">Sign In </a></span>
+            </h5>
+          </div>
+          <div *ngIf="error" class="alert alert-danger">
+            {{ error }}
+          </div>
         </form>
       </fieldset>
     </div>

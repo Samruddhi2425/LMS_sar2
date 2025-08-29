@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserService } from '../../service/user.service';
+import { Managers, User, UserService } from '../../service/user.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -10,27 +10,28 @@ import { Router } from '@angular/router';
   styleUrl: './user-request.component.css'
 })
 export class UserRequestComponent implements OnInit {
-  users: any[] = [];
-  unAuthorizeUsers!: User[];
+  managers: any[] = [];
+  unAuthorizeManagers!: Managers[];
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.userService.getAuthorizedUsers().subscribe(
+    this.userService.getUnAuthorizedManager().subscribe(
       (data) => {
-        this.users = data;
+        this.managers = data;
+        console.log(this.managers)
       },
       (error) => {
-        console.error('Error fetching users', error);
+        console.error('Error fetching managers', error);
       }
     );
   }
 
-  acceptUser(userId: number): void {
+  acceptManager(Id: number): void {
 
-    this.userService.updateAuthorizationStatus(userId).subscribe({
+    this.userService.updateAuthorizationStatus(Id).subscribe({
       next: () => {
         // Update the local users array to reflect the change
-        const user = this.users.find(u => u.userId === userId);
+        const user = this.managers.find(u => u.mId === Id);
         if (user) {
           user.isAuthorized = true;
         }
@@ -42,12 +43,12 @@ export class UserRequestComponent implements OnInit {
     });    
   }
 
-  deleteUser(userId: number): void {
+  deleteManager(Id: number): void {
     if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteRequestedUser(userId).subscribe({
+      this.userService.deleteManager(Id).subscribe({
         next: () => {
-          this.users = this.users.filter(u => u.userId !== userId);
-          console.log(userId)
+          this.managers = this.managers.filter(u => u.userId !== Id);
+          console.log(Id)
         },
         error: (err) => {
           console.error('Error deleting user', err);
@@ -58,8 +59,8 @@ export class UserRequestComponent implements OnInit {
 
 
   getAllUserRequests(): void {
-  this.userService.getAuthorizedUsers().subscribe((res) => {
-    this.users = res;
+  this.userService.getUnAuthorizedManager().subscribe((res) => {
+    this.managers = res;
   });
 }
 }

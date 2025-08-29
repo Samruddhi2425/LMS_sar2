@@ -169,7 +169,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4rem 2rem;
+    padding: 2rem 2rem;
     /* background: linear-gradient(to right, #f8f9fa 50%, #ffffff 50%); */
 }
 
@@ -385,7 +385,7 @@ body {
     .info-box {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
       transition: transform 0.3s ease;
     }
 
@@ -419,7 +419,170 @@ body {
   width: 100%;
   height: 200px; 
   object-fit: cover; 
+
 }
 .card {
   height: 100%; 
+}
+
+
+.hover-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+}
+
+.hover-effect:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+/* Card effect */
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+/* Image zoom effect */
+.book-image {
+  transition: transform 0.4s ease;
+  width: 100%;
+  object-fit: contain;
+  max-height: 200px;
+}
+
+.hover-card:hover .book-image {
+  transform: scale(1.05);
+}
+
+
+/* Button hover animation */
+.animated-btn {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.animated-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.book-card {
+  border-radius: 10px;
+  background: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+}
+
+.book-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.fixed-image-popular {
+  width: auto;
+  height: 180px; 
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: #4B0082;
+  border-radius: 50%;
+  padding: 10px;
+  background-size: 50% 50%;
+}
+
+.custom-control-icon {
+  filter: invert(1);
+}
+
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+
+.scrolling-wrapper {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.scrolling-track {
+  display: flex;
+  gap: 30px;
+  animation: scroll-left 25s linear infinite;
+}
+
+.book-card-wrapper {
+  flex: 0 0 auto;
+  width: 200px; /* or whatever size fits */
+}
+
+.fixed-image-popular {
+  height: 150px;
+  object-fit: cover;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ratings */
+
+
+.rating-wrapper {
+  position: relative;
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.rating-base {
+  color: lightgray;
+}
+
+.rating-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  white-space: nowrap;
+  overflow: hidden;
+  color: green; /* use dark green as per your request */
+   transition: width 0.3s ease-in-out;
+}
+
+.blurred {
+  filter: blur(1px);
+  opacity: 0.5;
+  pointer-events: none;
 }

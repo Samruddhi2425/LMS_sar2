@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,14 +21,16 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      pass: ['', Validators.required],
+      pass: ['', [Validators.required,Validators.minLength(8),
+      Validators.maxLength(20)]],
     });
 
     const pending = localStorage.getItem('pendingAction');
@@ -42,7 +45,7 @@ export class LoginComponent implements OnInit {
       localStorage.removeItem('pendingAction'); // Clear after use
     } else {
       // default redirect logic
-      this.router.navigate(['/userProfile']);
+      this.router.navigate(['/user']);
     }
   }
 
@@ -70,21 +73,28 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userType', res.userType);
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('userId', res.userId);
+          
            localStorage.setItem('isAuthorized',res.isAuthorized);
           // localStorage.setItem('token', res.token); // Optional
 
+           this.userService.updateWishlistCount(res.userId);
+
           // Redirect based on user type
           if (res.userType === 'manager') {
-            this.router.navigate(['/manager']);
-          } else {
             if (!res.isAuthorized) {
             this.error = 'Your account is not yet approved by the admin.';
             alert('Your registration request is still pending approval. Please wait.');
             return;
           }else{
-            this.router.navigate(['/home']);
+            localStorage.setItem('mId', res.mId);
+            this.router.navigate(['/manager']);
             this.issueBookToUserAfterLogin();
             }
+          } else {
+
+            this.router.navigate(['/home']);
+            this.issueBookToUserAfterLogin();
+            
           }
         } else {
           this.error = 'Invalid login attempt';
@@ -97,8 +107,7 @@ export class LoginComponent implements OnInit {
   }
 }
 
-
-  issueBookToUserAfterLogin() {
+issueBookToUserAfterLogin() {
   //const userId = this.authService.getUserId(); // From token/session
   ///make 
   // const issuedBook = {

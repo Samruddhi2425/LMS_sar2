@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { GetbooksService } from '../../service/getbooks.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
 import { GetusersService } from '../../service/getusers.service';
-import { issueBook } from '../../admin/userProfile/user.component';
+// import { issueBook } from '../../admin/userProfile1/user.component';
 import { UserService } from '../../service/user.service';
+import { issueBook } from '../../user/user/user.component';
+// import { issueBook } from '../../User/pendingbooks/pendingbooks.component';
 
 @Component({
   selector: 'app-managerdashboard',

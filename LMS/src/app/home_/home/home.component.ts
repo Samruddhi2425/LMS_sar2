@@ -1,22 +1,18 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-
 import { GetbooksService } from '../../service/getbooks.service';
-import { BookdescriptionComponent } from '../bookdescription/bookdescription.component';
 import { Router, RouterModule } from '@angular/router';
-
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule, isPlatformServer } from '@angular/common';
-import { FormGroup, FormsModule,Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { UserComponent } from '../../admin/userProfile/user.component';
+import { CommonModule } from '@angular/common';
+import { FormGroup, FormsModule, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { CartComponent } from '../cart/cart.component';
 import { LoginComponent } from '../../login/login.component';
 import { CardService } from '../../card.service';
 import { IssuebooksService } from '../../service/issuebooks.service';
-import { GetusersService } from '../../service/getusers.service';
 import { UserService } from '../../service/user.service';
 
-declare var bootstrap: any; // Required for Bootstrap JS methods
+declare var bootstrap: any;
+
 export interface BookItem {
   authorName: string;
   base64Image: string;
@@ -27,202 +23,313 @@ export interface BookItem {
   quantity: string;
 };
 
+// ... (imports remain unchanged)
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule, CartComponent, LoginComponent,ReactiveFormsModule ],
+  imports: [NavbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule, CartComponent, LoginComponent, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [GetbooksService, CardService]
 })
-
-
 export class HomeComponent implements OnInit, AfterViewInit {
-// selecteItem(book: any) {
-// throw new Error('Method not implemented.');
-// }
-// addToCart(book: any) {
-// throw new Error('Method not implemented.');
-// }
- feedbackForm!: FormGroup;
-
+  feedbackForm!: FormGroup;
   books: any[] = [];
   searchTerm: string = '';
+  selectedCategory: number = 0;
+  currentPage: number = 1;
+  itemsPerPage: number = 12;
+  paginatedBooks: any[] = [];
+  num1!: number;
+  num2!: number;
+  popularBooks: any[] = [];
+  chunkedBooks: any;
+  topBooks: any[] = [];
+  recommendedBooks: any[] = [];
+  allBooks: any[] = [];
+  totalPages: number = 0;
+  totalRecords: number = 0;
+  popularBooksChunks: any[][] = [];
+  topBooksChunks: any[][] = [];
+  likebook: any[] = [];
+  Likedbook: any[] = [];
+  recentBooks: any[][] = [];
+  loading: boolean = false;
 
-  book: any[]=[];
- categories: string[] = ['Biography','Classic','fiction', 'horror', 'Adventure', 'Magical Realism', 'Self-Help','Romance'];
-  selectedCategory: string = '';
-
-  constructor(private getBookService: GetbooksService, private cardService: CardService,private router: Router,private issueBookService: IssuebooksService, private userService:UserService) { }
+  constructor(
+    private getBookService: GetbooksService,
+    private cardService: CardService,
+    private router: Router,
+    private issueBookService: IssuebooksService,
+    private userService: UserService
+  ) { }
 
   ngOnInit(): void {
-    this.feedbackForm = new FormGroup({
-    CName: new FormControl('', Validators.required),
-    CEmail: new FormControl('', [Validators.required, Validators.email]),
-    CMessage: new FormControl('', Validators.required)});
-
-    this.getBookService.getBooks().subscribe(
-      (data) => {
-        this.books = data;
-        console.log(data);
-      },
-      (error) => {
-        console.error('Error fetching books:', error);
-      }
-    );
-
+    this.setupFeedbackForm();
+    this.generateCaptcha();
+    this.getRecentBooks();
+    this.loadPopularBooks();
+    this.loadTopBooks();
+    this.loadMostLikedBooks();
+    this.loadInitialBooks();
   }
-
-
-  onCategorySelect(categories: string): void {
-    this.selectedCategory = categories;
-    this.getBookService.ViewBookByGenre(categories).subscribe({
-      next: (data) => {
-        // this.router.navigate();
-         console.log("book:",data);
-        this.book = data       
-      },      
-      error: (err) => console.error('Error fetching books', err)
-    });
-  }
-  
 
   ngAfterViewInit(): void {
-    const carouselElement = document.getElementById('bookCarousel');
+    this.initCarousels();
+  }
 
-    if (carouselElement) {
-      const carousel = bootstrap.Carousel.getOrCreateInstance(carouselElement, {
-        interval: 4000,
-        ride: 'carousel'
+  private loadInitialBooks(): void {
+    const userId = Number(localStorage.getItem('userId'));
+
+    if (userId && this.currentPage === 1) {
+      this.getBookService.getRecommendedBooks(userId, this.searchTerm).subscribe({
+        next: (recommended) => {
+          this.recommendedBooks = recommended || [];
+          const excludeIds = this.recommendedBooks.map(b => b.bookId);
+          this.fetchPagedBooks(userId, excludeIds);
+        },
+        error: (error) => {
+          console.error('Error loading recommended books:', error);
+          this.fetchPagedBooks(userId);
+        }
       });
+    } else {
+      this.fetchPagedBooks(userId || null);
     }
   }
 
-  onSearch() {
-    if (this.searchTerm.trim()) {
-      console.log('Searching for:', this.searchTerm);
+  fetchPagedBooks(userId: number | null, excludeIds: number[] = []): void {
+    this.getBookService.getBooksPaged(
+      this.currentPage,
+      this.itemsPerPage,
+      excludeIds,
+      this.searchTerm,
+      userId
+    ).subscribe({
+      next: (res) => {
+        const remainingSlots = this.itemsPerPage - this.recommendedBooks.length;
+        const booksToShow = res.data.slice(0, remainingSlots);
+        this.paginatedBooks = [...this.recommendedBooks, ...booksToShow];
+        const totalCount = (this.recommendedBooks.length || 0) + res.totalRecords;
+        this.totalPages = Math.max(1, Math.ceil(totalCount / this.itemsPerPage));
+      },
+      error: (err) => {
+        console.error('Error fetching paginated books:', err);
+      }
+    });
+  }
 
-      // Fetch books from the service (or use existing data if already fetched)
-      this.getBookService.getBooks().subscribe(
-        (data) => {
-          // Filter the books based on the search term
-          this.books = data.filter(book =>
-            book.bookName.toLowerCase().includes(this.searchTerm.toLowerCase())
-          );
+  loadBooksWithoutRecommendations(): void {
+    const userId = Number(localStorage.getItem('userId')) || null;
+    this.fetchPagedBooks(userId);
+  }
 
-          console.log('Filtered books:', this.books);
+  addToCart(book: any): void {
+    const userId = Number(localStorage.getItem('userId'));
+    if (!userId) {
+      alert('To add Book into the wishlist You have login as user');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.cardService.addToCart(book);
+
+    this.userService.addToWishlist(userId, [book.bookId]).subscribe({
+      next: () => {
+        alert("Book added to wishlist ❤️");
+        this.userService.updateWishlistCount(userId);
+        book.isInWishlist = true;
+      },
+      error: (err) => {
+        console.error("Error adding to wishlist:", err);
+      }
+    });
+  }
+
+ issueSelectedBook(book: any): void {
+  const userId = Number(localStorage.getItem('userId'));
+  const role = localStorage.getItem('role');
+  const isRegularUser = !!userId && role === 'user';
+
+  if (!isRegularUser) {
+    alert('Please log in as a user to issue books.');
+    this.router.navigate(['/login']);
+    return;
+  }
+
+  const issuePayload = {
+    userId: userId,
+    bookId: book.bookId,
+    issueDate: new Date().toISOString().split('T')[0],
+    dueDate: this.getDueDate(7),
+    bookQty: 1,
+    status: 'Issued'
+  };
+
+  this.loading = true;
+  this.issueBookService.issueBook(issuePayload).subscribe({
+    next: () => {
+      this.loading = false;
+      alert('Book issued successfully!');
+    },
+    error: (err) => {
+      this.loading = false;
+      console.error('Error issuing book:', err);
+      alert('Failed to issue book.');
+    }
+  });
+}
+
+
+  // --- Feedback, Pagination, Search, Utility ---
+  private setupFeedbackForm(): void {
+    this.feedbackForm = new FormGroup({
+      CName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('^[a-zA-Z ]+$')]),
+      CEmail: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(100)]),
+      CMessage: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]),
+      captchaAnswer: new FormControl('', Validators.required)
+    });
+  }
+
+  onSubmit(): void {
+    const userAnswer = parseInt(this.feedbackForm.value.captchaAnswer, 10);
+    const correctAnswer = this.num1 + this.num2;
+
+    if (userAnswer !== correctAnswer) {
+      alert('Incorrect captcha. Try again.');
+      this.generateCaptcha();
+      this.feedbackForm.patchValue({ captchaAnswer: '' });
+      return;
+    }
+
+    if (this.feedbackForm.valid) {
+      const { CName, CEmail, CMessage } = this.feedbackForm.value;
+      this.userService.feedback({ CName, CEmail, CMessage }).subscribe({
+        next: () => {
+          alert('Feedback submitted successfully!');
+          this.feedbackForm.reset();
+          this.generateCaptcha();
         },
-        (error) => {
-          console.error('Error fetching books:', error);
+        error: (err) => {
+          console.error('Error submitting feedback:', err);
+          alert('Something went wrong while submitting.');
         }
-      );
+      });
+    } else {
+      alert('Please fill all required fields.');
+    }
+  }
+
+  generateCaptcha(): void {
+    this.num1 = Math.floor(Math.random() * 10) + 1;
+    this.num2 = Math.floor(Math.random() * 10) + 1;
+  }
+
+  chunkArray(arr: any[], size: number): any[][] {
+    const result = [];
+    for (let i = 0; i < arr.length; i += size) {
+      result.push(arr.slice(i, i + size));
+    }
+    return result;
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.loadInitialBooks();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadInitialBooks();
+    }
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.loadInitialBooks();
+    }
+  }
+
+  getTotalPages(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  onSearch(): void {
+    if (this.searchTerm.trim()) {
+      this.currentPage = 1;
+      this.loadInitialBooks();
     } else {
       alert('Please enter a search term.');
     }
   }
 
-  onReset() {
-    this.searchTerm = ''; // clear search input
-    this.getBookService.getBooks().subscribe(
-      (data) => {
-        this.books = data; // show all books again
-        console.log('All books:', this.books);
-      },
-      (error) => {
-        console.error('Error fetching books:', error);
-      }
-    );
+  onReset(): void {
+    this.searchTerm = '';
+    this.currentPage = 1;
+    this.loadInitialBooks();
   }
 
- selecteItem(book: any): void {
-  const b = localStorage.getItem('bookitemnew');
-  let bookItems: any[] = [];
-
-  if (b) {
-    try {
-      bookItems = JSON.parse(b);
-    } catch (error) {
-      console.error('Failed to parse bookitemnew from localStorage:', error);
-    }
-  }
-
-  // Add the new book to the array
-  bookItems.push(book);
-
-  // Save updated array back to localStorage
-  localStorage.setItem('bookitemnew', JSON.stringify(bookItems));
-
-  // Update count in localStorage
-  const count = bookItems.length;
-  localStorage.setItem('count', count.toString());
-
-  // For debugging or UI update
-  console.log("Updated count: " + count);
-}
-
-
-
-  addToCart(item:any)
-  {
-    alert("bookAdded successfully")
-    this.cardService.addToCart(item);
-  }
-
-
-  /// issue book
-  issueSelectedBook(book: any): void {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const userId = localStorage.getItem('userId');
-    console.log(userId);
-
-    if (!isLoggedIn || !userId) {
-      alert('Please log in to issue books.');
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    const issuePayload = {
-      userId: parseInt(userId!, 10),
-      bookId: book.bookId, // adjust field name as per your object
-      issueDate: new Date().toISOString().split('T')[0],
-      dueDate: this.getDueDate(7),
-      bookQty: 1,
-      status: 'Issued'
-    };
-    console.log(issuePayload);
-    console.log("data");
-    this.issueBookService.issueBook(issuePayload).subscribe({
-      next: () => {
-        alert('Book issued successfully!');
-      },
-      error: (err) => {
-        console.error('Error issuing book:', err);
-        alert('Failed to issue book.');
-      }
-    });
-  }
-
-  getDueDate(daysFromNow: number): string {
+  private getDueDate(daysFromNow: number): string {
     const date = new Date();
     date.setDate(date.getDate() + daysFromNow);
     return date.toISOString().split('T')[0];
   }
 
- onSubmit() {
-    if (this.feedbackForm.valid) {
-      this.userService.feedback(this.feedbackForm.value).subscribe(
-        res => {
-          console.log('Form Submitted:', this.feedbackForm.value);
-          alert('Feedback submitted successfully!');
-          this.feedbackForm.reset();
-        },
-        err => {
-          this.feedbackForm.markAllAsTouched();
-          console.error('Feedback error:', err);
-          alert('Feedback failed. Please try again.');
-        }
-      );
-    }
+  private initCarousels(): void {
+    ['bookCarousel', 'popularBooksCarousel'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        bootstrap.Carousel.getOrCreateInstance(el, { interval: 4000, ride: 'carousel' });
+      }
+    });
+  }
+
+  private getRecentBooks(): void {
+    this.getBookService.getRecentBooks().subscribe((data: any[]) => {
+      this.recentBooks = this.chunkArray(data, 5);
+    });
+  }
+
+  private loadPopularBooks(): void {
+    this.getBookService.getPopularBooks().subscribe({
+      next: (books) => {
+        this.popularBooks = books;
+        this.popularBooksChunks = this.chunkArray(this.popularBooks, 5);
+      },
+      error: (err) => console.error('Error fetching popular books', err)
+    });
+  }
+
+  private loadTopBooks(): void {
+    this.getBookService.getPopularBooksByGenre().subscribe({
+      next: (books) => {
+        this.topBooks = books;
+        this.topBooksChunks = this.chunkArray(this.topBooks, 5);
+      },
+      error: (err) => console.error('Failed to load top books:', err)
+    });
+  }
+
+  private loadMostLikedBooks(): void {
+    this.getBookService.getMostLikedBooks().subscribe({
+      next: (res) => {
+        this.Likedbook = res;
+        this.likebook = res.map((b: any) => b.bookId);
+      },
+      error: (err) => console.error('Error fetching most liked books:', err)
+    });
+  }
+
+  selecteItem(book: any): void {
+    const b = localStorage.getItem('bookitemnew');
+    const bookItems: any[] = b ? JSON.parse(b) : [];
+    bookItems.push(book);
+    localStorage.setItem('bookitemnew', JSON.stringify(bookItems));
+    localStorage.setItem('count', bookItems.length.toString());
   }
 }

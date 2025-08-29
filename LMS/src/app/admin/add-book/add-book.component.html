@@ -5,47 +5,77 @@
 
       <div class="form-group">
         <label for="bookName">Book Name</label>
-        <input type="text" [(ngModel)]="book.bookName" name="bookName" id="bookName" placeholder="e.g. The Alchemist"
-          required />
+        <input
+  type="text"
+  [(ngModel)]="book.bookName"
+  name="bookName"
+  id="bookName"
+  placeholder="e.g. The Alchemist"
+  required
+  minlength="2"
+  maxlength="100"
+  pattern="^[A-Za-z0-9\s.,'-]+$"
+/>
       </div>
 
       <div class="form-group">
         <label for="authorName">Author</label>
-        <input type="text" [(ngModel)]="book.authorName" name="authorName" id="authorName"
-          placeholder="e.g. Paulo Coelho" required />
+        <input
+  type="text"
+  [(ngModel)]="book.authorName"
+  name="authorName"
+  id="authorName"
+  placeholder="e.g. Paulo Coelho"
+  required
+  minlength="2"
+  maxlength="100"
+  pattern="^[A-Za-z\s.'-]+$"
+/>
+
       </div>
 
       <div class="form-group">
         <label for="isbn">ISBN</label>
-        <input type="text" [(ngModel)]="book.isbn" name="isbn" id="isbn" placeholder="e.g. 978-3-16-148410-0"
-          required />
+        <input
+          type="text"
+          [(ngModel)]="book.isbn"
+          name="isbn"
+          id="isbn"
+          placeholder="e.g. 978-3-16-148410-0"
+          required
+          minlength="10"
+          maxlength="17"
+        />
       </div>
 
-    <div class="form-group">
-  <label for="genre">Genre</label>
-  <select
-    class="form-control"
-    [(ngModel)]="book.genre"
-    name="genre"
-    id="genre"
-    required
-  >
-    <option value="" disabled selected>Select a genre</option>
-    <option value="Biography">Biography</option>
-    <option value="Romance">Romance</option>
-    <option value="Fiction">Fiction</option>
-    <option value="Horror">Horror</option>
-    <option value="Adventure">Adventure</option>
-    <option value="Magical Realism">Magical Realism</option>
-    <option value="Self Help">Self Help</option>
-  </select>
-</div>
-
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <select
+          class="form-control"
+          [(ngModel)]="book.genreId"
+          name="genre"
+          id="genre"
+          required
+        >
+          <option value="" disabled selected>Select a genre</option>
+          <option *ngFor="let gen of category" [value]="gen.genreId">
+            {{ gen.genre }}
+          </option>
+        </select>
+      </div>
 
       <div class="form-group">
         <label for="quantity">Quantity</label>
-        <input type="number" [(ngModel)]="book.quantity" name="quantity" id="quantity" min="1" placeholder="e.g. 10"
-          required />
+        <input
+          type="number"
+          [(ngModel)]="book.quantity"
+          name="quantity"
+          id="quantity"
+          min="1"
+          max="1000"
+          placeholder="e.g. 10"
+          required
+        />
       </div>
 
       <div class="form-group">

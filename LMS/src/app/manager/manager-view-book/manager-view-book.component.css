@@ -1,0 +1,9 @@
+.fixed-image {
+  width: 80%;
+  height: 100px; 
+  object-fit: cover; 
+}
+
+input[type="search"] {
+  padding-right: 2.5rem; /* room for clear button */
+}

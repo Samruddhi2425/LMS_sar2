@@ -18,13 +18,14 @@ interface Managers {
   selector: 'app-add-manager',
   templateUrl: './add-manager.component.html',
   styleUrls: ['./add-manager.component.css'],
-  imports: [CommonModule, ReactiveFormsModule,UpdateManagerComponent, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, UpdateManagerComponent, RouterModule],
   providers: [UserService]
 })
 export class AddManagerComponent implements OnInit {
 
   addManagerForm!: FormGroup;
   managers: any[] = [];
+  authorizeManagers: any[] =[];
 
   constructor(
     private fb: FormBuilder,
@@ -33,17 +34,30 @@ export class AddManagerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // this.addManagerForm = this.fb.group({
+    //   mfirstName: ['', Validators.required],
+    //   mlastName: ['', Validators.required],
+    //   email: ['', [Validators.required, Validators.email]],
+    //   mobileNo: ['', Validators.required]
+    // });
     this.addManagerForm = this.fb.group({
-      mfirstName: ['', Validators.required],
-      mlastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      mobileNo: ['', Validators.required]
-    });
+  mfirstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+  mlastName: ['', [Validators.required, Validators.pattern('^[a-zA-Z ]+$')]],
+  email: ['', [Validators.required, Validators.email]],
+  mobileNo: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]]
+});
 
-    this.userService.getManagers().subscribe(
+   this.LoadManager();
+  }
+
+  LoadManager()
+  {
+     this.userService.getManagers().subscribe(
       (data) => {
         this.managers = data;
+        this.authorizeManagers= this.managers.filter(manager=>manager.isAuthorized===true);
         console.log(data);
+        console.log(this.authorizeManagers);
       },
       (error) => {
         console.error('Error fetching managers:', error);
@@ -63,14 +77,16 @@ export class AddManagerComponent implements OnInit {
 
     const fullData = {
       ...formValues,
-      pass: password
+      pass: password,
+      isAuthorized:true
     };
 
-    this.userService.registerManager(fullData).subscribe(
+    this.userService.registerManagerByAdmin(fullData).subscribe(
       (res: any) => {
         alert(res.message || 'Manager registered successfully!');
         this.addManagerForm.reset();
-        this.router.navigate(['/login']);
+        this.LoadManager();
+        this.router.navigate(['/addManager']);
       },
       (err: any) => {
         console.error('Registration error:', err);
@@ -98,7 +114,5 @@ export class AddManagerComponent implements OnInit {
       console.log('Delete cancelled');
     }
   }
-
-
 
 }

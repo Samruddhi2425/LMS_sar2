@@ -1,8 +1,18 @@
 <app-navbar></app-navbar>
-
+<!-- Spinner overlay -->
+<div *ngIf="loading" class="loading-overlay">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div style="margin-top: 7%;">
+  <marquee behavior="scroll" direction="left" scrollamount="6"
+    style="background-color: #fff3cd; color: #856404; padding: 10px; font-weight: bold; font-size: 18px;">
+    📢 Big Sale Today! Get up to 50% off on all books! Limited time offer – Hurry Up!
+  </marquee>
+</div>
 <div class="container-fluid">
   <div class="row">
-    <!-- welcome -->
     <div class="welcome-section">
       <div class="welcome-content">
         <h1>Welcome to Our Digital Library</h1>
@@ -22,157 +32,213 @@
           </div>
         </div>
         <div class="welcome-actions">
-          <a href="/genre" class="btn btn-primary">Browse Catalog</a>
-          <a href="/login" class="btn btn-secondary">Member Login</a>
+          <a href="/genre" class="btn btn-primary">Category</a>
         </div>
       </div>
       <div class="welcome-image">
-
         <img src="/images/HERO.jpg" alt="Modern library interior with books and reading spaces"
           style="object-fit:cover;">
       </div>
     </div>
 
-    <!-- search section -->
-    <div class="row ">
-      <div class="d-flex col-md-6 mx-auto">
-        <input type="text" [(ngModel)]="searchTerm" placeholder="Search by book name"
-          class="form-control d-sm-block me-2 border border-warning">
-
-        <button (click)="onSearch()" class="btn btn-success shadow me-2">Search</button>
-        <button (click)="onReset()" class="btn btn-warning shadow ">Reset</button>
-      </div>
-    </div>
-
-    <div *ngIf="books.length === 0 && searchTerm.trim()">
-      <p>No books found for "{{ searchTerm }}".</p>
-    </div>
-
-    <div *ngIf="books.length > 0">
-      <!-- <div *ngFor="let book of books">
-    <h3>{{ book.bookName }}</h3>
-    <p>{{ book.authorName }}</p>
-  </div> -->
-    </div>
-
-
-    <!-- card section -->
-    <div class="col-md-3 mt-3" *ngFor="let book of books" (click)="selecteItem(book)">
-      <div class="card">
-        <div class="card-header">
-          <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image" alt="Book Image">
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">{{book.bookName}}</h5>
-          <p class="card-text">by {{book.authorName}}</p>
-          <p class="card-text">{{book.genre}}</p>
-          <p class="card-text">ISBN - {{book.isbn}}</p>
-
-        </div>
-        <div class="card-footer">
-          <div class="d-grid gap-2">
-            <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#productModal"
-              routerLink="/login" (click)="issueSelectedBook(book)">Issue</button>
-            <button class="btn btn-outline-secondary" type="button" id="addToCartBtn" (click)="addToCart(book)">Add to
-              Cart</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- genere wise -->
-    <section class="category-carousel">
+    <section class="recent-books-carousel mt-4 py-4" style="background: linear-gradient(to right, #f9f9f9, #ebedee);">
       <div class="container">
-        <h2 class="mb-4 text-center fw-bold">📚 Popular Book Categories</h2>
-        <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
+        <h3 class="mb-4 text-center fw-bold"
+          style="font-family:'Playfair Display', serif; font-size: 2rem; color: #4B0082;">
+          📚 Recently Added Books
+        </h3>
+
+        <div id="recentBooksCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
-
-            <div class="carousel-item active">
-              <div class="row row-cols-2 row-cols-md-5 g-2">
-                <div class="col">
-                  <div class="book-card" routerLink="/genre">
-                    <img src="/images/fiction.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>Fiction</h6>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/science.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>Science</h6>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/history.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>History</h6>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/comics.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>Comics</h6>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/romance.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>Romance</h6>
+            <div class="carousel-item" *ngFor="let group of recentBooks;let i = index" [class.active]="i === 0">
+              <div class="row row-cols-2 row-cols-md-5 g-3">
+                <div class="col" *ngFor="let book of group">
+                  <div class="book-card text-center p-3 shadow-sm" title="Click for more details">
+                    <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image-popular"
+                      alt="Book Image">
+                    <h6 class="mt-2 text-truncate" title="{{ book.bookName }}">{{ book.bookName }}</h6>
+                    <small class="text-muted text-truncate" title="{{ book.authorName }}">{{ book.authorName }}</small>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div class="carousel-item">
-              <div class="row row-cols-2 row-cols-md-5 g-2">
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/fantasy.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>Fantasy</h6>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/biography.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>Biography</h6>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/tech.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>Technology</h6>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/adventure.png" class="card-img-top fixed-image" alt="Book">
-                    <h6>Adventure</h6>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="book-card">
-                    <img src="/images/health.jpg" class="card-img-top fixed-image" alt="Book">
-                    <h6>Health</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
 
           <!-- Controls -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
+          <button class="carousel-control-prev" type="button" data-bs-target="#recentBooksCarousel"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon custom-control-icon" aria-hidden="true"></span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
+          <button class="carousel-control-next" type="button" data-bs-target="#recentBooksCarousel"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon custom-control-icon" aria-hidden="true"></span>
           </button>
         </div>
       </div>
     </section>
 
+    <!-- search section -->
+    <div class="row mt-3 py-3">
+      <div class="d-flex col-md-6 mx-auto">
+        <input type="text" [(ngModel)]="searchTerm" name="search"
+          placeholder="Search by Book title, author, ISBN, or genre"
+          class="form-control d-sm-block me-2 border border-warning" maxlength="50" #searchInput="ngModel">
+        <button (click)="onSearch()" class="btn btn-success shadow me-2"
+          [disabled]="searchInput.invalid">Search</button>
+        <button (click)="onReset()" class="btn btn-warning shadow">Reset</button>
+      </div>
+      <div class="text-center text-danger mt-2" *ngIf="searchInput.errors?.maxlength">
+        Maximum 100 characters allowed.
+      </div>
+    </div>
+
+    <div *ngIf="paginatedBooks.length === 0 && searchTerm.trim()">
+      <p class="text-center text-danger">No books found for "{{ searchTerm }}".</p>
+    </div>
+
+    <!-- Book Card Section -->
+    <div class="col-md-3 mt-3" *ngFor="let book of paginatedBooks">
+      <div class="card border-0 h-100 shadow-lg hover-card position-relative overflow-hidden">
+        <div style="min-height: 20px;">
+          <span *ngIf="likebook.includes(book.bookId)" class="badge"
+            style="background-color: #d14900; color: #fff; font-size: 0.75rem;">
+            Most Liked
+          </span>
+        </div>
+
+        <!-- Image with zoom effect -->
+        <div class="card-header border-0 bg-white text-center">
+          <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image rounded-2 book-image"
+            alt="Book Image" (click)="selecteItem(book)" />
+        </div>
+
+        <div class="card-body p-2">
+          <h6 class="card-title mb-1" style="font-size: 1rem;">{{ book.bookName }}</h6>
+          <p class="card-text mb-1">by {{ book.authorName }}</p>
+          <p class="card-text mb-1">{{ book.genre }}</p>
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="card-text">ISBN – {{ book.isbn }}</span>
+            <span class="d-flex align-items-center gap-2">
+              <span class="rating-wrapper">
+                <span class="rating-fill" [style.width.%]="(book.average_rating / 5) * 100">★★★★★</span>
+                <span class="rating-base">★★★★★</span>
+              </span>
+              <small class="text-muted">({{ book.total_ratings || 0 }})</small>
+            </span>
+          </div>
+          <!-- <p class="mb-0">Avg Rating: {{ (book.average_rating / 5) * 100 }}</p> -->
+        </div>
+
+        <div class="card-footer border-0 bg-white">
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-danger btn-sm animated-btn" type="button" [disabled]="book.isInWishlist"
+   (click)="addToCart(book)">
+             {{ book.isInWishlist ? 'In Wishlist ❤️' : ' ❤️ Add to Wishlist' }} 
+            </button>
+            <button class="btn btn-success btn-sm animated-btn" type="button" (click)="issueSelectedBook(book)">
+              📚 Issue Book
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Pagination -->
+    <nav class="mt-4">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+        </li>
+        <li class="page-item" *ngFor="let page of getTotalPages()" [class.active]="currentPage === page">
+          <button class="page-link" (click)="goToPage(page)">{{ page }}</button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+        </li>
+      </ul>
+    </nav>
+
+
+    <!-- Popular Books Carousel -->
+    <section class="popular-books-carousel mt-5 py-5" style="background: linear-gradient(to right, #f9f9f9, #ebedee);">
+      <div class="container">
+        <h3 class="mb-5 text-center fw-bold"
+          style="font-family:'Playfair Display', serif; font-size: 2rem; color: #4B0082;">
+          📚 Most Issued Books This Month
+        </h3>
+
+        <div id="popularBooksCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let group of popularBooksChunks; let i = index" [class.active]="i === 0">
+              <div class="row row-cols-2 row-cols-md-5 g-3">
+                <div class="col" *ngFor="let book of group">
+                  <div class="book-card text-center p-3 shadow-sm" title="Click for more details">
+                    <img [src]="'data:image/png;base64,' + book.base64Image" class="card-img-top fixed-image-popular"
+                      alt="Book Image">
+                    <h6 class="mt-2 text-truncate" title="{{ book.bookName }}">{{ book.bookName }}</h6>
+                    <small class="text-muted text-truncate" title="{{ book.authorName }}">{{ book.authorName }}</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#popularBooksCarousel"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon custom-control-icon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#popularBooksCarousel"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon custom-control-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Top Books by Genre -->
+    <section class="popular-books-carousel mt-5 py-5" style="background: linear-gradient(to right, #f9f9f9, #ebedee);">
+      <div class="container">
+        <h3 class="mb-5 text-center fw-bold"
+          style="font-family:'Playfair Display', serif; font-size: 2rem; color: #4B0082;">
+          📚 Most Popular Book by Categories
+        </h3>
+
+        <div id="bookCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item" *ngFor="let group of topBooksChunks; let i = index" [class.active]="i === 0">
+              <div class="row row-cols-2 row-cols-md-5 g-3">
+                <div class="col" *ngFor="let databooksbygenre of group">
+                  <div class="book-card text-center p-3 shadow-sm" title="Top book in {{ databooksbygenre.genre }}">
+                    <img [src]="'data:image/png;base64,' + databooksbygenre.base64Image"
+                      class="card-img-top fixed-image-popular" alt="Book Image">
+                    <h6 class="mt-2 text-truncate" title="{{ databooksbygenre.genre }}">
+                      {{ databooksbygenre.genre }}
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#bookCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon custom-control-icon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#bookCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon custom-control-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
     <!-- about us -->
-    <section class="about-section text-center text-md-start" id="aboutus">
+    <section class="about-section text-center text-md-start mt-5" id="aboutus">
       <div class="container">
         <div class="row align-items-center">
           <!-- Text Content -->
@@ -210,8 +276,8 @@
 
         <!-- Right: Contact Form -->
         <div class="col-md-6">
-          <h2 class="mb-4">Contact Us</h2>
-          <p class="mb-4 text-muted">Have questions or need help with our Library Management System? Reach out to us and
+          <h2 class="mb-3">Contact Us</h2>
+          <p class="mb-3 text-muted">Have questions or need help with our Library Management System? Reach out to us and
             we’ll respond as soon as we can.</p>
 
           <div class="info-box">
@@ -220,25 +286,76 @@
           </div>
           <div class="info-box">
             <i class="bi bi-envelope info-icon"></i>
-            <span>support&#64;librarysystem.com</span>
+            <span>sar2library&#64;gmail.com</span>
           </div>
           <div class="info-box">
             <i class="bi bi-geo-alt info-icon"></i>
             <span>123 Library Lane, Book City, India</span>
           </div>
+          <!-- <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+  <input class="form-control" formControlName="CName" placeholder="Your Name">
+  <input class="form-control" formControlName="CEmail" placeholder="Your Email">
+  <textarea class="form-control" formControlName="CMessage" placeholder="Message"></textarea>
 
+  <label>What is {{ num1 }} + {{ num2 }}?</label>
+  <input type="text" class="form-control" formControlName="captchaAnswer" required>
+
+  <button class="btn btn-success">Send</button>
+</form> -->
           <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
-            <div class="mb-3">
-              <input type="text" class="form-control" placeholder="Your Name" formControlName="CName" id="CName" required>
+            <!-- Name Field -->
+            <input class="form-control mb-2" formControlName="CName" placeholder="Your Name">
+            <div *ngIf="feedbackForm.get('CName')?.touched && feedbackForm.get('CName')?.invalid" class="text-danger">
+              <div *ngIf="feedbackForm.get('CName')?.errors?.['required']">Name is required.</div>
+              <div *ngIf="feedbackForm.get('CName')?.errors?.['minlength']">Name must be at least 2 characters.</div>
+              <div *ngIf="feedbackForm.get('CName')?.errors?.['pattern']">Only letters and spaces allowed.</div>
             </div>
-            <div class="mb-3">
-              <input type="email" class="form-control" placeholder="Your Email" formControlName="CEmail" id="CEmail" required>
+
+            <!-- Email Field -->
+            <input class="form-control mb-2" formControlName="CEmail" placeholder="Your Email">
+            <div *ngIf="feedbackForm.get('CEmail')?.touched && feedbackForm.get('CEmail')?.invalid" class="text-danger">
+              <div *ngIf="feedbackForm.get('CEmail')?.errors?.['required']">Email is required.</div>
+              <div *ngIf="feedbackForm.get('CEmail')?.errors?.['email']">Enter a valid email.</div>
             </div>
-            <div class="mb-3">
-              <textarea class="form-control" rows="4" placeholder="Your Message" formControlName="CMessage" id="CMessage" required></textarea>
+
+            <!-- Message Field -->
+            <textarea class="form-control mb-2" formControlName="CMessage" placeholder="Message"></textarea>
+            <div *ngIf="feedbackForm.get('CMessage')?.touched && feedbackForm.get('CMessage')?.invalid"
+              class="text-danger">
+              <div *ngIf="feedbackForm.get('CMessage')?.errors?.['required']">Message is required.</div>
+              <div *ngIf="feedbackForm.get('CMessage')?.errors?.['minlength']">Message must be at least 10 characters.
+              </div>
             </div>
-            <button class="btn btn-send" >Send Message</button>
+
+            <!-- Captcha -->
+            <label>What is {{ num1 }} + {{ num2 }}?</label>
+            <input type="text" class="form-control mb-2" formControlName="captchaAnswer">
+            <div *ngIf="feedbackForm.get('captchaAnswer')?.touched && feedbackForm.get('captchaAnswer')?.invalid"
+              class="text-danger">
+              <div *ngIf="feedbackForm.get('captchaAnswer')?.errors?.['required']">Captcha answer is required.</div>
+            </div>
+
+            <button class="btn btn-success">Send</button>
           </form>
+
+          <!-- <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Your Name" formControlName="CName" id="CName"
+                required>
+            </div>
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="Your Email" formControlName="CEmail" id="CEmail"
+                required>
+            </div>
+            <div class="mb-3">
+              <textarea class="form-control" rows="4" placeholder="Your Message" formControlName="CMessage"
+                id="CMessage" required></textarea>
+            </div>
+            <div class="g-recaptcha mb-3" data-sitekey="6LcgnWIrAAAAANltGSbeCmX1cPV9gLdZKk_xQK6z">
+            </div>
+
+            <button class="btn btn-send">Send Message</button>
+          </form> -->
         </div>
       </div>
     </div>
